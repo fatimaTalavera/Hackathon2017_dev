@@ -1,0 +1,84 @@
+<!--
+autores
+- Fatima Talavera fa.talavera95@gmail.com
+- Jerson Paniagua diazpany@gmail.com
+-->
+<div class="portfolio-modal modal fade" id="portfolioModal1"  role="dialog" aria-hidden="true">
+  <div class="modal-content">
+    <div class="close-modal" data-dismiss="modal">
+      <div class="lr">
+        <div class="rl">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="modal-body">
+            <h2>Progreso Departamental</h2>
+            <hr class="star-primary">
+
+            <div class="col-md-12" style="display: inline-flex">
+              <select id="date" class="form-control" disabled>
+                <option value="1" selected>2017</option>
+              </select>
+              <select id="estrategia" class="form-control">
+                <option value="1" selected>Todas las estrategias</option>
+              </select>
+            </div>
+
+            <div id="heat-map" class="container-chart"></div>
+            <input type="checkbox" id="leng2"  checked data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
+
+            <div class="lg lg-tec">
+              <p><strong>Presupuesto Inicial Aprobado:</strong> Es el monto del presupuesto aprobado por el Congreso Nacional. Es la ley del Presupuesto General de la Nación para un año fiscal. El monto es anual.</p>
+              <p><strong>Monto Vigente:</strong> Es el presupuesto inicial aprobado incluyendo las modificaciones (aumento o disminución) a la Ley del Presupuesto General de la Nación. El monto es anual.</p>
+              <p><strong>Monto Plan Financiero Vigente:</strong> Determina la capacidad real de ejecución. La ejecución presupuestaria se realizará en base a planes financieros, generales e institucionales, de acuerdo con las normas técnicas y la periodicidad que se establezca en la reglamentación. Se tomarán en cuenta el flujo estacional de los ingresos y la capacidad real de ejecución del presupuesto de los organismos y entidades del Estado. Dichos planes financieros servirán de marco de referencia para la programación de caja y la asignación de cuotas. El monto es mensual.</p>
+              <p><strong>Monto Ejecutado:</strong> Compromiso de pago originado en un vínculo jurídico financiero entre un organismo o entidad del Estado y una persona física o jurídica. El monto es mensual.</p>
+              <p><strong>Monto Transferido:</strong> Monto: de las transferencias del tesoro público a la entidad. El monto es mensual.</p>
+              <p><strong>Monto Pagado:</strong> Cumplimiento: de las obligaciones legales contabilizadas y con cargo a las asignaciones presupuestarias y a las cuotas disponibles. El monto es mensual.</p>
+            </div>
+
+            <div class="lg lg-user" style="display: none">
+              <p><strong>Presupuesto Inicial Aprobado:</strong> El dinero que se autoriza para gastar en el año.</p>
+              <p><strong>Monto Vigente:</strong> Es el monto con aprobado para este año.</p>
+              <p><strong>Monto Plan Financiero Vigente:</strong> Lo que se dice que se gastará en el mes.</p>
+              <p><strong>Monto Ejecutado:</strong> Lo que realmente se gasta en el mes.</p>
+              <p><strong>Monto Transferido:</strong> Lo que te dan para cubrir tus gastos del mes.</p>
+              <p><strong>Monto Pagado:</strong> Cumplimiento: Lo que pudiste pagar en el mes.</p>
+            </div>
+
+            <ul class="list-inline item-details">
+              <li>Client:
+                <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
+                </strong>
+              </li>
+              <li>Date:
+                <strong><a href="http://startbootstrap.com">April 2014</a>
+                </strong>
+              </li>
+              <li>Service:
+                <strong><a href="http://startbootstrap.com">Web Development</a>
+                </strong>
+              </li>
+            </ul>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    $("#leng2").change(function() {
+        if ($('.toggle').hasClass( "off" )) {
+            $('.lg-tec').css('display', 'none');
+            $('.lg-user').css('display', 'block');
+        }else {
+            $('.lg-tec').css('display', 'block');
+            $('.lg-user').css('display', 'none');
+        }
+    });
+</script>
