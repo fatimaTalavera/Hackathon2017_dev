@@ -1,0 +1,184 @@
+<!--
+autores
+- Fatima Talavera fa.talavera95@gmail.com
+- Jerson Paniagua diazpany@gmail.com
+-->
+<div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-content">
+    <div class="close-modal" data-dismiss="modal">
+      <div class="lr">
+        <div class="rl">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-lg-offset-2" style="margin: 0px;">
+          <div class="modal-body">
+            <h2>Progreso 2015 - 2017</h2>
+            <hr class="star-primary">-
+            <div class="col-md-12" style="display: inline-flex; margin-bottom: 10px">
+              <select id="date" class="form-control" disabled>
+                <option value="1" selected>2017</option>
+              </select>
+              <select id="institute" class="form-control" disabled>
+                <%= @inst.each do |institutes| %>
+                    <option value="<%= institutes[1].to_s + ' '.to_s +  institutes[2].to_s %>"><%= institutes[0] %></option>
+                <% end %>
+              </select>
+            </div>
+
+            <table class="table table-bordered pnd-table">
+              <thead>
+              <tr>
+                <td class="text-title"></td>
+                <td colspan="4" class="text-title text-bold">Líneas Transversales</td>
+              </tr>
+              <tr>
+                <td class="text-title text-bold">Ejes Estratégicos</td>
+                <td class="text-title">Igualdad de oportunidades</td>
+                <td class="text-title">Gestión pública eficiente y transparente</td>
+                <td class="text-title">Ordenamiento territorial</td>
+                <td class="text-title">Sostenibilidad ambiental</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td class="text-title">Reducción de pobreza y desarrollo social</td>
+                <td class="state-red">
+                  <div class="monto-text">Gs. 98.354.160</div>
+                  <div class="percentage-text">5%</div>
+                </td>
+                <td class="state-orange">
+                  <div class="monto-text">Gs. 120.654.000</div>
+                  <div class="percentage-text">15%</div>
+                </td>
+                <td class="state-green">
+                  <div class="monto-text">Gs. 98.354.160</div>
+                  <div class="percentage-text">80%</div>
+                </td>
+                <td class="state-orange">
+                  <div class="monto-text">Gs. 98.354.160</div>
+                  <div class="percentage-text">17%</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-title">Crecimiento económico inclusivo</td>
+                <td class="state-red">
+                  <div class="monto-text">Gs. 98.354.160</div>
+                  <div class="percentage-text">3%</div>
+                </td>
+                <td class="state-orange">
+                  <div class="monto-text">Gs. 120.654.000</div>
+                  <div class="percentage-text">20%</div>
+                </td>
+                <td class="state-green">
+                  <div class="monto-text">Gs. 98.354.160</div>
+                  <div class="percentage-text">83%</div>
+                </td>
+                <td class="state-orange">
+                  <div class="monto-text">Gs. 98.354.160</div>
+                  <div class="percentage-text">15%</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-title">Inserción de Paraguay en el mundo</td>
+                <td class="state-yellow">
+                  <div class="monto-text">Gs. 98.354.160</div>
+                  <div class="percentage-text">35%</div>
+                </td>
+                <td class="state-orange">
+                  <div class="monto-text">Gs. 120.654.000</div>
+                  <div class="percentage-text">25%</div>
+                </td>
+                <td class="state-yellow">
+                  <div class="monto-text">Gs. 98.354.160</div>
+                  <div class="percentage-text">35%</div>
+                </td>
+                <td class="state-orange">
+                  <div class="monto-text">Gs. 98.354.160</div>
+                  <div class="percentage-text">23%</div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <input type="checkbox" id="leng1"  checked data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
+            <div class="lg lg-tec">
+              <p><strong>Eje estratégico:</strong> Determina la capacidad real de ejecución. La ejecución presupuestaria se realizará en base a planes financieros, generales e institucionales, de acuerdo con las normas técnicas y la periodicidad que se establezca en la reglamentación. Se tomarán en cuenta el flujo estacional de los ingresos y la capacidad real de ejecución del presupuesto de los organismos y entidades del Estado. Dichos planes financieros servirán de marco de referencia para la programación de caja y la asignación de cuotas. El monto es mensual.</p>
+              <p><strong>Línea transversal:</strong> Compromiso de pago originado en un vínculo jurídico financiero entre un organismo o entidad del Estado y una persona física o jurídica. El monto es mensual.</p>
+              <p><strong>Estrategia:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
+            </div>
+
+            <div class="lg lg-user" style="display: none">
+              <p><strong>Eje estratégico:</strong> Determina la capacidad real de ejecución.</p>
+              <p><strong>Línea transversal:</strong> Compromiso de pago originado en un vínculo jurídico financiero entre un organismo o entidad del Estado y una persona física o jurídica. El monto es mensual.</p>
+              <p><strong>Estrategia:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
+            </div>
+
+            <ul class="list-inline item-details">
+              <li>Client:
+                <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
+                </strong>
+              </li>
+              <li>Date:
+                <strong><a href="http://startbootstrap.com">April 2014</a>
+                </strong>
+              </li>
+              <li>Service:
+                <strong><a href="http://startbootstrap.com">Web Development</a>
+                </strong>
+              </li>
+            </ul>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    .text-title{
+      background-color: aliceblue;
+      color: #0a7d66;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .text-bold {
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .monto-text {
+      text-align: center;
+    }
+    .percentage-text {
+      font-weight: 700;
+      text-align: center;
+      font-size: 150%;
+      margin: 10px;
+    }
+    td.state-red {
+      background-color: #ff6262;
+    }
+    td.state-orange {
+      background-color: #ffa754;
+    }
+    td.state-yellow {
+      background-color: #fff67f;
+    }
+    td.state-green {
+      background-color: #6afc9d;
+    }
+
+</style>
+<script>
+    $("#leng1").change(function() {
+        if ($('.toggle').hasClass( "off" )) {
+            $('.lg-tec').css('display', 'none');
+            $('.lg-user').css('display', 'block');
+        }else {
+            $('.lg-tec').css('display', 'block');
+            $('.lg-user').css('display', 'none');
+        }
+    });
+</script>
