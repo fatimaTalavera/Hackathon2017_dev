@@ -82,13 +82,13 @@ autores
 </style>
 
 <script>
-    $("#leng1").change(function() {
-        if ($('.toggle').hasClass( "off" )) {
-            $('.lg-tec').css('display', 'none');
-            $('.lg-user').css('display', 'block');
+    $(".toggle").change(function() {
+        if (!$(this).prop('checked')) {
+            $('#lg-tec-'+this.id).css('display', 'none');
+            $('#lg-user-'+this.id).css('display', 'block');
         }else {
-            $('.lg-tec').css('display', 'block');
-            $('.lg-user').css('display', 'none');
+            $('#lg-tec-'+this.id).css('display', 'block');
+            $('#lg-user-'+this.id).css('display', 'none');
         }
     });
 </script>
