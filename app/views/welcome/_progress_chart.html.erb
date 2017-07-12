@@ -18,65 +18,48 @@ autores
             <h2>Plan estratégico al 2030</h2>
             <hr class="star-primary">
             <div class="col-md-12" style="display: inline-flex">
-            <select id="date" class="form-control" disabled>
-                  <option value="1" selected>2017</option>
-            </select>
-            <select id="institute" class="form-control" onchange="instituteChanged()">
-              <%= @inst.each do |institutes| %>
-                <option value="<%= institutes[1].to_s + ' '.to_s +  institutes[2].to_s %>"><%= institutes[0] %></option>
+              <select id="date" class="form-control" disabled>
+                <option value="1" selected>2017</option>
+              </select>
+              <select id="institute" class="form-control" onchange="instituteChanged()">
+                <%= @inst.each do |institutes| %>
+                    <option value="<%= institutes[1].to_s + ' '.to_s +  institutes[2].to_s %>"><%= institutes[0] %></option>
                 <% end %>
-            </select>
+              </select>
             </div>
-            </div>
-
-            <div id="progress-chart" class="container-chart" STYLE="padding: 30px"></div>
-
-
-          <input type="checkbox" id="leng3"  checked data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
-
-            <div class="lg lg-tec">
-              <p><strong>Monto Plan Financiero Vigente:</strong> Determina la capacidad real de ejecución. La ejecución presupuestaria se realizará en base a planes financieros, generales e institucionales, de acuerdo con las normas técnicas y la periodicidad que se establezca en la reglamentación. Se tomarán en cuenta el flujo estacional de los ingresos y la capacidad real de ejecución del presupuesto de los organismos y entidades del Estado. Dichos planes financieros servirán de marco de referencia para la programación de caja y la asignación de cuotas. El monto es mensual.</p>
-              <p><strong>Monto Ejecutado:</strong> Compromiso de pago originado en un vínculo jurídico financiero entre un organismo o entidad del Estado y una persona física o jurídica. El monto es mensual.</p>
-              <p><strong>Avance:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
-            </div>
-
-            <div class="lg lg-user" style="display: none">
-              <p><strong>Monto Plan Financiero Vigente:</strong> Lo que se dice que se gastará en el mes.</p>
-              <p><strong>Monto Ejecutado:</strong> Lo que realmente se gasta en el mes.</p>
-              <p><strong>Avance:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
-            </div>
-
-            <ul class="list-inline item-details">
-              <li>Client:
-                <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                </strong>
-              </li>
-              <li>Date:
-                <strong><a href="http://startbootstrap.com">April 2014</a>
-                </strong>
-              </li>
-              <li>Service:
-                <strong><a href="http://startbootstrap.com">Web Development</a>
-                </strong>
-              </li>
-            </ul>
-            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
           </div>
+
+          <div id="progress-chart" class="container-chart" STYLE="padding: 30px"></div>
+          <input type="checkbox" id="leng3"  class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
+          <div id="lg-tec-leng3">
+            <p><strong>Monto Plan Financiero Vigente:</strong> Determina la capacidad real de ejecución. La ejecución presupuestaria se realizará en base a planes financieros, generales e institucionales, de acuerdo con las normas técnicas y la periodicidad que se establezca en la reglamentación. Se tomarán en cuenta el flujo estacional de los ingresos y la capacidad real de ejecución del presupuesto de los organismos y entidades del Estado. Dichos planes financieros servirán de marco de referencia para la programación de caja y la asignación de cuotas. El monto es mensual.</p>
+            <p><strong>Monto Ejecutado:</strong> Compromiso de pago originado en un vínculo jurídico financiero entre un organismo o entidad del Estado y una persona física o jurídica. El monto es mensual.</p>
+            <p><strong>Avance:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
+          </div>
+
+          <div id="lg-user-leng3" style="display: none">
+            <p><strong>Monto Plan Financiero Vigente:</strong> Lo que se dice que se gastará en el mes.</p>
+            <p><strong>Monto Ejecutado:</strong> Lo que realmente se gasta en el mes.</p>
+            <p><strong>Avance:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
+          </div>
+
+          <ul class="list-inline item-details">
+            <li>Client:
+              <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
+              </strong>
+            </li>
+            <li>Date:
+              <strong><a href="http://startbootstrap.com">April 2014</a>
+              </strong>
+            </li>
+            <li>Service:
+              <strong><a href="http://startbootstrap.com">Web Development</a>
+              </strong>
+            </li>
+          </ul>
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-    $("#leng3").change(function() {
-        if ($('.toggle').hasClass( "off" )) {
-            $('.lg-tec').css('display', 'none');
-            $('.lg-user').css('display', 'block');
-        }else {
-            $('.lg-tec').css('display', 'block');
-            $('.lg-user').css('display', 'none');
-        }
-    });
-</script>
-
