@@ -28,9 +28,8 @@ autores
             </div>
 
             <div id="heat-map" class="container-chart"></div>
-            <input type="checkbox" id="leng2"  checked data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
-
-            <div class="lg lg-tec">
+            <input type="checkbox" id="leng2"  class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
+            <div id="lg-tec-leng2">
               <p><strong>Presupuesto Inicial Aprobado:</strong> Es el monto del presupuesto aprobado por el Congreso Nacional. Es la ley del Presupuesto General de la Nación para un año fiscal. El monto es anual.</p>
               <p><strong>Monto Vigente:</strong> Es el presupuesto inicial aprobado incluyendo las modificaciones (aumento o disminución) a la Ley del Presupuesto General de la Nación. El monto es anual.</p>
               <p><strong>Monto Plan Financiero Vigente:</strong> Determina la capacidad real de ejecución. La ejecución presupuestaria se realizará en base a planes financieros, generales e institucionales, de acuerdo con las normas técnicas y la periodicidad que se establezca en la reglamentación. Se tomarán en cuenta el flujo estacional de los ingresos y la capacidad real de ejecución del presupuesto de los organismos y entidades del Estado. Dichos planes financieros servirán de marco de referencia para la programación de caja y la asignación de cuotas. El monto es mensual.</p>
@@ -39,7 +38,7 @@ autores
               <p><strong>Monto Pagado:</strong> Cumplimiento: de las obligaciones legales contabilizadas y con cargo a las asignaciones presupuestarias y a las cuotas disponibles. El monto es mensual.</p>
             </div>
 
-            <div class="lg lg-user" style="display: none">
+            <div id="lg-user-leng2" style="display: none">
               <p><strong>Presupuesto Inicial Aprobado:</strong> El dinero que se autoriza para gastar en el año.</p>
               <p><strong>Monto Vigente:</strong> Es el monto con aprobado para este año.</p>
               <p><strong>Monto Plan Financiero Vigente:</strong> Lo que se dice que se gastará en el mes.</p>
@@ -47,7 +46,6 @@ autores
               <p><strong>Monto Transferido:</strong> Lo que te dan para cubrir tus gastos del mes.</p>
               <p><strong>Monto Pagado:</strong> Cumplimiento: Lo que pudiste pagar en el mes.</p>
             </div>
-
             <ul class="list-inline item-details">
               <li>Client:
                 <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
@@ -69,16 +67,3 @@ autores
     </div>
   </div>
 </div>
-
-
-<script>
-    $("#leng2").change(function() {
-        if ($('.toggle').hasClass( "off" )) {
-            $('.lg-tec').css('display', 'none');
-            $('.lg-user').css('display', 'block');
-        }else {
-            $('.lg-tec').css('display', 'block');
-            $('.lg-user').css('display', 'none');
-        }
-    });
-</script>

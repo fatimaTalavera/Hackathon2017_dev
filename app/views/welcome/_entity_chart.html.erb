@@ -102,14 +102,15 @@ autores
               </tr>
               </tbody>
             </table>
-            <input type="checkbox" id="leng1"  checked data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
-            <div class="lg lg-tec">
+            <input type="checkbox" id="leng1" class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
+
+            <div id="lg-tec-leng1">
               <p><strong>Eje estratégico:</strong> Determina la capacidad real de ejecución. La ejecución presupuestaria se realizará en base a planes financieros, generales e institucionales, de acuerdo con las normas técnicas y la periodicidad que se establezca en la reglamentación. Se tomarán en cuenta el flujo estacional de los ingresos y la capacidad real de ejecución del presupuesto de los organismos y entidades del Estado. Dichos planes financieros servirán de marco de referencia para la programación de caja y la asignación de cuotas. El monto es mensual.</p>
               <p><strong>Línea transversal:</strong> Compromiso de pago originado en un vínculo jurídico financiero entre un organismo o entidad del Estado y una persona física o jurídica. El monto es mensual.</p>
               <p><strong>Estrategia:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
             </div>
 
-            <div class="lg lg-user" style="display: none">
+            <div id="lg-user-leng1" style="display: none">
               <p><strong>Eje estratégico:</strong> Determina la capacidad real de ejecución.</p>
               <p><strong>Línea transversal:</strong> Compromiso de pago originado en un vínculo jurídico financiero entre un organismo o entidad del Estado y una persona física o jurídica. El monto es mensual.</p>
               <p><strong>Estrategia:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
@@ -138,47 +139,35 @@ autores
 </div>
 
 <style>
-    .text-title{
-      background-color: aliceblue;
-      color: #0a7d66;
-      text-align: center;
-      vertical-align: middle;
-    }
-    .text-bold {
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-    .monto-text {
-      text-align: center;
-    }
-    .percentage-text {
-      font-weight: 700;
-      text-align: center;
-      font-size: 150%;
-      margin: 10px;
-    }
-    td.state-red {
-      background-color: #ff6262;
-    }
-    td.state-orange {
-      background-color: #ffa754;
-    }
-    td.state-yellow {
-      background-color: #fff67f;
-    }
-    td.state-green {
-      background-color: #6afc9d;
-    }
-
+  .text-title{
+    background-color: aliceblue;
+    color: #0a7d66;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .text-bold {
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .monto-text {
+    text-align: center;
+  }
+  .percentage-text {
+    font-weight: 700;
+    text-align: center;
+    font-size: 150%;
+    margin: 10px;
+  }
+  td.state-red {
+    background-color: #ff6262;
+  }
+  td.state-orange {
+    background-color: #ffa754;
+  }
+  td.state-yellow {
+    background-color: #fff67f;
+  }
+  td.state-green {
+    background-color: #6afc9d;
+  }
 </style>
-<script>
-    $("#leng1").change(function() {
-        if ($('.toggle').hasClass( "off" )) {
-            $('.lg-tec').css('display', 'none');
-            $('.lg-user').css('display', 'block');
-        }else {
-            $('.lg-tec').css('display', 'block');
-            $('.lg-user').css('display', 'none');
-        }
-    });
-</script>
