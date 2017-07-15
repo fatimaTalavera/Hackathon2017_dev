@@ -15,19 +15,25 @@ autores
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
           <div class="modal-body">
+           <!-- title -->
+
             <h2>Progreso Departamental</h2>
             <hr class="star-primary">
+            <!-- end title -->
 
-            <div class="col-md-12" style="display: inline-flex">
-              <select id="date" class="form-control" disabled>
-                <option value="1" selected>2017</option>
-              </select>
-              <select id="estrategia" class="form-control">
-                <option value="1" selected>Todas las estrategias</option>
-              </select>
+            <!-- query selector -->
+            <div class="col-md-4" id="divForYearSelect" style="display: inline-flex">
+
             </div>
+            <div class="col-md-4" id="divForMonthSelect" style="display: inline-flex">
+
+            </div>
+            <!-- end query selector -->
 
             <div id="heat-map" class="container-chart"></div>
+
+
+            <!-- text body -->
             <input type="checkbox" id="leng2"  class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
             <div id="lg-tec-leng2">
               <p><strong>Presupuesto Inicial Aprobado:</strong> Es el monto del presupuesto aprobado por el Congreso Nacional. Es la ley del Presupuesto General de la Nación para un año fiscal. El monto es anual.</p>
@@ -46,24 +52,14 @@ autores
               <p><strong>Monto Transferido:</strong> Lo que te dan para cubrir tus gastos del mes.</p>
               <p><strong>Monto Pagado:</strong> Cumplimiento: Lo que pudiste pagar en el mes.</p>
             </div>
-            <ul class="list-inline item-details">
-              <li>Client:
-                <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                </strong>
-              </li>
-              <li>Date:
-                <strong><a href="http://startbootstrap.com">April 2014</a>
-                </strong>
-              </li>
-              <li>Service:
-                <strong><a href="http://startbootstrap.com">Web Development</a>
-                </strong>
-              </li>
-            </ul>
+            <!-- end text body -->
+
             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+

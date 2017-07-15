@@ -60,7 +60,6 @@ autores
 </section>
 
 
-
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
   <a class="btn btn-primary" href="#page-top">
@@ -75,13 +74,13 @@ autores
 <%=render 'contact_form'%>
 <%=render 'info'%>
 
-
 <style>
-  .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
-  .toggle.ios .toggle-handle { border-radius: 20px; }
+
 </style>
 
 <script>
+    var pgn_years = <%=  @pgn_years %>;
+    var pgn_months = <%=  @pgn_months %>;
     $(".toggle").change(function() {
         if (!$(this).prop('checked')) {
             $('#lg-tec-'+this.id).css('display', 'none');

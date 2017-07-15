@@ -11,7 +11,7 @@ anychart.onDocumentReady(function() {
     var data = {};
     $.ajax({
         method: "POST",
-        url: "search/map",
+        url: "search/heat_map",
         data: {}
     })
         .done(function( msg ) {
@@ -23,11 +23,14 @@ anychart.onDocumentReady(function() {
         map.draw();
     });
 });
+
 function format_currency (number) {
     return 'Gs. ' + parseFloat(number).toFixed(0).replace(/./g, function(c, i, a) {
             return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
         });
 };
+
+
 function map_start (map,data) {
     // create map
     // create data set
@@ -75,10 +78,119 @@ function map_start (map,data) {
 
     // set geo data, you can find this map in our geo maps collection
     // https://cdn.anychart.com/#maps-collection
-    map.geoData(anychart.maps['paraguay']);
+    chart = anychart.maps['paraguay'];
+    map.geoData(chart);
 
+
+    // create new button
+    var triggerMonthSelect = document.createElement("select");
+    var triggerYearSelect = document.createElement("select");
+
+
+    // set selects class and onchange function
+    triggerMonthSelect.className = "triggerSelect";
+    triggerMonthSelect.onchange = function() {
+        updateMonthHeatMap();
+    };
+    triggerYearSelect.className = "triggerSelect";
+    triggerYearSelect.onchange = function() {
+        addPoint();
+    };
+
+    //set selects options
+    for (var i = 0; i < pgn_years.length; i++) {
+        var option = document.createElement("option");
+        option.value = pgn_years[i];
+        option.text = "Año "+ pgn_years;
+        triggerYearSelect.appendChild(option);
+    }
+    var months_value = ['','Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    //triggerMonthSelect.id = "mySelect";
+    //Create and append the options
+    for (var i = 0; i < pgn_months.length; i++) {
+        var option = document.createElement("option");
+        option.value = pgn_months[i][0];
+        option.text = months_value[pgn_months[i][0]];
+        triggerMonthSelect.appendChild(option);
+    }
+
+
+    // append select to container
+    $('#divForYearSelect').append(triggerYearSelect);
+    $('#divForMonthSelect').append(triggerMonthSelect);
+
+    $(".triggerSelect").select2({ width: '100%', language: "select2-es"});
+
+    // function, if listener triggers
+    function updateMonthHeatMap(e) {
+        // append data
+        for (i = 0; i < 17; i++) {
+            dataSet.remove(0);
+        }
+        console.log(data[16]);
+        $.ajax({
+            method: "POST",
+            url: "search/heat_map",
+            data: {"month" : triggerMonthSelect.value }
+        })
+            .done(function( data ) {
+                dataSet.append(
+                    {'id': 'PY.AS', 'value': data[0][6]*data[0][2]/100, 'data': data[0]},
+                    {'id': 'PY.AG', 'value': data[1][6]*data[1][2]/100, 'data': data[1]},
+                    {'id': 'PY.BQ', 'value': data[2][6]*data[2][2]/100, 'data': data[2]},
+                    {'id': 'PY.CN', 'value': data[3][6]*data[3][2]/100, 'data': data[3]},
+                    {'id': 'PY.CR', 'value': data[4][6]*data[4][2]/100, 'data': data[4]},
+                    {'id': 'PY.PH', 'value': data[5][6]*data[5][2]/100, 'data': data[5]},
+                    {'id': 'PY.SP', 'value': data[6][6]*data[6][2]/100, 'data': data[6]},
+                    {'id': 'PY.CE', 'value': data[7][6]*data[7][2]/100, 'data': data[7]},
+                    {'id': 'PY.GU', 'value': data[8][6]*data[8][2]/100, 'data': data[8]},
+                    {'id': 'PY.MI', 'value': data[9][6]*data[9][2]/100, 'data': data[9]},
+                    {'id': 'PY.NE', 'value': data[10][6]*data[10][2]/100,'data': data[10]},
+                    {'id': 'PY.PG', 'value': data[11][6]*data[11][2]/100,'data': data[11]},
+                    {'id': 'PY.AM', 'value': data[12][6]*data[12][2]/100,'data': data[12]},
+                    {'id': 'PY.AA', 'value': data[13][6]*data[13][2]/100,'data': data[13]},
+                    {'id': 'PY.CG', 'value': data[14][6]*data[14][2]/100,'data': data[14]},
+                    {'id': 'PY.CZ', 'value': data[15][6]*data[15][2]/100,'data': data[15]},
+                    {'id': 'PY.CY', 'value': data[16][6]*data[16][2]/100,'data': data[16]},
+                    {'id': 'PY.IT', 'value': data[17][6]*data[17][2]/100,'data': data[17]}
+                );
+            });
+    }
+
+    function updateYearHeatMap(e) {
+        // append data
+        for (i = 0; i < 17; i++) {
+            dataSet.remove(0);
+        }
+        console.log(data[16]);
+        $.ajax({
+            method: "POST",
+            url: "search/heat_map",
+            data: {"month" : triggerMonthSelect.value, "year" : triggerYearSelect.value }
+        })
+            .done(function( data ) {
+                dataSet.append(
+                    {'id': 'PY.AS', 'value': data[0][6]*data[0][2]/100, 'data': data[0]},
+                    {'id': 'PY.AG', 'value': data[1][6]*data[1][2]/100, 'data': data[1]},
+                    {'id': 'PY.BQ', 'value': data[2][6]*data[2][2]/100, 'data': data[2]},
+                    {'id': 'PY.CN', 'value': data[3][6]*data[3][2]/100, 'data': data[3]},
+                    {'id': 'PY.CR', 'value': data[4][6]*data[4][2]/100, 'data': data[4]},
+                    {'id': 'PY.PH', 'value': data[5][6]*data[5][2]/100, 'data': data[5]},
+                    {'id': 'PY.SP', 'value': data[6][6]*data[6][2]/100, 'data': data[6]},
+                    {'id': 'PY.CE', 'value': data[7][6]*data[7][2]/100, 'data': data[7]},
+                    {'id': 'PY.GU', 'value': data[8][6]*data[8][2]/100, 'data': data[8]},
+                    {'id': 'PY.MI', 'value': data[9][6]*data[9][2]/100, 'data': data[9]},
+                    {'id': 'PY.NE', 'value': data[10][6]*data[10][2]/100,'data': data[10]},
+                    {'id': 'PY.PG', 'value': data[11][6]*data[11][2]/100,'data': data[11]},
+                    {'id': 'PY.AM', 'value': data[12][6]*data[12][2]/100,'data': data[12]},
+                    {'id': 'PY.AA', 'value': data[13][6]*data[13][2]/100,'data': data[13]},
+                    {'id': 'PY.CG', 'value': data[14][6]*data[14][2]/100,'data': data[14]},
+                    {'id': 'PY.CZ', 'value': data[15][6]*data[15][2]/100,'data': data[15]},
+                    {'id': 'PY.CY', 'value': data[16][6]*data[16][2]/100,'data': data[16]},
+                    {'id': 'PY.IT', 'value': data[17][6]*data[17][2]/100,'data': data[17]}
+                );
+            });
+    }
     //set map container id (div)
     map.container('heat-map');
-
-
 };
