@@ -288,7 +288,7 @@
             padding-left: 6em; }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #5897fb;
+  background-color: #18BC9C;
   color: white; }
 
 .select2-container--default .select2-results__group {
@@ -482,3 +482,9 @@
 
 .select2-container--classic.select2-container--open .select2-dropdown {
   border-color: #5897fb; }
+
+.form-control:focus {
+    border-color: unset;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

@@ -21,11 +21,7 @@ autores
               <select id="date" class="form-control" disabled>
                 <option value="1" selected>2017</option>
               </select>
-              <select id="institute" class="form-control" disabled>
-                <%= @inst.each do |institutes| %>
-                    <option value="<%= institutes[1].to_s + ' '.to_s +  institutes[2].to_s %>"><%= institutes[0] %></option>
-                <% end %>
-              </select>
+
             </div>
 
             <table class="table table-bordered pnd-table">
@@ -158,6 +154,9 @@ autores
     font-size: 150%;
     margin: 10px;
   }
+  td{
+    cursor: pointer;
+  }
   td.state-red {
     background-color: #ff6262;
   }
@@ -171,3 +170,9 @@ autores
     background-color: #6afc9d;
   }
 </style>
+<script>
+    $( "td" ).click(function() {
+        console.log(this.children[0].textContent);
+        console.log(this.children[1].innerHTML);
+    });
+</script>

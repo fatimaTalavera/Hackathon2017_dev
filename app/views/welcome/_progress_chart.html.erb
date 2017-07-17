@@ -3,7 +3,7 @@ autores
 - Fatima Talavera fa.talavera95@gmail.com
 - Jerson Paniagua diazpany@gmail.com
 -->
-<div class="portfolio-modal modal fade" id="portfolioModal3"  role="dialog" aria-hidden="true" style="z-index: 1055;">
+<div class="portfolio-modal modal fade" id="portfolioModal3"  role="dialog" aria-hidden="true">
   <div class="modal-content">
     <div class="close-modal" data-dismiss="modal">
       <div class="lr">
@@ -17,17 +17,18 @@ autores
           <div class="modal-body">
             <h2>Plan estratégico al 2030</h2>
             <hr class="star-primary">
-            <div class="col-md-12" style="display: inline-flex">
-              <select id="date" class="form-control" disabled>
-                <option value="1" selected>2017</option>
-              </select>
-              <select id="institute" class="form-control" onchange="instituteChanged()">
-                <%= @inst.each do |institutes| %>
-                    <option value="<%= institutes[1].to_s + ' '.to_s +  institutes[2].to_s %>"><%= institutes[0] %></option>
-                <% end %>
-              </select>
+            <div class="col-md-2">
+
             </div>
-          </div>
+            <!-- query selector -->
+            <div class="col-md-4" id="divForYearSelectProgress" style="display: inline-flex">
+
+            </div>
+            <div class="col-md-4" id="divForInstituteSelectProgress" style="display: inline-flex" >
+
+            </div>
+            <!-- end query selector -->
+
 
           <div id="progress-chart" class="container-chart" STYLE="padding: 30px"></div>
           <input type="checkbox" id="leng3"  class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
@@ -59,6 +60,7 @@ autores
           </ul>
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
         </div>
+      </div>
       </div>
     </div>
   </div>

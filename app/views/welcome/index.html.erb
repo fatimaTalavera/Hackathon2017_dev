@@ -74,13 +74,22 @@ autores
 <%=render 'contact_form'%>
 <%=render 'info'%>
 
-<style>
-
-</style>
-
 <script>
     var pgn_years = <%=  @pgn_years %>;
     var pgn_months = <%=  @pgn_months %>;
+    var pnd_years = <%= @pnd_years %>;
+
+    var inst_count = <%= @inst.count() %>;
+    var inst_nombre = [];
+    var inst_nivelid = [];
+    var inst_entidadid = [];
+
+    <% @inst.each do |institute| %>
+      inst_nombre.push('<%=institute[0] %>');
+      inst_nivelid.push('<%=institute[1] %>');
+      inst_entidadid.push('<%=institute[2] %>');
+    <% end %>
+
     $(".toggle").change(function() {
         if (!$(this).prop('checked')) {
             $('#lg-tec-'+this.id).css('display', 'none');

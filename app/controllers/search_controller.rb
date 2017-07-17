@@ -15,7 +15,6 @@ class SearchController < ApplicationController
 
 
   def heat_map
-    #select codigodepartamento, avg(montovigente) as prom_monto_vigente, avg(montoplanfinancierovigente) as prom_montoplanfinancierovigente, avg(montoejecutado) as prom_montoejecutado, avg(montotransferido) as prom_montotransferido, avg(montopagado) as prom_montopagado from pgn_gasto group by codigodepartamento order by codigodepartamento asc
     select_raw = "SELECT
                       codigodepartamento,
                       avg(presupuestoinicialaprobado),
@@ -27,29 +26,30 @@ class SearchController < ApplicationController
                       FROM pgn_gasto pg
                       INNER JOIN pnd_meta_fisica pnd on pnd.pre_prod_concat = pg.pre_prod_concat"
 
+    #si especifica un mes
     unless params[:month].blank?
       where_raw = " WHERE "
-      @month = params[:month]
-      where_raw << "pg.mes = %{month}" % {month: @month}
+      month = params[:month]
+      where_raw << "pg.mes = %{month}" % {month: month}
     end
 
+    #si especifica un anho
     unless params[:year].blank?
-      where_raw =  where_raw.blank? ? " WHERE " : " AND "
-      @month = params[:month]
-      where_raw << "pg.anio = %{month}" % {month: @month}
+      where_raw =  where_raw.blank? ? ' WHERE ' : where_raw + ' AND '
+      year = params[:year]
+      where_raw << 'pg.anio = %{year}' % {year: year}
     end
 
-
+    #si especifica un departamento
     unless params[:department].nil?
-      if where_raw.blank?
-        where_raw = " WHERE "
-      end
+      where_raw =  where_raw.blank? ? ' WHERE ' : where_raw + ' AND '
       @department = params[:department]
-      where_raw << "pgn_gasto.codigodepartamento = %{department} " % {department: @department}
+      where_raw << 'pgn_gasto.codigodepartamento = %{department} ' % {department: @department}
     end
 
     group_and_order_raw = " GROUP BY codigodepartamento
                            ORDER BY codigodepartamento "
+    #si no tiene filtros
     if where_raw.nil?
       where_raw = ""
     end
@@ -58,6 +58,7 @@ class SearchController < ApplicationController
     flash[:notice] = 'Búsqueda realizada correctamente'
     render :json => @result
   end
+
 
   def progress
     where_raw =" "
@@ -68,23 +69,24 @@ class SearchController < ApplicationController
                           FROM pgn_gasto pg
                           INNER JOIN pnd_meta_fisica pnd on pnd.pre_prod_concat = pg.pre_prod_concat"
 
-    unless params[:month].blank?
+    #si especifica anho
+    unless params[:year].blank?
       where_raw = " WHERE "
-      @month = params[:month]
-      where_raw << "pg.mes = %{month}" % {month: @month}
+      year = params[:year]
+      where_raw << "pg.anio = %{year}" % {year: year}
     end
 
+    #si especifica institucion
     unless params[:entidadid].nil?
-      if where_raw.blank?
-        where_raw = " WHERE "
-      end
-      @entidad = params[:entidadid]
-      @nivel = params[:nivelid]
-      where_raw << "pnd.nivel_id = %{nivel} and pnd.entidad_id = %{entidad} " % {nivel: @nivel,entidad: @entidad}
+      where_raw =  where_raw.blank? ? ' WHERE ' : where_raw + ' AND '
+      entidad = params[:entidadid]
+      nivel = params[:nivelid]
+      where_raw << "pnd.nivel_id = %{nivel} and pnd.entidad_id = %{entidad} " % {nivel: nivel,entidad: entidad}
     end
 
-    group_and_order_raw = " group by mes
-                           ORDER BY mes asc "
+    group_and_order_raw = ' group by mes
+                           ORDER BY mes asc '
+
     if where_raw.nil?
       where_raw = ""
     end
@@ -94,11 +96,20 @@ class SearchController < ApplicationController
     flash[:notice] = 'Búsqueda realizada correctamente'
 
     #sin tiempo
-    paid_query = 'SELECT substring(mes,6,8),sum(CAST (avance_costo as numeric)) from plan_accion
-                  where anho = 2017
-                  group by substring(mes,6,8)
-                  order by substring(mes,6,8) asc'
-    @paid_result = ActiveRecord::Base.connection.exec_query(paid_query).rows
+    where_raw = ''
+    select_raw = 'SELECT substring(mes,6,8),sum(CAST (avance_costo as numeric)) from plan_accion'
+
+    #si filtra por anho
+    unless params[:year].blank?
+      where_raw = " WHERE "
+      year = params[:year]
+      where_raw << "plan_accion.anho = %{year} " % {year: year}
+    end
+
+    group_and_order_raw =   'group by substring(mes,6,8)
+                            order by substring(mes,6,8) asc'
+    query_raw = select_raw + where_raw + group_and_order_raw
+    @paid_result = ActiveRecord::Base.connection.exec_query(query_raw).rows
 
     render :json => [@result, @paid_result]
   end
