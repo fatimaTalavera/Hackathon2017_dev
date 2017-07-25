@@ -202,6 +202,62 @@ section.success {
   max-width: 400px;
   margin: 0 auto;
 }
+#portfolio .portfolio-item .portfolio-link.not-active {
+    pointer-events: none;
+    cursor: default;
+}
+
+#portfolio .portfolio-item .portfolio-link .overlay {
+    background: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: .9;
+    transition: all ease 0.5s;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+}
+
+#portfolio .portfolio-item .portfolio-link .spinner {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    margin:0px auto;
+    -webkit-animation: rotation .9s infinite linear;
+    -moz-animation: rotation .9s infinite linear;
+    -o-animation: rotation .9s infinite linear;
+    animation: rotation .9s infinite linear;
+
+    border-left:16px solid rgba(24,188,156,.25);
+    border-right:16px solid rgba(24,188,156,.25);
+    border-bottom:16px solid rgba(24,188,156,.25);
+    border-top:16px solid rgba(24,188,156,.8);
+    border-radius:100%;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    transition: all ease 0.5s;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+}
+
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(359deg);}
+}
+@-moz-keyframes rotation {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(359deg);}
+}
+@-o-keyframes rotation {
+    from {-o-transform: rotate(0deg);}
+    to {-o-transform: rotate(359deg);}
+}
+@keyframes rotation {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(359deg);}
+}
+
 #portfolio .portfolio-item .portfolio-link .caption {
   background: rgba(24, 188, 156, 0.9);
   position: absolute;
