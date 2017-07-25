@@ -15,15 +15,11 @@ function oldInstituteChanged() {
     var year  = pgn_years[0][0];
 
     $.ajax({
-        method: "POST",
-        url: "search/progress",
-        data: {"nivelid" :nivel, "entidadid" :entidad, "year" :year  }
+        method: "GET",
+        url: "search/search",
+        data: {"nivelid" :nivel, "entidadid" :entidad, "year" :year, "q" : "entity_progress"  }
     })
         .done(function( msg ) {
-            $('#remove-this').remove();
-
-
-
             //self.prop('disabled', false);
             data = [
                 ['ENE', msg[0][1], msg[0][2],0],
@@ -39,15 +35,15 @@ anychart.onDocumentReady(function() {
     var dataSet;
     var year  = pgn_years[0][0];
     $.ajax({
-        method: "POST",
-        url: "search/progress",
-        data: {"year" :year}
+        method: "GET",
+        url: "search/search",
+        data: {"year" :year, "q" : "entity_progress"}
     })
         .done(function( msg ) {
-            console.log(msg);
             //self.prop('disabled', false);
-
             progress_start(msg);
+            $('#modal3-portfolio-link').removeClass('not-active');
+            $('#modal3-overlay').hide();
         });
 
 
@@ -189,9 +185,9 @@ function progress_start(msg){
         //    dataSet.remove(0);
         //}
         $.ajax({
-            method: "POST",
-            url: "search/progress",
-            data: {"nivelid" :nivel, "entidadid" :entidad, "year" :year  }
+            method: "GET",
+            url: "search/search",
+            data: {"nivelid" :nivel, "entidadid" :entidad, "year" :year, "q" : "entity_progress"  }
         })
             .done(function( msg ) {
                 length = (dataSet['b'].length);
@@ -209,7 +205,7 @@ function progress_start(msg){
                 }
             });
     }
-}
+};
 function getData() {
     return [
         ['ENE', 10, 30, 15],
@@ -225,4 +221,4 @@ function getData() {
         ['NOV', 0, 0, 0],
         ['DIC', 0, 0, 0],
     ]
-}
+};

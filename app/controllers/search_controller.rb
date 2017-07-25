@@ -6,10 +6,10 @@
 class SearchController < ApplicationController
   
   def search
-    if params['q'] == 'heat_map'
+    if params['q'] == 'department_heat_map'
       heat_map
-    elsif params['q'] == 'pie_chart'
-      pie_chart
+    elsif params['q'] == 'entity_progress'
+      progress
     end
   end
 

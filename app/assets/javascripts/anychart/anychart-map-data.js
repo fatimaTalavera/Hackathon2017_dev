@@ -10,13 +10,15 @@ anychart.onDocumentReady(function() {
     map = anychart.map();
     var data = {};
     $.ajax({
-        method: "POST",
-        url: "search/heat_map",
-        data: {"year" : pgn_years[0][0], "month" :pgn_months[0][0]}
+        method: "GET",
+        url: "search/search",
+        data: {"year" : pgn_years[0][0], "month" :pgn_months[0][0], "q" : "department_heat_map"}
     })
         .done(function( msg ) {
             //self.prop('disabled', false);
             map_start(map,msg);
+            $('#modal2-portfolio-link').removeClass('not-active');
+            $('#modal2-overlay').hide();
         });
     $( "#item-map" ).click(function() {
         //initiate map drawing
@@ -135,9 +137,9 @@ function map_start (map,data) {
             dataSet.remove(0);
         }
         $.ajax({
-            method: "POST",
-            url: "search/heat_map",
-            data: {"month" : triggerMonthSelect.value, "year" : triggerYearSelect.value }
+            method: "GET",
+            url: "search/search",
+            data: {"month" : triggerMonthSelect.value, "year" : triggerYearSelect.value, "q" : "department_heat_map" }
         })
             .done(function( data ) {
                 dataSet.append(
@@ -176,7 +178,5 @@ function map_start (map,data) {
                 + 'tenemos que ver qué infor podemos meter acá y actualizar en otra columna');
         }
     );
-
-
 
 };
