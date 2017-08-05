@@ -198,3 +198,19 @@
     -webkit-user-select: none;
     user-select : none;
 }
+
+/* Institute data */
+
+.instituteData{
+    display: none;
+    margin-top: 20px
+}
+.instituteData p{
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+.instituteData p strong{
+    text-transform: uppercase;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}

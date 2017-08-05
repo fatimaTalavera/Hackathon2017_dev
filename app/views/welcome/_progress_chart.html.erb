@@ -21,16 +21,32 @@ autores
 
             </div>
             <!-- query selector -->
-            <div class="col-md-4" id="divForYearSelectProgress" style="display: inline-flex">
-
+            <div class="col-md-3" id="divForYearSelectProgress" style="display: inline-flex">
+            <select id="yearSelectProgress" class="trigerSelect"></select>
             </div>
-            <div class="col-md-4" id="divForInstituteSelectProgress" style="display: inline-flex" >
-
+            <div class="col-md-3" id="divForInstituteSelectProgress" style="display: inline-flex" >
+              <select id="instituteSelectProgress" class="trigerSelect"></select>
+            </div>
+            <div class="col-md-3" id="divForProjectSelectProgress" style="display: inline-flex" >
+              <select id="projectSelectProgress" class="trigerSelect"></select>
             </div>
             <!-- end query selector -->
 
 
-          <div id="progress-chart" class="container-chart" STYLE="padding: 30px"></div>
+            <div style="width: 100%">
+              <canvas id="canvas" width="800" height="450"></canvas>
+            </div>
+            <div id="divForInstituteData" class="instituteData" >
+              <h4>Datos de la Institución</h4>
+              <p id="institute[nombre]"><strong>Nombre: </strong></p>
+              <p id="institute[mision]"><strong>Misión: </strong> </p>
+              <p id="institute[vision]"><strong>Visión: </strong> </p>
+              <p id="institute[objetivo]"><strong>Objetivo: </strong> </p>
+              <p id="institute[politica]"><strong>Política: </strong> </p>
+              <p id="institute[diagnostico]"><strong>Diagnóstico: </strong> </p>
+              <p id="institute[baselegal]"><strong>Base Legal: </strong> </p>
+            </div>
+
           <input type="checkbox" id="leng3"  class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
           <div id="lg-tec-leng3">
             <p><strong>Monto Plan Financiero Vigente:</strong> Determina la capacidad real de ejecución. La ejecución presupuestaria se realizará en base a planes financieros, generales e institucionales, de acuerdo con las normas técnicas y la periodicidad que se establezca en la reglamentación. Se tomarán en cuenta el flujo estacional de los ingresos y la capacidad real de ejecución del presupuesto de los organismos y entidades del Estado. Dichos planes financieros servirán de marco de referencia para la programación de caja y la asignación de cuotas. El monto es mensual.</p>

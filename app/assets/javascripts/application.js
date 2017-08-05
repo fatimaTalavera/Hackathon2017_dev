@@ -17,6 +17,9 @@
 //= require dataTables.bootstrap.min.js
 //= require anychart/anychart-bundle.min.js
 //= require anychart/anychart-paraguay.js
+//= require Chart.bundle
 //= require bootbox.min
 //= require turbolinks
 //= require_tree .
+//= require Chart.bundle
+

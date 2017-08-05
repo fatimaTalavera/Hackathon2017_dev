@@ -10,6 +10,8 @@ class SearchController < ApplicationController
       heat_map
     elsif params['q'] == 'entity_progress'
       progress
+    elsif params['q'] == 'institute_data'
+      institute_data
     end
   end
 
@@ -77,7 +79,7 @@ class SearchController < ApplicationController
     end
 
     #si especifica institucion
-    unless params[:entidadid].nil?
+    unless params[:entidadid].blank?  && params[:nivelid].blank?
       where_raw =  where_raw.blank? ? ' WHERE ' : where_raw + ' AND '
       entidad = params[:entidadid]
       nivel = params[:nivelid]
@@ -114,39 +116,13 @@ class SearchController < ApplicationController
     render :json => [@result, @paid_result]
   end
 
-
-  def maa
-    #select codigodepartamento, avg(montovigente) as prom_monto_vigente, avg(montoplanfinancierovigente) as prom_montoplanfinancierovigente, avg(montoejecutado) as prom_montoejecutado, avg(montotransferido) as prom_montotransferido, avg(montopagado) as prom_montopagado from pgn_gasto group by codigodepartamento order by codigodepartamento asc
-    select_raw = "SELECT
-                      codigoDepartamento,
-                      avg(montoVigente) as prom_monto_vigente,
-                      avg(montoPlanFinancieroVigente) as prom_montoplanfinancierovigente,
-                      avg(montoEjecutado) as prom_montoejecutado,
-                      avg(montoTransferido) as prom_montotransferido,
-                      avg(montoPagado) as prom_montopagado
-                  FROM  pgn_gasto "
-    where_raw = ""
-
-    unless params[:month].blank?
-      where_raw = "WHERE "
-      @month = params[:month]
-      where_raw << "pgn_gasto.mes = %{month} " % {month: @month}
-    end
-
-    group_and_order_raw = "GROUP BY codigoDepartamento
-                           ORDER BY codigoDepartamento"
-    query_raw = select_raw + where_raw + group_and_order_raw
-    @result = ActiveRecord::Base.connection.exec_query(query_raw).rows
-    flash[:notice] = 'Búsqueda realizada correctamente'
-
+  def institute_data
+    entidad = params[:entidadid]
+    nivel = params[:nivelid]
+    raw = 'select nombre, mision, vision, objetivo, politica, diagnostico, baselegal from instituciones
+    WHERE nivelid = %{nivel} AND entidadid = %{entidad}'% {nivel: nivel,entidad: entidad}
+    @result = ActiveRecord::Base.connection.exec_query(raw).first
     render :json => @result
-  end
-
-
-  def intitution_data
-    raw = 'select name, nivelid, entidadid from instituciones order by name'
-    @result = ActiveRecord::Base.connection.exec_query(raw).rows
-    render :json => @inst
   end
 
 
