@@ -6,24 +6,6 @@
  #
  */
 
-window.onload = function() {
-
-    loadYearsSelect();
-    loadInstitutesSelect();
-    var dataSet;
-    var year  = pgn_years[0][0];
-    $.ajax({
-        method: "GET",
-        url: "search/search",
-        data: {"year" :year, "q" : "entity_progress"}
-    })
-        .done(function( msg ) {
-            progress_line_init(msg);
-            $('#modal3-portfolio-link').removeClass('not-active');
-            $('#modal3-overlay').hide();
-            $(".trigerSelect").select2({ width: '100%', language: "select2-es"});
-        });
-};
 
 function progress_line_init(msg){
 
@@ -37,9 +19,6 @@ function progress_line_init(msg){
         grey: 'rgb(201, 203, 207)'
     };
 
-    window.randomScalingFactor = function() {
-        return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
-    };
 
     console.log(msg);
     var months_quantity = msg[0].length;
