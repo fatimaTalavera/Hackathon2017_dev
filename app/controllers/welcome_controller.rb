@@ -19,6 +19,13 @@ class WelcomeController < ApplicationController
     @pnd_years = ActiveRecord::Base.connection.exec_query(pnd_meta_fisica_years_query).rows
 
     render 'welcome/index.html.erb', :locals => {  :@inst => @inst, :@pgn_months => @pgn_months, @pgn_years => @pgn_years, @pnd_years => @pnd_years}
+  end
 
+  def send_contact_email
+    ContactMailer.contact_email(params).deliver
+    flash[:info] = 'Gracias por ponerse en contacto con nosotros, le responderemos en las próximas 24hs'
+    print 'asdad'
+    print params[:email]
+    print 'asdad'
   end
 end
