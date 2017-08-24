@@ -1,0 +1,10 @@
+$('#name').val('');
+$('#email').val('');
+$('#phone').val('');
+$('#message').val('');
+$('#portfolioModalContact').modal('toggle');
+$('#notifications').append(
+  "<div class='alert alert-success' style='position: fixed;'><strong>Gracias por ponerte en contacto!</strong> Te responderemos a la brevedad.</div>");
+setTimeout(function() {
+    $('#notifications').empty();
+}, 5000);

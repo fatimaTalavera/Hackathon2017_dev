@@ -22,3 +22,5 @@
 //= require turbolinks
 //= require_tree .
 //= require Chart.bundle
+//= require jquery.validate.min
+//= require messages_es

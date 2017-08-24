@@ -17,32 +17,32 @@ autores
           <div class="modal-body">
             <h2>Contacto</h2>
             <hr class="star-primary">
-            <%= form_tag send_contact_email_path, method: "post", validate: :true, :class=>'form-horizontal', id:"send_contact_email"  do  |f| %>
+            <%= form_tag send_contact_email_path, method: "post", validate: :true, :class=>'form-horizontal', id:"send_contact_email", remote: true  do  |f| %>
               <div class="row control-group">
                 <div class="form-group col-xs-12 floating-label-form-group controls">
                   <label for="name">Nombre y apellido</label>
-                  <input type="text" class="form-control" placeholder="Nombre y apellido" id="name" name="name" required data-validation-required-message="Please enter your name.">
+                  <input type="text" class="form-control" placeholder="Nombre(s) y Apellido(s)" id="name" name="name" maxlength="60" required>
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="row control-group">
                 <div class="form-group col-xs-12 floating-label-form-group controls">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control" placeholder="Email" id="email" name="email" required data-validation-required-message="Please enter your email address.">
+                  <input type="email" class="form-control" placeholder="Correo Electrónico" id="email" name="email" required maxlength="60" >
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="row control-group">
                 <div class="form-group col-xs-12 floating-label-form-group controls">
                   <label for="phone">Teléfono</label>
-                  <input type="tel" class="form-control" placeholder="Teléfono" id="phone" name="phone" required data-validation-required-message="Please enter your phone number.">
+                  <input type="tel" class="form-control" placeholder="Teléfono/Celular" id="phone" name="phone" required maxlength="60">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="row control-group">
                 <div class="form-group col-xs-12 floating-label-form-group controls">
                   <label for="message">Mensaje</label>
-                  <textarea rows="5" class="form-control" placeholder="Mensaje" id="message" name="message" required data-validation-required-message="Please enter a message."></textarea>
+                  <textarea style="height: auto" rows="3" class="form-control" placeholder="Mensaje" id="message" name="message" required maxlength="170"></textarea>
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
@@ -51,28 +51,30 @@ autores
               <div class="row">
                 <div class="form-group col-xs-12">
                   <button type="submit" class="btn btn-success btn-lg">Enviar</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
                 </div>
               </div>
             <% end %>
-
-            <ul class="list-inline item-details">
-              <li>Client:
-                <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                </strong>
-              </li>
-              <li>Date:
-                <strong><a href="http://startbootstrap.com">April 2014</a>
-                </strong>
-              </li>
-              <li>Service:
-                <strong><a href="http://startbootstrap.com">Web Development</a>
-                </strong>
-              </li>
-            </ul>
-            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+    $( document ).ready(function() {
+        $("#send_contact_email").validate({
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element.parent('.form-group'));
+                }
+            }
+        )
+    });
+
+</script>
+<style>
+  .error {
+    opacity: 1 !important;
+    color: #a94442;
+  }
+</style>

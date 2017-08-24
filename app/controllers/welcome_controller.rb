@@ -23,6 +23,8 @@ class WelcomeController < ApplicationController
 
   def send_contact_email
     ContactMailer.contact_email(params).deliver
-    flash[:info] = 'Gracias por ponerse en contacto con nosotros, le responderemos en las próximas 24hs'
+    respond_to do |format|
+      format.js { render "send_contact_email" }
+    end
   end
 end
