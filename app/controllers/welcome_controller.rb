@@ -24,8 +24,5 @@ class WelcomeController < ApplicationController
   def send_contact_email
     ContactMailer.contact_email(params).deliver
     flash[:info] = 'Gracias por ponerse en contacto con nosotros, le responderemos en las próximas 24hs'
-    print 'asdad'
-    print params[:email]
-    print 'asdad'
   end
 end
