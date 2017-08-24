@@ -8,16 +8,12 @@
 </head>
 <body>
 <div class="col-lg-12" style="text-align: center">
-  <img class="img-responsive" src="<%= asset_url('mail-logo.png') %>" alt="mail_logo" style="max-width: 10%;">
+  <%= image_tag('mail-logo.png', :class => "img-responsive", :style => "max-width: 10%;", :alt => "mail-logo" ) %>
+
   <div class="intro-text">
     <h2 class="name" style="color: black;  font-size:20px ">Caminando al 2030</h2>
   </div>
 </div>
-<h3 style="margin-left: 20px"><%= @name %> quiere contactar contigo!.</h3>
-<p style="margin-left: 40px">
-  Su correo: <%= @email %> <br>
-  Su teléfono: <%= @phone %> <br>
-  Mensaje : <%= @message %></p>
 </body>
 <br>
 <br>
