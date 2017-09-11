@@ -25,11 +25,11 @@ autores
 </header>
 
 <!-- Portfolio Grid Section -->
-<section id="portfolio">
-  <div class="container">
-    <div class="row">
+<section id="portfolio" style="padding: 50px">
+  <div class="container" style="width: auto;">
+    <div class="row" style="width: auto;">
       <div class="col-md-4 col-xs-12 portfolio-item">
-        <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+        <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal" style="max-width: none;">
 
           <div class="caption">
             <div class="caption-content">
@@ -37,11 +37,11 @@ autores
               <i class="fa fa-search-plus fa-3x"></i>
             </div>
           </div>
-          <img src="<%= image_url('icon2.png') %>" class="img-responsive" alt="Slice of cake">
+          <img src="<%= image_url('nac.png') %>" class="img-responsive" style="width: 100%"  alt="Slice of cake">
         </a>
       </div>
       <div id="item-map" class="col-md-4 col-xs-12 portfolio-item">
-        <a href="#portfolioModal1" id="modal2-portfolio-link" class="portfolio-link not-active" data-toggle="modal">
+        <a href="#portfolioModal1" id="modal2-portfolio-link" class="portfolio-link not-active" data-toggle="modal" style="max-width: none;">
           <div id="modal2-overlay" class="overlay">
             <div class="spinner"></div>
           </div>
@@ -52,11 +52,11 @@ autores
               <i class="fa fa-search-plus fa-3x"></i>
             </div>
           </div>
-          <img src="<%= image_url('icon3.png') %>" class="img-responsive" alt="Cabin">
+          <img src="<%= image_url('dep.jpg') %>" class="img-responsive" style="width: 100%" alt="Cabin">
         </a>
       </div>
       <div id="item-progress" class="col-md-4 col-xs-12 portfolio-item">
-        <a href="#portfolioModal3" id="modal3-portfolio-link" class="portfolio-link not-active" data-toggle="modal">
+        <a href="#portfolioModal3" id="modal3-portfolio-link" class="portfolio-link not-active" data-toggle="modal" style="max-width: none;">
           <div id="modal3-overlay" class="overlay">
             <div class="spinner"></div>
           </div><div class="caption">
@@ -65,7 +65,7 @@ autores
               <i class="fa fa-search-plus fa-3x"></i>
             </div>
           </div>
-          <img src="<%= image_url('icon4.png') %>" class="img-responsive" alt="Circus tent">
+          <img src="<%= image_url('edificio.jpg') %>" class="img-responsive" style="width: 100%"  alt="Circus tent">
         </a>
       </div>
     </div>
@@ -135,6 +135,7 @@ autores
             });
             geoJSONgroup.on('click', function(e) { console.log(e.layer) });
 
+            console.log(Window.map);
         });
     });
 
