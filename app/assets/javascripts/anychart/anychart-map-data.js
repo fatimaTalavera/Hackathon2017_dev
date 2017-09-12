@@ -17,8 +17,7 @@ anychart.onDocumentReady(function() {
         .done(function( msg ) {
             //self.prop('disabled', false);
             map_start(map,msg);
-            $('#modal2-portfolio-link').removeClass('not-active');
-            $('#modal2-overlay').hide();
+
         });
     $( "#item-map" ).click(function() {
         //initiate map drawing

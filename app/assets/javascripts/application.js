@@ -24,3 +24,4 @@
 //= require Chart.bundle
 //= require jquery.validate.min
 //= require messages_es
+//= require leaflet-src
