@@ -71,9 +71,16 @@ autores
             if(Window.map != null){
                 $('#modal2-portfolio-link').removeClass('not-active');
                 $('#modal2-overlay').hide();
+                var timeout = 500;
                 setTimeout(function(){
                     Window.map.invalidateSize();
-                }, 500);
+                }, timeout);
+                for (i = 0; i<20; i+=2){
+                    setTimeout(function(){
+                        Window.map.invalidateSize();
+                    }, timeout + timeout*i);
+                }
+
             }
 
         });
