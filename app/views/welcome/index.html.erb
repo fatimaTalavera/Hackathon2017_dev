@@ -25,7 +25,7 @@ autores
 </header>
 
 <!-- Portfolio Grid Section -->
-<section id="portfolio" style="padding: 50px">
+<section id="portfolio" style="padding-bottom: 0px; padding-left: 20px; padding-right: 20px; padding-top: 40px;">
   <div class="container" style="width: auto;">
     <div class="row" style="width: auto;">
       <div class="col-md-4 col-xs-12 portfolio-item">
@@ -113,68 +113,8 @@ autores
             $('#lg-user-'+this.id).css('display', 'none');
         }
     });
+
+
 </script>
 
 
-<div id="map" class="container-chart"></div>
-<script>
-    $( document ).ready(function() {
-        Window.map = L.map("map", {minZoom: 6, maxZoom: 6, doubleClickZoom: false}).setView([-23.5, -58.5], 6);
-        Window.map.dragging.disable();
-
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(Window.map);
-        $.getJSON('/paraguay.json', function (geoJSONdata) {
-            var geoJSONgroup = L.geoJSON(geoJSONdata).addTo(Window.map);
-
-            geoJSONgroup.eachLayer(function (layer) {
-                if (layer.feature.properties.name === "Paraguay") {
-                    Window.map.fitBounds(layer.getBounds());
-                }
-            });
-            geoJSONgroup.on('click', function(e) { console.log(e.layer) });
-
-            console.log(Window.map);
-        });
-    });
-
-    window.onload = function() {
-        var ctx2 = document.getElementById("line-canvas").getContext("2d");
-        window.myBar2 = new Chart(ctx2, {
-            type: 'bar',
-            data: barChartData,
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Proyectos de la Institucion Seleccionada'
-                }
-            }
-        });
-
-        var ctx_latest = document.getElementById("cost-advance-line-canvas").getContext("2d");
-        window.mySecongLine = new Chart(ctx_latest, config2);
-
-
-        //entity chart
-        loadYearsSelect();
-        loadInstitutesSelect();
-        var dataSet;
-        var year  = pgn_years[0][0];
-        $.ajax({
-            method: "GET",
-            url: "search/search",
-            data: {"year" :year, "q" : "entity_progress"}
-        })
-            .done(function( msg ) {
-                progress_line_init(msg);
-                $('#modal3-portfolio-link').removeClass('not-active');
-                $('#modal3-overlay').hide();
-                $(".trigerSelect").select2({ width: '100%', language: "select2-es"});
-            });
-    };
-</script>
