@@ -25,3 +25,33 @@
 //= require jquery.validate.min
 //= require messages_es
 //= require leaflet-src
+
+
+$(document).ready(function(){
+    var isModal = false;
+    $(window.location.hash).modal('show');
+    $('a[data-toggle="modal"]').click(function(){
+        window.location.hash = $(this).attr('href');
+        isModal = true;
+    });
+
+    $('button[data-dismiss="modal"]').click(function(){
+        var original = window.location.href.substr(0, window.location.href.indexOf('#'));
+        history.replaceState({}, document.title, original);
+        isModal = false;
+    });
+
+    $('.close-modal').click(function(){
+        var original = window.location.href.substr(0, window.location.href.indexOf('#'));
+        history.replaceState({}, document.title, original);
+        isModal = false;
+    });
+
+    $(window).on('popstate', function() {
+        if(isModal){
+            var original = window.location.href.substr(0, window.location.href.indexOf('#'));
+            history.replaceState({}, document.title, original);
+            location.reload();
+        }
+    });
+});
