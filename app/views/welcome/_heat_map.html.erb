@@ -35,7 +35,7 @@ autores
 
 
             <!-- text body -->
-            <input type="checkbox" id="leng2"  class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
+            <input type="checkbox" id="leng2" class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
             <div id="lg-tec-leng2" class="paragraph">
               <p><strong>Presupuesto Inicial Aprobado:</strong> Es el monto del presupuesto aprobado por el Congreso Nacional. Es la ley del Presupuesto General de la Nación para un año fiscal. El monto es anual.</p>
               <p><strong>Monto Vigente:</strong> Es el presupuesto inicial aprobado incluyendo las modificaciones (aumento o disminución) a la Ley del Presupuesto General de la Nación. El monto es anual.</p>
@@ -127,24 +127,58 @@ autores
         Window.map = L.map("map", {minZoom: 6.7, maxZoom: 6.7, doubleClickZoom: false}).setView([-23.5, -58.5], 6);
         Window.map.dragging.disable();
 
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(Window.map);
         $.getJSON('/paraguay.json', function (geoJSONdata) {
-            var geoJSONgroup = L.geoJSON(geoJSONdata).addTo(Window.map);
+            $.ajax({
+                method: "GET",
+                url: "search/search",
+                data: {"year" : pgn_years[0][0], "month" :pgn_months[0][0], "q" : "department_heat_map"}
+            })
+            .done(function( values ) {
+                $.each( geoJSONdata.features, function( key, val ) {
+                  var dpto = val.properties.dpto;
+                  var valByDpto = values[parseInt(dpto)];
+                  val.properties['data'] = valByDpto;
+                  val.properties['value'] = valByDpto[5]*100/valByDpto[2];
+                });
 
-            geoJSONgroup.eachLayer(function (layer) {
-                if (layer.feature.properties.name === "Paraguay") {
+                var geoJSONgroup = L.geoJSON(geoJSONdata, {style: style}).addTo(Window.map);
+
+                geoJSONgroup.eachLayer(function (layer) {
+                  if (layer.feature.properties.name === "Paraguay") {
                     Window.map.fitBounds(layer.getBounds());
-                }
+                  }
+                });
+                geoJSONgroup.on('click', function(e) { console.log(e.layer) });
+
+                console.log(Window.map);
+
             });
-            geoJSONgroup.on('click', function(e) { console.log(e.layer) });
-
-            console.log(Window.map);
-
         });
 
 
+
     };
+
+    function style(feature) {
+      return {
+        fillColor: getColor(feature.properties.value),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+      };
+    };
+
+    function getColor(d) {
+      return d > 1000000 ? '#800026' :
+          d > 500000  ? '#BD0026' :
+              d > 4  ? '#E31A1C' :
+                  d > 3  ? '#FC4E2A' :
+                      d > 2   ? '#FD8D3C' :
+                          d > 1   ? '#FEB24C' :
+                              d > 0.5   ? '#FED976' :
+                                  '#FFEDA0';
+    }
 
 </script>
