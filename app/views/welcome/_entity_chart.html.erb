@@ -116,7 +116,7 @@ autores
               <canvas id="line-canvas"></canvas>
             </div>
 
-            <div id="line-container2" style="width: 75%;" >
+            <div id="line-container2" style="width: 75%; display: none" >
               <canvas id="cost-advance-line-canvas"></canvas>
             </div>
 
@@ -325,5 +325,24 @@ autores
         }
     };
 
+    function myBar2Clicked(e) {
+        $('#line-container2').show();
+    };
+    var ctx2 = document.getElementById("line-canvas").getContext("2d");
+    window.myBar2 = new Chart(ctx2, {
+        type: 'bar',
+        data: barChartData,
+        options: {
+            responsive: true,
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Proyectos de la Institucion Seleccionada'
+            },
+            onClick: myBar2Clicked
+        }
+    });
 
 </script>
