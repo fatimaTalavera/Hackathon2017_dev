@@ -143,7 +143,7 @@ function loadYearsSelect(){
 function loadInstitutesSelect(){
     var select = document.getElementById('instituteSelectProgress');
     var option = document.createElement("option");
-    option.value = 'default';
+    option.value = 'de';
     option.text = 'Seleccione una Institución';
     select.appendChild(option);
     for (var i = 0; i < inst_count; i++) {

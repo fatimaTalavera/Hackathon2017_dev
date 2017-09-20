@@ -7,6 +7,8 @@ class SearchController < ApplicationController
   
   def search
     if params['q'] == 'department_heat_map'
+      print "mes";
+      print "\n\n\n";
       heat_map
     elsif params['q'] == 'entity_progress'
       progress
@@ -30,6 +32,7 @@ class SearchController < ApplicationController
 
     #si especifica un mes
     unless params[:month].blank?
+
       where_raw = " WHERE "
       month = params[:month]
       where_raw << "pg.mes = %{month}" % {month: month}
