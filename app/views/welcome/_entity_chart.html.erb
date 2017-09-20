@@ -23,116 +23,78 @@ autores
         <div class="col-lg-12 col-lg-offset-2" style="margin: 0px;">
           <div class="modal-body">
             <h2>Progreso 2015 - 2017</h2>
-            <hr class="star-primary">-
-            <div class="col-md-4" style="display: inline-flex; margin-bottom: 10px">
-              <select id="date" class="form-control" disabled>
-                <option value="1" selected>2017</option>
-              </select>
-            </div>
-            <div class="col-md-6" style="display: inline-flex; margin-bottom: 10px">
-              <select class="form-control">
-                <%= @inst.reverse.each do |instituciones| %>
-                  <option value="1" selected><%= instituciones[0] %></option>
-                <% end %>
-              </select>
-            </div>
+            <hr class="star-primary">
+            <div class="board">
+              <div class="axis poverty">
+                <div class="strategy">
+                  <%= image_tag("poverty.ico", class: "pnd pnd-poverty") %>
+                  <span>Resduccion de la pobreza</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+              </div>
 
-            <table class="table table-bordered pnd-table">
-              <thead>
-              <tr>
-                <td class="text-title"></td>
-                <td colspan="4" class="text-title text-bold">Líneas Transversales</td>
-              </tr>
-              <tr>
-                <td class="text-title text-bold">Ejes Estratégicos</td>
-                <td class="text-title">Igualdad de oportunidades</td>
-                <td class="text-title">Gestión pública eficiente y transparente</td>
-                <td class="text-title">Ordenamiento territorial</td>
-                <td class="text-title">Sostenibilidad ambiental</td>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td class="text-title">Reducción de pobreza y desarrollo social</td>
-                <td class="state-red">
-                  <div class="monto-text">Gs. 98.354.160</div>
-                  <div class="percentage-text">5%</div>
-                </td>
-                <td class="state-orange">
-                  <div class="monto-text">Gs. 120.654.000</div>
-                  <div class="percentage-text">15%</div>
-                </td>
-                <td class="state-green">
-                  <div class="monto-text">Gs. 98.354.160</div>
-                  <div class="percentage-text">80%</div>
-                </td>
-                <td class="state-orange">
-                  <div class="monto-text">Gs. 98.354.160</div>
-                  <div class="percentage-text">17%</div>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-title">Crecimiento económico inclusivo</td>
-                <td class="state-red">
-                  <div class="monto-text">Gs. 98.354.160</div>
-                  <div class="percentage-text">3%</div>
-                </td>
-                <td class="state-orange">
-                  <div class="monto-text">Gs. 120.654.000</div>
-                  <div class="percentage-text">20%</div>
-                </td>
-                <td class="state-green">
-                  <div class="monto-text">Gs. 98.354.160</div>
-                  <div class="percentage-text">83%</div>
-                </td>
-                <td class="state-orange">
-                  <div class="monto-text">Gs. 98.354.160</div>
-                  <div class="percentage-text">15%</div>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-title">Inserción de Paraguay en el mundo</td>
-                <td class="state-yellow">
-                  <div class="monto-text">Gs. 98.354.160</div>
-                  <div class="percentage-text">35%</div>
-                </td>
-                <td class="state-orange">
-                  <div class="monto-text">Gs. 120.654.000</div>
-                  <div class="percentage-text">25%</div>
-                </td>
-                <td class="state-yellow">
-                  <div class="monto-text">Gs. 98.354.160</div>
-                  <div class="percentage-text">35%</div>
-                </td>
-                <td class="state-orange">
-                  <div class="monto-text">Gs. 98.354.160</div>
-                  <div class="percentage-text">23%</div>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+              <div class="axis economy">
+                <div class="strategy">
+                  <%= image_tag("economy.ico", class: "pnd pnd-economy") %>
+                  <span>Resduccion de la pobreza</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+              </div>
 
-            <div id="line-container" style="width: 75%; display: none" >
-              <canvas id="line-canvas"></canvas>
+              <div class="axis insertion">
+                <div class="strategy">
+                  <%= image_tag("insertion.ico", class: "pnd pnd-insertion") %>
+                  <span>Resduccion de la pobreza</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+                <div class="strategy">
+                  <div class="amount">45 MM</div>
+                  <span class="description">Desarrollo social equitativo</span>
+                </div>
+              </div>
             </div>
 
-            <div id="line-container2" style="width: 75%; display: none" >
-              <canvas id="cost-advance-line-canvas"></canvas>
-            </div>
-
-            <input type="checkbox" id="leng1" class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
-
-            <div id="lg-tec-leng1" class="paragraph">
-              <p><strong>Eje estratégico:</strong> Determina la capacidad real de ejecución. La ejecución presupuestaria se realizará en base a planes financieros, generales e institucionales, de acuerdo con las normas técnicas y la periodicidad que se establezca en la reglamentación. Se tomarán en cuenta el flujo estacional de los ingresos y la capacidad real de ejecución del presupuesto de los organismos y entidades del Estado. Dichos planes financieros servirán de marco de referencia para la programación de caja y la asignación de cuotas. El monto es mensual.</p>
-              <p><strong>Línea transversal:</strong> Compromiso de pago originado en un vínculo jurídico financiero entre un organismo o entidad del Estado y una persona física o jurídica. El monto es mensual.</p>
-              <p><strong>Estrategia:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
-            </div>
-
-            <div id="lg-user-leng1" class="paragraph" style="display: none">
-              <p><strong>Eje estratégico:</strong> Determina la capacidad real de ejecución.</p>
-              <p><strong>Línea transversal:</strong> Compromiso de pago originado en un vínculo jurídico financiero entre un organismo o entidad del Estado y una persona física o jurídica. El monto es mensual.</p>
-              <p><strong>Estrategia:</strong> Muestra el porcentaje de avance para todos los planes de acción en ejecución, por año y por institución.</p>
-            </div>
 
             <ul class="list-inline item-details">
               <li>Client:

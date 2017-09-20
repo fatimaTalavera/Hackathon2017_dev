@@ -1,0 +1,55 @@
+.board {
+    margin: 10px 0px;
+}
+.axis {
+    width: 100%;
+}
+.axis .strategy {
+    font-size: 18px;
+    font-weight: 300;
+    float: left;
+    height: 150px;
+    padding: 10px 5px;
+    text-align: center;
+    vertical-align: middle;
+    width: 20%;
+}
+.strategy .amount {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 10px;
+    text-transform: uppercase;
+}
+.axis.poverty .strategy {
+    background: rgba(63, 177, 73, 0.1);
+    border: 1px solid #3fb149;
+    color: #3fb149;
+}
+.axis.poverty .strategy:hover {
+    background: #3fb149;
+    color: white;
+}
+.axis.economy .strategy {
+    background: rgba(254, 134, 5, 0.1);
+    border: 1px solid #fe8605;
+    color: #fe8605;
+}
+.axis.economy .strategy:hover {
+    background: #fe8605;
+    color: white;
+}
+.axis.insertion .strategy {
+    background: rgba(10, 182, 239, 0.1);
+    border: 1px solid #0ab6ef;
+    color: #0ab6ef;
+}
+.axis.insertion .strategy:hover {
+    background: #0ab6ef;
+    color: white;
+}
+.pnd{
+    width: 50%;
+    margin: 0px !important;
+}
+
