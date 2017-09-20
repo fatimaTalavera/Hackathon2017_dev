@@ -35,7 +35,10 @@ autores
             <br>
             <!-- end query selector -->
 
-            <div id="map" class="container-chart"></div>
+
+            <div id="map" class="container-chart">
+
+            </div>
 
 
             <!-- Department Sumary -->
@@ -161,14 +164,14 @@ autores
                     val.properties['max'] = max;
                 });
 
-                var geoJSONgroup = L.geoJSON(geoJSONdata, {style: style}).addTo(Window.map);
+                Window.geoJSONgroup = L.geoJSON(geoJSONdata, {style: style}).addTo(Window.map);
 
-                geoJSONgroup.eachLayer(function (layer) {
+                Window.geoJSONgroup.eachLayer(function (layer) {
                   if (layer.feature.properties.name === "Paraguay") {
                     Window.map.fitBounds(layer.getBounds());
                   }
                 });
-                geoJSONgroup.on('click', function(e) {
+                Window.geoJSONgroup.on('click', function(e) {
                     console.log('check');
                     console.log(Window.map);
                     console.log(Window.currentDataMap);
