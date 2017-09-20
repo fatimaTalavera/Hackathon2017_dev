@@ -79,20 +79,15 @@ function updateHeatMap(e) {
     $.ajax({
         method: "GET",
         url: "search/search",
-        data: {"year" : $('#yearSelectHeatMap').val(), "month" : $('#monthSelectHeatMap').val(), "q" : "department_heat_map" }
+        data: {"year" : $('#yearSelectHeatMap').val(), "month" : $('#monthSelectHeatMap').val(), "q" : "department_heat_map" },
+
     })
         .done(function( values ) {
             Window.currentDataMap = values;
-
+            $('#map-overlay').show();
             Window.oldGeoJSONgroup = Window.geoJSONgroup;
-            setTimeout("Window.map.removeLayer(Window.oldGeoJSONgroup)", 4000);
-
-
-
             $.getJSON('/paraguay.json', function (geoJSONdata) {
 
-                        //console.log('valuies');
-                        //console.log(geoJSONdata.features);
                         var min = values[1][5]*100/values[1][2];
                         var max = min;
 
@@ -128,6 +123,8 @@ function updateHeatMap(e) {
                                 Window.map.fitBounds(layer.getBounds());
                             }
                         });
+                        Window.map.removeLayer(Window.oldGeoJSONgroup);
+                        $('#map-overlay').hide();
                         Window.geoJSONgroup.on('click', function(e) {
                             console.log('check');
                             console.log(Window.map);
@@ -149,6 +146,6 @@ function updateHeatMap(e) {
                         });
                     });
 
-
         });
+
 }
