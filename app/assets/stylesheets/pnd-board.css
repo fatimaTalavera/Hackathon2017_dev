@@ -5,7 +5,7 @@
     width: 100%;
 }
 .axis .strategy {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 300;
     float: left;
     height: 150px;
@@ -49,7 +49,15 @@
     color: white;
 }
 .pnd{
-    width: 50%;
+    width: 40%;
     margin: 0px !important;
 }
-
+.pnd.hover{
+    display: none;
+}
+.strategy:hover .pnd {
+    display: none;
+}
+.strategy:hover .pnd.hover {
+    display: inline-block;
+}
