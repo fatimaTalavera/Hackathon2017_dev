@@ -88,6 +88,7 @@ autores
 
 
 <script>
+    var colors = ['#88f9d4', '#18c29c', '#0b877d', '#126872', '#184169', '#13314d', '#031727'];
     $( document ).ready(function() {
         $('#portfolioModal1').bind("DOMSubtreeModified",function(){
             if(Window.map != null){
@@ -168,6 +169,24 @@ autores
 
                 Window.geoJSONgroup = L.geoJSON(geoJSONdata, {style: style}).addTo(Window.map);
 
+                var legend = L.control({position: 'bottomright'});
+                legend.onAdd = function (map) {
+
+                  var div = L.DomUtil.create('div', 'info legend'),
+                      grades = [0, , 20, 40, 50, 60, 70, 80],
+                      labels = [];
+
+                  // loop through our density intervals and generate a label with a colored square for each interval
+                  for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                  }
+
+                  return div;
+                };
+                legend.addTo(map);
+
                 Window.geoJSONgroup.eachLayer(function (layer) {
                   if (layer.feature.properties.name === "Paraguay") {
                     Window.map.fitBounds(layer.getBounds());
@@ -215,16 +234,12 @@ autores
 
     function getColor(properties) {
         d = properties.value;
-        var escala = (properties.max - properties.min)/8;
+        var escala = (properties.max - properties.min)/colors.length;
 
-        return d > (properties.min + 7*escala) ? '#800026' :
-            d > (properties.min + 6*escala)  ? '#BD0026' :
-              d > (properties.min + 5*escala)  ? '#E31A1C' :
-                  d > (properties.min + 4*escala)  ? '#FC4E2A' :
-                      d > (properties.min + 3*escala)   ? '#FD8D3C' :
-                          d > (properties.min + 2*escala)   ? '#FEB24C' :
-                              d > (properties.min + escala)   ? '#FED976' :
-                                  '#FFEDA0';
+        for(var i= colors.length - 1; i>1; i--){
+          if(d > (properties.min + i*escala) ) return colors[i];
+        }
+        return colors[0];
     }
 
 </script>
