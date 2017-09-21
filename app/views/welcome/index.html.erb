@@ -93,15 +93,13 @@ autores
     var pgn_months = <%=  @pgn_months %>;
     var pnd_years = <%= @pnd_years %>;
 
-    var inst_count = <%= @inst.count() %>;
+   //var inst_count = <%# @inst.count() %>;
     var inst_nombre = [];
     var inst_nivelid = [];
     var inst_entidadid = [];
 
-    <% @inst.each do |institute| %>
-      inst_nombre.push('<%=institute[0] %>');
-      inst_nivelid.push('<%=institute[1] %>');
-      inst_entidadid.push('<%=institute[2] %>');
+    <% @inst_lvls.each do |institute| %>
+      inst_nivelid.push('<%=institute[0] %>');
     <% end %>
 
     $(".toggle").change(function() {

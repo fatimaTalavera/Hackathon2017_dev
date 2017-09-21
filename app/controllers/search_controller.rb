@@ -14,15 +14,24 @@ class SearchController < ApplicationController
       progress
     elsif params['q'] == 'institute_data'
       institute_data
+    elsif params['q'] == 'level_data'
+      level_data
     end
   end
 
+  def level_data
+    institutes_query = 'select nivelid from instituciones group by nivelid order by nivelid'
+    @inst_lvls = ActiveRecord::Base.connection.exec_query(institutes_query).rows
+
+  end
 
   def heat_map
+    # ejecutado/vigente
+
     select_raw = "SELECT
                       codigodepartamento,
                       avg(presupuestoinicialaprobado),
-                      avg(montovigente),
+                      sum(montovigente),
                       sum(montoplanfinancierovigente),
                       sum(montoejecutado),
                       sum(montotransferido),
@@ -52,8 +61,8 @@ class SearchController < ApplicationController
       where_raw << 'pgn_gasto.codigodepartamento = %{department} ' % {department: @department}
     end
 
-    group_and_order_raw = " GROUP BY codigodepartamento
-                           ORDER BY codigodepartamento "
+    group_and_order_raw = " GROUP BY codigodepartamento, entidad_id
+                           ORDER BY codigodepartamento"
     #si no tiene filtros
     if where_raw.nil?
       where_raw = ""

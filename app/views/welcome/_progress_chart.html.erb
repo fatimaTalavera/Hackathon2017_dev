@@ -22,9 +22,12 @@ autores
             </div>
             <!-- query selector -->
             <div class="col-md-3" id="divForYearSelectProgress" style="display: inline-flex">
-            <select id="yearSelectProgress" class="trigerSelect"></select>
+              <select id="yearSelectProgress" class="trigerSelect"></select>
             </div>
-            <div class="col-md-3" id="divForInstituteSelectProgress" style="display: inline-flex" >
+            <div class="col-md-3" id="divForInstituteLevelSelectProgress" style="display: inline-flex;" >
+              <select id="instituteLevelSelectProgress" class="trigerSelect"></select>
+            </div>
+            <div class="col-md-3" id="divForInstituteSelectProgress" style="display: none" >
               <select id="instituteSelectProgress" class="trigerSelect"></select>
             </div>
             <div class="col-md-3" id="divForProjectSelectProgress" style="display: none;" >
@@ -83,6 +86,9 @@ autores
 </div>
 
 <script>
+    $( "#instituteLevelSelectProgress" ).change(function() {
+        loadInstitutesLevelSelect();
+    });
     $( "#divForInstituteSelectProgress" ).change(function() {
         if($( "#instituteSelectProgress" ).val() == 'default'){
             $('#divForProjectSelectProgress').css("display","none");

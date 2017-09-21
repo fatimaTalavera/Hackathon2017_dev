@@ -140,16 +140,16 @@ function loadYearsSelect(){
     }
 };
 
-function loadInstitutesSelect(){
-    var select = document.getElementById('instituteSelectProgress');
+function loadInstitutesLevelSelect(){
+    var select = document.getElementById('instituteLevelSelectProgress');
     var option = document.createElement("option");
     option.value = 'de';
-    option.text = 'Seleccione una Institución';
+    option.text = 'Seleccione un Nivel';
     select.appendChild(option);
-    for (var i = 0; i < inst_count; i++) {
+    for (var i = 0; i < inst_nivelid.length; i++) {
         var option = document.createElement("option");
-        option.value = inst_nivelid[i]+' '+inst_entidadid[i];
-        option.text = inst_nombre[i];
+        option.value = inst_nivelid[i];
+        option.text = inst_nivelid[i];
         select.appendChild(option);
     }
 };
@@ -162,6 +162,27 @@ function loadProjectsSelect(data){
     select.appendChild(option);
 
 };
+
+
+function loadInstituteSelectData(data){
+    $( "#divForInstituteSelectProgress" ).css("display","inline-flex");
+    var e = document.getElementById("instituteSelectProgress");
+    var value = e.options[e.selectedIndex].value;
+    var text = e.options[e.selectedIndex].text;
+
+    var nivel = value.substring(0, value.indexOf(' '));
+    var entidad = value.substring(value.indexOf(' '), value.lenght);
+    $.ajax({
+        method: "GET",
+        url: "search/search",
+        data: {"nivelid" :nivel, "q" : "level_data"  }
+    })
+        .done(function( msg ) {
+            console.log(msg);
+
+        });
+};
+
 
 function loadInstituteData(data){
     $('#divForInstituteData').show();

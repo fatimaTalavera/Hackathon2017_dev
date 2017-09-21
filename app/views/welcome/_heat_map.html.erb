@@ -88,7 +88,7 @@ autores
 
 
 <script>
-    var colors = ['#88f9d4', '#18c29c', '#0b877d', '#126872', '#184169', '#13314d', '#031727'];
+    var colors = ['#88f9d4', '#18c29c', '#0b877d', '#126872', '#184169', '#13314d', '#031727',  '#031727',  '#031727',  '#031727'];
     $( document ).ready(function() {
         $('#portfolioModal1').bind("DOMSubtreeModified",function(){
             if(Window.map != null){
@@ -112,7 +112,7 @@ autores
     window.onload = function() {
         //entity chart
         loadYearsSelect();
-        loadInstitutesSelect();
+        loadInstitutesLevelSelect();
         var dataSet;
         var year  = pgn_years[0][0];
         $.ajax({
@@ -161,7 +161,7 @@ autores
                     var dpto = val.properties.dpto;
                     var valByDpto = values[parseInt(dpto)];
                     val.properties['data'] = valByDpto;
-                    var currentValue = valByDpto[5]*100/valByDpto[2];
+                    var currentValue = valByDpto[4]*100/valByDpto[2];
                     val.properties['value'] = currentValue;
                     val.properties['min'] = min;
                     val.properties['max'] = max;
@@ -234,12 +234,13 @@ autores
 
     function getColor(properties) {
         d = properties.value;
-        var escala = (properties.max - properties.min)/colors.length;
-
-        for(var i= colors.length - 1; i>1; i--){
-          if(d > (properties.min + i*escala) ) return colors[i];
+        var finalColor = colors[10];
+        for(var i= 90; i>=0; i-=10){
+          if(d < i){
+            finalColor = colors[i/10 - 1];
+          }
         }
-        return colors[0];
+        return finalColor;
     }
 
 </script>

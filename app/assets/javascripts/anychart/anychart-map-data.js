@@ -110,7 +110,8 @@ function updateHeatMap(e) {
                             var dpto = val.properties.dpto;
                             var valByDpto = values[parseInt(dpto)];
                             val.properties['data'] = valByDpto;
-                            var currentValue = valByDpto[5]*100/valByDpto[2];
+                            //(ejecutado/vigente)*100
+                            var currentValue = valByDpto[4]*100/valByDpto[2];
                             val.properties['value'] = currentValue;
                             val.properties['min'] = min;
                             val.properties['max'] = max;
