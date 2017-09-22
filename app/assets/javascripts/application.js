@@ -30,9 +30,12 @@
 $(document).ready(function(){
     var isModal = false;
     $(window.location.hash).modal('show');
+
     $('a[data-toggle="modal"]').click(function(){
+        var ref = $(this).attr('href');
         window.location.hash = $(this).attr('href');
         isModal = true;
+        reloadDisqus(this);
     });
 
     $('button[data-dismiss="modal"]').click(function(){
@@ -51,7 +54,16 @@ $(document).ready(function(){
         if(isModal){
             var original = window.location.href.substr(0, window.location.href.indexOf('#'));
             history.replaceState({}, document.title, original);
+            isModal = false;
             location.reload();
         }
     });
+
+    function reloadDisqus(thisModal){
+        $('#disqus_thread').remove();
+        var href = window.location.href;
+        var hash = window.location.hash;
+        $(hash).find('.container').append('<div id="disqus_thread"></div>');
+        resetDisqus(hash, href.replace('#', '#!') );
+    };
 });

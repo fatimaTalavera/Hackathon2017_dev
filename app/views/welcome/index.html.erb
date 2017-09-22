@@ -29,7 +29,7 @@ autores
   <div class="container" style="width: auto;">
     <div class="row" style="width: auto;">
       <div class="col-md-4 col-xs-12 portfolio-item">
-        <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal" style="max-width: none;">
+        <a href="#tablero-pnd" class="portfolio-link" data-toggle="modal" style="max-width: none;">
 
           <div class="caption">
             <div class="caption-content">
@@ -41,7 +41,7 @@ autores
         </a>
       </div>
       <div id="item-map" class="col-md-4 col-xs-12 portfolio-item">
-        <a href="#portfolioModal1" id="modal2-portfolio-link" class="portfolio-link not-active" data-toggle="modal" style="max-width: none;">
+        <a href="#ejecucion-departamental" id="modal2-portfolio-link" class="portfolio-link not-active" data-toggle="modal" style="max-width: none;">
           <div id="modal2-overlay" class="overlay">
             <div class="spinner"></div>
           </div>
@@ -56,7 +56,7 @@ autores
         </a>
       </div>
       <div id="item-progress" class="col-md-4 col-xs-12 portfolio-item">
-        <a href="#portfolioModal3" id="modal3-portfolio-link" class="portfolio-link not-active" data-toggle="modal" style="max-width: none;">
+        <a href="#ejecucion-institucional" id="modal3-portfolio-link" class="portfolio-link not-active" data-toggle="modal" style="max-width: none;">
           <div id="modal3-overlay" class="overlay">
             <div class="spinner"></div>
           </div><div class="caption">
@@ -70,29 +70,9 @@ autores
       </div>
     </div>
   </div>
+
+  <div id="disqus_thread"></div>
 </section>
-
-<div id="disqus_thread"></div>
-<script>
-
-  /**
-   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-  /*
-   var disqus_config = function () {
-   this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-   };
-   */
-  (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://caminandoal2030.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<script id="dsq-count-scr" src="//caminandoal2030.disqus.com/count.js" async></script>
 
 
 
@@ -134,8 +114,39 @@ autores
             $('#lg-user-'+this.id).css('display', 'none');
         }
     });
-
-
 </script>
+
+<script>
+
+  /**
+   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  /*
+   var disqus_config = function () {
+   this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+   };
+   */
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://caminandoal2030.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+
+  /* * * Disqus Reset Function * * */
+  var resetDisqus = function (newIdentifier, newUrl) {
+    DISQUS.reset({
+      reload: true,
+      config: function () {
+        this.page.identifier = newIdentifier;
+        this.page.url = newUrl;
+      }
+    });
+  };
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
 
 

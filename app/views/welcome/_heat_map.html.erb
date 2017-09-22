@@ -3,7 +3,7 @@ autores
 - Fatima Talavera fa.talavera95@gmail.com
 - Jerson Paniagua diazpany@gmail.com
 -->
-<div class="portfolio-modal modal fade" id="portfolioModal1"  role="dialog" aria-hidden="true">
+<div class="portfolio-modal modal fade" id="ejecucion-departamental"  role="dialog" aria-hidden="true">
   <div class="modal-content">
     <div class="close-modal" data-dismiss="modal">
       <div class="lr">
@@ -90,7 +90,7 @@ autores
 <script>
     var colors = ['#88f9d4', '#18c29c', '#0b877d', '#126872', '#184169', '#13314d', '#031727',  '#031727',  '#031727',  '#031727'];
     $( document ).ready(function() {
-        $('#portfolioModal1').bind("DOMSubtreeModified",function(){
+        $('#ejecucion-institucional').bind("DOMSubtreeModified",function(){
             if(Window.map != null){
                 $('#modal2-portfolio-link').removeClass('not-active');
                 $('#modal2-overlay').hide();
@@ -168,24 +168,6 @@ autores
                 });
 
                 Window.geoJSONgroup = L.geoJSON(geoJSONdata, {style: style}).addTo(Window.map);
-
-                var legend = L.control({position: 'bottomright'});
-                legend.onAdd = function (map) {
-
-                  var div = L.DomUtil.create('div', 'info legend'),
-                      grades = [0, , 20, 40, 50, 60, 70, 80],
-                      labels = [];
-
-                  // loop through our density intervals and generate a label with a colored square for each interval
-                  for (var i = 0; i < grades.length; i++) {
-                    div.innerHTML +=
-                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-                  }
-
-                  return div;
-                };
-                legend.addTo(map);
 
                 Window.geoJSONgroup.eachLayer(function (layer) {
                   if (layer.feature.properties.name === "Paraguay") {
