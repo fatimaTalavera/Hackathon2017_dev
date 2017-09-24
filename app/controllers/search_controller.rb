@@ -14,16 +14,19 @@ class SearchController < ApplicationController
       progress
     elsif params['q'] == 'institute_data'
       institute_data
-    elsif params['q'] == 'level_data'
-      level_data
+    elsif params['q'] == 'institutes_from_level'
+      institutes_from_level
     end
   end
 
-  def level_data
-    institutes_query = 'select nivelid from instituciones group by nivelid order by nivelid'
-    @inst_lvls = ActiveRecord::Base.connection.exec_query(institutes_query).rows
-
+  def institutes_from_level
+    nivel = params[:nivelid]
+    raw = 'select entidadid, nombre from instituciones
+    WHERE nivelid = %{nivel}'% {nivel: nivel}
+    @result = ActiveRecord::Base.connection.exec_query(raw)
+    render :json => @result
   end
+
 
   def heat_map
     # ejecutado/vigente
@@ -90,12 +93,18 @@ class SearchController < ApplicationController
       where_raw << "pg.anio = %{year}" % {year: year}
     end
 
-    #si especifica institucion
-    unless params[:entidadid].blank?  && params[:nivelid].blank?
+    #si especifica un nivel
+    unless params[:nivelid].blank?
+      where_raw =  where_raw.blank? ? ' WHERE ' : where_raw + ' AND '
+      nivel = params[:nivelid]
+      where_raw << "pnd.nivel_id = %{nivel} " % {nivel: nivel}
+    end
+
+    #si especifica una entidad
+    unless params[:entidadid].blank?
       where_raw =  where_raw.blank? ? ' WHERE ' : where_raw + ' AND '
       entidad = params[:entidadid]
-      nivel = params[:nivelid]
-      where_raw << "pnd.nivel_id = %{nivel} and pnd.entidad_id = %{entidad} " % {nivel: nivel,entidad: entidad}
+      where_raw << "pnd.entidad_id = %{entidad} " % {entidad: entidad}
     end
 
     group_and_order_raw = ' group by mes

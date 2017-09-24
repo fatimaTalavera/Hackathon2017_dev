@@ -12,8 +12,11 @@ class WelcomeController < ApplicationController
     pgn_months_query = "select mes from pgn_gasto where anio= %{year} group by mes order by mes desc"% {year: @pgn_years.first[0]}
     @pgn_months = ActiveRecord::Base.connection.exec_query(pgn_months_query).rows
 
-    institutes_query = 'select nivelid from instituciones group by nivelid order by nivelid'
-    @inst_lvls = ActiveRecord::Base.connection.exec_query(institutes_query).rows
+    #institutes_query = "select nivelid from instituciones where borrado='false' group by nivelid order by nivelid"
+    #@inst_lvls = ActiveRecord::Base.connection.exec_query(institutes_query).rows
+
+    levels_query = "select nivel, nombrenivel from niveles order by nombrenivel"
+    @inst_lvls = ActiveRecord::Base.connection.exec_query(levels_query).rows
 
     pnd_meta_fisica_years_query = 'select anho from pnd_meta_fisica group by anho order by anho desc'
     @pnd_years = ActiveRecord::Base.connection.exec_query(pnd_meta_fisica_years_query).rows

@@ -17,16 +17,20 @@ autores
           <div class="modal-body">
             <h2>Plan estratégico al 2030</h2>
             <hr class="star-primary">
-            <div class="col-md-2">
 
-            </div>
             <!-- query selector -->
             <div class="col-md-3" id="divForYearSelectProgress" style="display: inline-flex">
               <select id="yearSelectProgress" class="trigerSelect"></select>
             </div>
             <div class="col-md-3" id="divForInstituteLevelSelectProgress" style="display: inline-flex;" >
-              <select id="instituteLevelSelectProgress" class="trigerSelect"></select>
+              <select id="instituteLevelSelectProgress" class="trigerSelect">
+                <option value=""> Seleccione un Nivel</option>
+                <%= @inst_lvls.each do |level| %>
+                    <option value="<%= level[0] %>"> <%= level[1] %></option>
+                <% end %>
+              </select>
             </div>
+
             <div class="col-md-3" id="divForInstituteSelectProgress" style="display: none" >
               <select id="instituteSelectProgress" class="trigerSelect"></select>
             </div>
@@ -84,18 +88,3 @@ autores
     </div>
   </div>
 </div>
-
-<script>
-    $( "#instituteLevelSelectProgress" ).change(function() {
-        loadInstitutesLevelSelect();
-    });
-    $( "#divForInstituteSelectProgress" ).change(function() {
-        if($( "#instituteSelectProgress" ).val() == 'default'){
-            $('#divForProjectSelectProgress').css("display","none");
-            $('#divForInstituteData').hide();
-        }else{
-            $('#divForProjectSelectProgress').css("display","inline-flex");
-            $('#divForInstituteData').show();
-        }
-    });
-</script>

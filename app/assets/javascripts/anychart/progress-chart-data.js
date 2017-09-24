@@ -92,19 +92,22 @@ function progress_line_init(msg){
     };
     var ctx = document.getElementById("canvas").getContext("2d");
     window.myLine = new Chart(ctx, config);
-    $( "#instituteSelectProgress" ).change(function() {
-        var e = document.getElementById("instituteSelectProgress");
-        var value = e.options[e.selectedIndex].value;
-        var text = e.options[e.selectedIndex].text;
 
-        var level = value.substring(0, value.indexOf(' '));
-        var entity = value.substring(value.indexOf(' '), value.lenght);
+    $( "#instituteLevelSelectProgress" ).change(function() {
+        console.log($( "#instituteLevelSelectProgress" ).val());
+        if($( "#instituteLevelSelectProgress" ).val() == ""){
+            $("#divForInstituteSelectProgress").hide();
+        }else{
+            loadInstituteSelectData();
+        }
+        $('#divForInstituteData').css("display","none");
+        $('#divForProjectSelectProgress').css("display","none");
+        var level =  $('#instituteLevelSelectProgress').val();
         var year  = pgn_years[0][0];
-
         $.ajax({
             method: "GET",
             url: "search/search",
-            data: {"nivelid" :level, "entidadid" :entity, "year" :year, "q" : "entity_progress"  }
+            data: {"nivelid" :level, "year" :year, "q" : "entity_progress"  }
         })
             .done(function( msg ) {
                 months_quantity = msg[0].length;
@@ -122,11 +125,54 @@ function progress_line_init(msg){
                 config.data.datasets[1].data = transferred_data;
                 config.data.datasets[2].data = progress_data;
                 window.myLine.update();
-                loadProjectsSelect([level, entity, year]);
             });
-        loadInstituteData();
-
     });
+
+    $( "#instituteSelectProgress" ).change(function() {
+        if($( "#instituteSelectProgress" ).val() == ""){
+            $('#divForProjectSelectProgress').css("display","none");
+            $('#divForInstituteData').hide();
+        }
+        else{
+            $('#divForProjectSelectProgress').css("display","inline-flex");
+            $('#divForInstituteData').show();
+
+            var e = document.getElementById("instituteSelectProgress");
+            var value = e.options[e.selectedIndex].value;
+            var text = e.options[e.selectedIndex].text;
+
+            var level =  $('#instituteLevelSelectProgress').val();
+            var entity = $('#instituteSelectProgress').val();
+            var year  = pgn_years[0][0];
+
+            $.ajax({
+                method: "GET",
+                url: "search/search",
+                data: {"nivelid" :level, "entidadid" :entity, "year" :year, "q" : "entity_progress"  }
+            })
+                .done(function( msg ) {
+                    months_quantity = msg[0].length;
+                    current_months = [];
+                    planified_data = [];
+                    transferred_data = [];
+                    progress_data = [];
+                    for(i = 0; i< months_quantity;i++ ){
+                        current_months.push(all_months[i]);
+                        planified_data.push(msg[0][i][1]/1000000);
+                        transferred_data.push(msg[0][i][2]/1000000);
+                        progress_data.push(msg[1][i][1]/100000);
+                    }
+                    config.data.datasets[0].data = planified_data;
+                    config.data.datasets[1].data = transferred_data;
+                    config.data.datasets[2].data = progress_data;
+                    window.myLine.update();
+                    loadProjectsSelect([level, entity, year]);
+                });
+            loadInstituteData();
+        }
+    });
+
+
 };
 
 
@@ -140,19 +186,6 @@ function loadYearsSelect(){
     }
 };
 
-function loadInstitutesLevelSelect(){
-    var select = document.getElementById('instituteLevelSelectProgress');
-    var option = document.createElement("option");
-    option.value = 'de';
-    option.text = 'Seleccione un Nivel';
-    select.appendChild(option);
-    for (var i = 0; i < inst_nivelid.length; i++) {
-        var option = document.createElement("option");
-        option.value = inst_nivelid[i];
-        option.text = inst_nivelid[i];
-        select.appendChild(option);
-    }
-};
 
 function loadProjectsSelect(data){
     var select = document.getElementById('projectSelectProgress');
@@ -166,20 +199,20 @@ function loadProjectsSelect(data){
 
 function loadInstituteSelectData(data){
     $( "#divForInstituteSelectProgress" ).css("display","inline-flex");
-    var e = document.getElementById("instituteSelectProgress");
-    var value = e.options[e.selectedIndex].value;
-    var text = e.options[e.selectedIndex].text;
-
-    var nivel = value.substring(0, value.indexOf(' '));
-    var entidad = value.substring(value.indexOf(' '), value.lenght);
+    $("#instituteSelectProgress").empty();
+    var nivel =   $( "#instituteLevelSelectProgress" ).val();
     $.ajax({
         method: "GET",
         url: "search/search",
-        data: {"nivelid" :nivel, "q" : "level_data"  }
+        data: {"nivelid" :nivel, "q" : "institutes_from_level"  }
     })
         .done(function( msg ) {
             console.log(msg);
-
+            $('#instituteSelectProgress').append("<option value="+""+">Seleccione una Institucion</option>");
+            msg.map(function(x) {
+                console.log(x);
+                $('#instituteSelectProgress').append("<option value=" + x.entidadid + ">" + x.nombre + "</option>");
+            });
         });
 };
 
@@ -190,8 +223,8 @@ function loadInstituteData(data){
     var value = e.options[e.selectedIndex].value;
     var text = e.options[e.selectedIndex].text;
 
-    var nivel = value.substring(0, value.indexOf(' '));
-    var entidad = value.substring(value.indexOf(' '), value.lenght);
+    var nivel = $('#instituteLevelSelectProgress').val();
+    var entidad = $('#instituteSelectProgress').val();
     $.ajax({
         method: "GET",
         url: "search/search",
