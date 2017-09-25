@@ -103,7 +103,6 @@ autores
                         Window.map.invalidateSize();
                     }, timeout + timeout*i);
                 }
-
             }
 
         });
@@ -113,18 +112,6 @@ autores
         //entity chart
         loadYearsSelect();
         var dataSet;
-        var year  = pgn_years[0][0];
-        $.ajax({
-            method: "GET",
-            url: "search/search",
-            data: {"year" :year, "q" : "entity_progress"}
-        })
-            .done(function( msg ) {
-                progress_line_init(msg);
-                $('#modal3-portfolio-link').removeClass('not-active');
-                $('#modal3-overlay').hide();
-                $(".trigerSelect").select2({ width: '100%', language: "select2-es"});
-            });
 
         Window.map = L.map("map", {minZoom: 6.7, maxZoom: 6.7, doubleClickZoom: false}).setView([-23.5, -58.5], 6);
         Window.map.dragging.disable();
@@ -138,32 +125,14 @@ autores
             .done(function( values ) {
                 //console.log('valuies');
                 //console.log(geoJSONdata.features);
-                var min = values[1][5]*100/values[1][2];
-                var max = min;
-
+                Window.currentDataMap = values;
+                // console.log("max " + max + "-min: " + min);
                 $.each( geoJSONdata.features, function( key, val ) {
-                    var dpto = val.properties.dpto;
-                    var valByDpto = values[parseInt(dpto)];
-                    var currentValue = valByDpto[5]*100/valByDpto[2];
-                    if(currentValue < min){
-                        min = currentValue;
-                    }
-                    if(currentValue > max){
-                        max = currentValue;
-                    }
-                });
-               // console.log("max " + max + "-min: " + min);
-                $.each( geoJSONdata.features, function( key, val ) {
-                  //  console.log('here');
-                 //   console.log(val);
-                 //   console.log(values);
                     var dpto = val.properties.dpto;
                     var valByDpto = values[parseInt(dpto)];
                     val.properties['data'] = valByDpto;
                     var currentValue = valByDpto[4]*100/valByDpto[2];
                     val.properties['value'] = currentValue;
-                    val.properties['min'] = min;
-                    val.properties['max'] = max;
                 });
 
                 Window.geoJSONgroup = L.geoJSON(geoJSONdata, {style: style}).addTo(Window.map);
@@ -174,9 +143,6 @@ autores
                   }
                 });
                 Window.geoJSONgroup.on('click', function(e) {
-                    console.log('check');
-                    console.log(Window.map);
-                    console.log(Window.currentDataMap);
                     var currentData = Window.currentDataMap[parseInt(e.layer.feature.properties.dpto)];
                     $('#departmentName').text(e.layer.feature.properties.dpto_desc);
                     $('#departmentDetail').show();

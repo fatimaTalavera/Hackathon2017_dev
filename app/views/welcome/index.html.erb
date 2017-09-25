@@ -92,6 +92,8 @@ autores
 
 
 <script>
+    var pgn_date = <%= @pgn_date %>;
+
     var pgn_years = <%=  @pgn_years %>;
     var pgn_months = <%=  @pgn_months %>;
     var pnd_years = <%= @pnd_years %>;
@@ -104,6 +106,21 @@ autores
     //<# @inst_lvls.each do |institute| %>
      // inst_nivelid.push('<%#institute[0] %>');
     //<# end %>
+
+
+    var year  = pgn_years[0][0];
+    $.ajax({
+        method: "GET",
+        url: "search/search",
+        data: {"year" :year, "q" : "entity_progress"}
+    })
+        .done(function( msg ) {
+            progress_line_init(msg);
+            $('#modal3-portfolio-link').removeClass('not-active');
+            $('#modal3-overlay').hide();
+            $(".trigerSelect").select2({ width: '100%', language: "select2-es"});
+        });
+
 
     $(".toggle").change(function() {
         if (!$(this).prop('checked')) {

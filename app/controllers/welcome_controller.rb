@@ -6,6 +6,9 @@
 class WelcomeController < ApplicationController
   def index
     #select codigodepartamento, avg(montovigente) as prom_monto_vigente, avg(montoplanfinancierovigente) as prom_montoplanfinancierovigente, avg(montoejecutado) as prom_montoejecutado, avg(montotransferido) as prom_montotransferido, avg(montopagado) as prom_montopagado from pgn_gasto group by codigodepartamento order by codigodepartamento asc
+    pgn_date_query = "select anio, mes from pgn_gasto group by anio, mes order by anio desc, mes desc"
+    @pgn_date = ActiveRecord::Base.connection.exec_query(pgn_date_query).rows
+
     pgn_years_query = "select anio from pgn_gasto group by anio order by anio desc"
     @pgn_years = ActiveRecord::Base.connection.exec_query(pgn_years_query).rows
 
@@ -21,7 +24,7 @@ class WelcomeController < ApplicationController
     pnd_meta_fisica_years_query = 'select anho from pnd_meta_fisica group by anho order by anho desc'
     @pnd_years = ActiveRecord::Base.connection.exec_query(pnd_meta_fisica_years_query).rows
 
-    render 'welcome/index.html.erb', :locals => {  :@inst_lvls => @inst_lvls, :@pgn_months => @pgn_months, @pgn_years => @pgn_years, @pnd_years => @pnd_years}
+    render 'welcome/index.html.erb', :locals => { :@pgn_date => @pgn_date, :@inst_lvls => @inst_lvls, :@pgn_months => @pgn_months, @pgn_years => @pgn_years, @pnd_years => @pnd_years}
   end
 
   def send_contact_email

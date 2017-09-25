@@ -7,19 +7,7 @@
  */
 
 anychart.onDocumentReady(function() {
-    var data = {};
-    $.ajax({
-        method: "GET",
-        url: "search/search",
-        data: {"year" : pgn_years[0][0], "month" :pgn_months[0][0], "q" : "department_heat_map"}
-    })
-        .done(function( msg ) {
-            //self.prop('disabled', false);
-            map_start(msg);
-            Window.currentDataMap = msg;
-
-        });
-
+    selectors_start();
 });
 
 function format_currency (number) {
@@ -29,12 +17,10 @@ function format_currency (number) {
 };
 
 
-function map_start (data) {
-
+function selectors_start () {
     // create new select
     var triggerMonthSelect = document.createElement("select");
     var triggerYearSelect = document.createElement("select");
-
 
     // set selects class and onchange function
     triggerMonthSelect.className = "triggerSelect";
@@ -42,40 +28,41 @@ function map_start (data) {
     triggerMonthSelect.onchange = function() {
         updateHeatMap();
         $('#departmentDetail').hide();
-       // console.log(Window.map);
     };
     triggerYearSelect.className = "triggerSelect";
     triggerYearSelect.id = "yearSelectHeatMap";
     triggerYearSelect.onchange = function() {
+        updateMonthSelect(triggerMonthSelect);
         updateHeatMap();
         $('#departmentDetail').hide();
     };
 
     //set selects options
-    for (var i = 0; i < pgn_years.length; i++) {
+    //console.log(pgn_date);
+    uniqueYear = new Set();
+    for (var i = 0; i < pgn_date.length; i++) {
+        uniqueYear.add(pgn_date[i][0]);
+    }
+    console.log(uniqueYear);
+
+    for (var it = uniqueYear.values(), val= null; val=it.next().value; ) {
         var option = document.createElement("option");
-        option.value = pgn_years[i];
-        option.text = "Año "+ pgn_years;
+        option.value = val;
+        option.text = "Año "+ val;
         triggerYearSelect.appendChild(option);
     }
-    var months_value = ['','Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    //Create and append the options
-    for (var i = 0; i < pgn_months.length; i++) {
-        var option = document.createElement("option");
-        option.value = pgn_months[i][0];
-        option.text = months_value[pgn_months[i][0]];
-        triggerMonthSelect.appendChild(option);
-    }
-
-    // append select to container
+    // add year select to container
     $('#divForYearSelect').append(triggerYearSelect);
+    updateMonthSelect(triggerMonthSelect);
+    // append month select to container
     $('#divForMonthSelect').append(triggerMonthSelect);
 
+    //set select2 class
     $("#monthSelectHeatMap").select2({ width: '100%', language: "select2-es"});
     $("#yearSelectHeatMap").select2({ width: '100%', language: "select2-es"});
 };
-function updateHeatMap(e) {
 
+function updateHeatMap(e) {
     $.ajax({
         method: "GET",
         url: "search/search",
@@ -88,37 +75,15 @@ function updateHeatMap(e) {
             Window.oldGeoJSONgroup = Window.geoJSONgroup;
             $.getJSON('/paraguay.json', function (geoJSONdata) {
 
-                        var min = values[1][5]*100/values[1][2];
-                        var max = min;
-
                         $.each( geoJSONdata.features, function( key, val ) {
-                            var dpto = val.properties.dpto;
-                            var valByDpto = values[parseInt(dpto)];
-                            var currentValue = valByDpto[5]*100/valByDpto[2];
-                            if(currentValue < min){
-                                min = currentValue;
-                            }
-                            if(currentValue > max){
-                                max = currentValue;
-                            }
-                        });
-                        // console.log("max " + max + "-min: " + min);
-                        $.each( geoJSONdata.features, function( key, val ) {
-                            //  console.log('here');
-                            //   console.log(val);
-                            //   console.log(values);
                             var dpto = val.properties.dpto;
                             var valByDpto = values[parseInt(dpto)];
                             val.properties['data'] = valByDpto;
                             //(ejecutado/vigente)*100
                             var currentValue = valByDpto[4]*100/valByDpto[2];
                             val.properties['value'] = currentValue;
-                            val.properties['min'] = min;
-                            val.properties['max'] = max;
                         });
-
                         Window.geoJSONgroup = L.geoJSON(geoJSONdata, {style: style}).addTo(Window.map);
-
                         Window.geoJSONgroup.eachLayer(function (layer) {
                             if (layer.feature.properties.name === "Paraguay") {
                                 Window.map.fitBounds(layer.getBounds());
@@ -127,9 +92,6 @@ function updateHeatMap(e) {
                         Window.map.removeLayer(Window.oldGeoJSONgroup);
                         $('#map-overlay').hide();
                         Window.geoJSONgroup.on('click', function(e) {
-                            console.log('check');
-                            console.log(Window.map);
-                            console.log(Window.currentDataMap);
                             var currentData = Window.currentDataMap[parseInt(e.layer.feature.properties.dpto)];
                             $('#departmentName').text(e.layer.feature.properties.dpto_desc);
                             $('#departmentDetail').show();
@@ -146,7 +108,21 @@ function updateHeatMap(e) {
 
                         });
                     });
-
         });
+
+}
+function updateMonthSelect(triggerMonthSelect) {
+    $('#monthSelectHeatMap').empty();
+    var current_year = $('#yearSelectHeatMap').val();
+    var months_value = ['','Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    //Create and append the options
+    for (var i = 0; i < pgn_date.length; i++) {
+        if(pgn_date[i][0] == current_year){
+            var option = document.createElement("option");
+            option.value = pgn_date[i][1];
+            option.text = months_value[pgn_date[i][1]];
+            triggerMonthSelect.appendChild(option);
+        }
+    }
 
 }
