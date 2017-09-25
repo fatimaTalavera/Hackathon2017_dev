@@ -16,6 +16,8 @@ class SearchController < ApplicationController
       institute_data
     elsif params['q'] == 'institutes_from_level'
       institutes_from_level
+    elsif params['q'] == 'desempeno'
+      desempeno
     end
   end
 
@@ -27,6 +29,20 @@ class SearchController < ApplicationController
     render :json => @result
   end
 
+  def desempeno
+    date = params['year'] + '-' + params['month'] + '%'
+    desempeno_select_raw = "SELECT accion_departamento_id,  sum(cast(avance_cantidad as float))/sum(cast(programacion_cantidad as float))*100  as avance
+	                        FROM linea_accion_programacion_avance
+	                        WHERE avance_cantidad ~ '^[0-9\.]+$'  AND
+	                              programacion_cantidad ~ '^[0-9\.]+$' AND
+	                              mes_entrega like '%{date}'
+	                        GROUP BY accion_departamento_id
+	                        ORDER BY cast(accion_departamento_id as int) asc" % {date: date}
+    #desempeno[0] = depto; desempeno[1] = %desempeno;
+    @desempeno= ActiveRecord::Base.connection.exec_query(desempeno_select_raw).rows
+
+    render :json => @desempeno
+  end
 
   def heat_map
     # ejecutado/vigente
@@ -64,7 +80,7 @@ class SearchController < ApplicationController
       where_raw << 'pgn_gasto.codigodepartamento = %{department} ' % {department: @department}
     end
 
-    group_and_order_raw = " GROUP BY codigodepartamento, entidad_id
+    group_and_order_raw = " GROUP BY codigodepartamento
                            ORDER BY codigodepartamento"
     #si no tiene filtros
     if where_raw.nil?

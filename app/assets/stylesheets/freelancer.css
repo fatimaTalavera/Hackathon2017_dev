@@ -208,6 +208,7 @@ section.success {
 }
 
 #portfolio .portfolio-item .portfolio-link .overlay {
+    z-index: 1000;
     background: white;
     position: absolute;
     width: 100%;
@@ -220,8 +221,27 @@ section.success {
 
 #portfolio .portfolio-item .portfolio-link .spinner {
     position: absolute;
-    top: 25%;
-    left: 25%;
+    margin:0px auto;
+    -webkit-animation: rotation .9s infinite linear;
+    -moz-animation: rotation .9s infinite linear;
+    -o-animation: rotation .9s infinite linear;
+    animation: rotation .9s infinite linear;
+
+    border-left:16px solid rgba(24,188,156,.25);
+    border-right:16px solid rgba(24,188,156,.25);
+    border-bottom:16px solid rgba(24,188,156,.25);
+    border-top:16px solid rgba(24,188,156,.8);
+    border-radius:100%;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    transition: all ease 0.5s;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+
+    position: absolute;
+    top: 35%;
+    left: 35%;
     margin:0px auto;
     -webkit-animation: rotation .9s infinite linear;
     -moz-animation: rotation .9s infinite linear;

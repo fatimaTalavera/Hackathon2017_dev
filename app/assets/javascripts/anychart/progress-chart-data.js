@@ -103,7 +103,7 @@ function progress_line_init(msg){
         $('#divForInstituteData').css("display","none");
         $('#divForProjectSelectProgress').css("display","none");
         var level =  $('#instituteLevelSelectProgress').val();
-        var year  = pgn_years[0][0];
+        var year  = $('#yearSelectProgress').val();
         $.ajax({
             method: "GET",
             url: "search/search",
@@ -143,7 +143,7 @@ function progress_line_init(msg){
 
             var level =  $('#instituteLevelSelectProgress').val();
             var entity = $('#instituteSelectProgress').val();
-            var year  = pgn_years[0][0];
+            var year  = $('#yearSelectProgress').val();
 
             $.ajax({
                 method: "GET",
@@ -177,11 +177,15 @@ function progress_line_init(msg){
 
 
 function loadYearsSelect(){
+    uniqueYear = new Set();
+    for (var i = 0; i < pgn_date.length; i++) {
+        uniqueYear.add(pgn_date[i][0]);
+    }
     var select = document.getElementById('yearSelectProgress');
-    for (var i = 0; i < pgn_years.length; i++) {
+    for (var it = uniqueYear.values(), val= null; val=it.next().value; ) {
         var option = document.createElement("option");
-        option.value = pgn_years[i];
-        option.text = "Año "+ pgn_years[i];
+        option.value = val;
+        option.text = "Año "+ val;
         select.appendChild(option);
     }
 };

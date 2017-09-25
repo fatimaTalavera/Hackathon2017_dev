@@ -94,8 +94,6 @@ autores
 <script>
     var pgn_date = <%= @pgn_date %>;
 
-    var pgn_years = <%=  @pgn_years %>;
-    var pgn_months = <%=  @pgn_months %>;
     var pnd_years = <%= @pnd_years %>;
 
    //var inst_count = <%# @inst.count() %>;
@@ -108,7 +106,9 @@ autores
     //<# end %>
 
 
-    var year  = pgn_years[0][0];
+    var year  = pnd_years[2][0];
+    loadYearsSelect();
+    console.log($('#yearSelectProgress').val());
     $.ajax({
         method: "GET",
         url: "search/search",
