@@ -31,13 +31,15 @@ class SearchController < ApplicationController
 
   def desempeno
     date = params['year'] + '-' + params['month'] + '%'
+    date_with_zero = params['year'] + '-0' + params['month'] + '%'
     desempeno_select_raw = "SELECT accion_departamento_id,  sum(cast(avance_cantidad as float))/sum(cast(programacion_cantidad as float))*100  as avance
 	                        FROM linea_accion_programacion_avance
 	                        WHERE avance_cantidad ~ '^[0-9\.]+$'  AND
 	                              programacion_cantidad ~ '^[0-9\.]+$' AND
-	                              mes_entrega like '%{date}'
+	                              (mes_entrega like '%{date}' OR
+                                mes_entrega like '%{date_with_zero}')
 	                        GROUP BY accion_departamento_id
-	                        ORDER BY cast(accion_departamento_id as int) asc" % {date: date}
+	                        ORDER BY cast(accion_departamento_id as int) asc" % {date: date, date_with_zero: date_with_zero}
     #desempeno[0] = depto; desempeno[1] = %desempeno;
     @desempeno= ActiveRecord::Base.connection.exec_query(desempeno_select_raw).rows
 
@@ -88,7 +90,36 @@ class SearchController < ApplicationController
     end
     query_raw = select_raw + where_raw + group_and_order_raw
     @result = ActiveRecord::Base.connection.exec_query(query_raw).rows
+
+    date = params['year'] + '-' + params['month'] + '%'
+    date_with_zero = params['year'] + '-0' + params['month'] + '%'
+    desempeno_select_raw = "SELECT accion_departamento_id,  sum(cast(avance_cantidad as float))/sum(cast(programacion_cantidad as float))*100  as avance
+	                        FROM linea_accion_programacion_avance
+	                        WHERE avance_cantidad ~ '^[0-9\.]+$'  AND
+	                              programacion_cantidad ~ '^[0-9\.]+$' AND
+	                              (mes_entrega like '%{date}' OR
+                                mes_entrega like '%{date_with_zero}')
+	                        GROUP BY accion_departamento_id
+	                        ORDER BY cast(accion_departamento_id as int) asc" % {date: date, date_with_zero: date_with_zero}
+
+    @desempeno = ActiveRecord::Base.connection.exec_query(desempeno_select_raw).rows
+
+    for i in 0..@result.size()-1
+
+      print @result[i][0]
+      if(@desempeno[i])
+        @result[i].append(@desempeno[i][1])
+      else
+        @result[i].append(0)
+      end
+
+
+    end
+
+
     flash[:notice] = 'Búsqueda realizada correctamente'
+
+
     render :json => @result
   end
 

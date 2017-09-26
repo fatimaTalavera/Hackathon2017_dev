@@ -129,6 +129,9 @@ function progress_line_init(msg){
     });
 
     $( "#instituteSelectProgress" ).change(function() {
+        var level =  $('#instituteLevelSelectProgress').val();
+        var entity = "";
+        var year  = $('#yearSelectProgress').val();
         if($( "#instituteSelectProgress" ).val() == ""){
             $('#divForProjectSelectProgress').css("display","none");
             $('#divForInstituteData').hide();
@@ -136,40 +139,35 @@ function progress_line_init(msg){
         else{
             $('#divForProjectSelectProgress').css("display","inline-flex");
             $('#divForInstituteData').show();
-
-            var e = document.getElementById("instituteSelectProgress");
-            var value = e.options[e.selectedIndex].value;
-            var text = e.options[e.selectedIndex].text;
-
-            var level =  $('#instituteLevelSelectProgress').val();
-            var entity = $('#instituteSelectProgress').val();
-            var year  = $('#yearSelectProgress').val();
-
-            $.ajax({
-                method: "GET",
-                url: "search/search",
-                data: {"nivelid" :level, "entidadid" :entity, "year" :year, "q" : "entity_progress"  }
-            })
-                .done(function( msg ) {
-                    months_quantity = msg[0].length;
-                    current_months = [];
-                    planified_data = [];
-                    transferred_data = [];
-                    progress_data = [];
-                    for(i = 0; i< months_quantity;i++ ){
-                        current_months.push(all_months[i]);
-                        planified_data.push(msg[0][i][1]/1000000);
-                        transferred_data.push(msg[0][i][2]/1000000);
-                        progress_data.push(msg[1][i][1]/100000);
-                    }
-                    config.data.datasets[0].data = planified_data;
-                    config.data.datasets[1].data = transferred_data;
-                    config.data.datasets[2].data = progress_data;
-                    window.myLine.update();
-                    loadProjectsSelect([level, entity, year]);
-                });
+            entity = $('#instituteSelectProgress').val();
+           // var e = document.getElementById("instituteSelectProgress");
+           // var value = e.options[e.selectedIndex].value;
+           // var text = e.options[e.selectedIndex].text;
             loadInstituteData();
         }
+        $.ajax({
+            method: "GET",
+            url: "search/search",
+            data: {"nivelid" :level, "entidadid" :entity, "year" :year, "q" : "entity_progress"  }
+        })
+            .done(function( msg ) {
+                months_quantity = msg[0].length;
+                current_months = [];
+                planified_data = [];
+                transferred_data = [];
+                progress_data = [];
+                for(i = 0; i< months_quantity;i++ ){
+                    current_months.push(all_months[i]);
+                    planified_data.push(msg[0][i][1]/1000000);
+                    transferred_data.push(msg[0][i][2]/1000000);
+                    progress_data.push(msg[1][i][1]/100000);
+                }
+                config.data.datasets[0].data = planified_data;
+                config.data.datasets[1].data = transferred_data;
+                config.data.datasets[2].data = progress_data;
+                window.myLine.update();
+                loadProjectsSelect([level, entity, year]);
+            });
     });
 
 

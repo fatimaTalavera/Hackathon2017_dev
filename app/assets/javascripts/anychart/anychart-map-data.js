@@ -8,6 +8,7 @@
 
 anychart.onDocumentReady(function() {
     selectors_start();
+    initMap();
 });
 
 function format_currency (number) {
@@ -15,7 +16,7 @@ function format_currency (number) {
             return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
         });
 };
-var colors = ['#88f9d4', '#18c29c', '#0b877d', '#126872', '#184169', '#13314d', '#031727',  '#031727',  '#031727',  '#031727'];
+var colors = ['#969696','#57A639', '#FFFF00', '#F80000'];
 $( document ).ready(function() {
     $('#ejecucion-institucional').bind("DOMSubtreeModified",function(){
         if(Window.map != null){
@@ -31,7 +32,6 @@ $( document ).ready(function() {
                 }, timeout + timeout*i);
             }
         }
-
     });
 });
 
@@ -55,12 +55,18 @@ function style(feature) {
 };
 
 function getColor(properties) {
-    d = properties.value;
+    d = properties.data[7];
     var finalColor = colors[10];
-    for(var i= 90; i>=0; i-=10){
-        if(d < i){
-            finalColor = colors[i/10 - 1];
-        }
+    if(d == 0){
+        finalColor = colors[0];
+    }
+    else if(d>= 90 ){
+        finalColor = colors[1];
+    }else if(d>=70){
+        finalColor = colors[2];
+    }else{
+        console.log(colors[3]);
+        finalColor = colors[3];
     }
     return finalColor;
 }
@@ -161,8 +167,6 @@ function selectors_start () {
     //set select2 class
     $("#monthSelectHeatMap").select2({ width: '100%', language: "select2-es"});
     $("#yearSelectHeatMap").select2({ width: '100%', language: "select2-es"});
-
-    initMap();
 };
 
 function updateHeatMap(e) {
