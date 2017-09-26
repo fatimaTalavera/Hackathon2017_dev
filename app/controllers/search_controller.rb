@@ -20,7 +20,7 @@ class SearchController < ApplicationController
       desempeno
     elsif params['q'] == 'board_pnd'
       board_pnd
-    elsif params['q'] == 'board-pnd_detail'
+    elsif params['q'] == 'board_pnd_detail'
       board_pnd_detail
     end
   end
@@ -216,7 +216,7 @@ class SearchController < ApplicationController
 
   def board_pnd_detail
     #[beneficiarios, instituciones, presupuesto, objetivos, ejecucion[anho, planificado, ejecutado]]
-    @result = [rand(1000), rand(1000), rand(1500000000), rand(1000),
+    @result = [rand(100000), rand(100000), rand(1500000000), rand(100000),
                [[2016, rand(150000000), rand(150000000)],[2017, rand(150000000), rand(150000000)]]]
     render :json => @result
   end

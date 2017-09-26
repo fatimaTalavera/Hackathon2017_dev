@@ -1,3 +1,22 @@
+.bg-purple{
+    background-color: mediumpurple;
+    color: white;
+}
+.bg-orange{
+    background-color: orange;
+    color: white;
+}
+.bg-green{
+    background-color: green;
+    color: white;
+}
+.bg-blue{
+    background-color: darkblue;
+    color: white;
+}
+
+
+
 #notice_wrapper {
     position: absolute;
     width: 20%;

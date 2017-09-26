@@ -26,75 +26,101 @@ autores
             <hr class="star-primary">
             <div class="board">
               <div class="axis poverty">
-                <div class="strategy">
+                <div class="strategy" data-axis="1" data-line="0">
                   <%= image_tag('poverty.png', class: 'pnd')%>
                   <%= image_tag('poverty2.png', class: 'pnd hover')%>
                   <div>Reducción de pobreza y desarrollo social</div>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="1" data-line="1">
                   <div class="amount" id="strategy11"></div>
                   <span class="description">Desarrollo social equitativo</span>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="1" data-line="2">
                   <div class="amount" id="strategy12"></div>
                   <span class="description">Servicios sociales de calidad</span>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="1" data-line="3">
                   <div class="amount" id="strategy13"></div>
                   <span class="description">Desarrollo local participativo</span>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="1" data-line="4">
                   <div class="amount" id="strategy14"></div>
                   <span class="description">Hábitat adecuado y sostenible</span>
                 </div>
               </div>
 
               <div class="axis economy">
-                <div class="strategy">
+                <div class="strategy" data-axis="2" data-line="0">
                   <%= image_tag('economy.png', class: 'pnd')%>
                   <%= image_tag('economy2.png', class: 'pnd hover')%>
                   <div>Crecimiento económico inclusivo</div>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="2" data-line="1">
                   <div class="amount" id="strategy21"></div>
                   <span class="description">Empleo y seguridad social</span>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="2" data-line="2">
                   <div class="amount" id="strategy22"></div>
                   <span class="description">Competitividad e innovación</span>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="2" data-line="3">
                   <div class="amount" id="strategy23"></div>
                   <span class="description">Regionalización y diversificación productiva</span>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="2" data-line="4">
                   <div class="amount" id="strategy24"></div>
                   <span class="description">Valorización del capital ambiental</span>
                 </div>
               </div>
 
               <div class="axis insertion">
-                <div class="strategy">
+                <div class="strategy" data-axis="3" data-line="0">
                   <%= image_tag('insertion.png', class: 'pnd')%>
                   <%= image_tag('insertion2.png', class: 'pnd hover')%>
                   <div>Inserción de Paraguay en el mundo</div>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="3" data-line="1">
                   <div class="amount" id="strategy31"></div>
                   <span class="description">Igualdad de oportunidades en un mundo globalizado</span>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="3" data-line="2">
                   <div class="amount" id="strategy32"></div>
                   <span class="description">Atracción de inversiones, comercio exterior e imagen país</span>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="3" data-line="3">
                   <div class="amount" id="strategy33"></div>
                   <span class="description">Integración económica regional</span>
                 </div>
-                <div class="strategy">
+                <div class="strategy" data-axis="3" data-line="4">
                   <div class="amount" id="strategy34"></div>
                   <span class="description">Sostenibilidad del hábitat global</span>
                 </div>
+              </div>
+            </div>
+
+            <div id="strategy-details" class="strategy-details" style="display: none">
+              <div class="strategy bg-purple" >
+                <div id="beneficiaries" class="amount col-md-8">55</div>
+                <i class="fa fa-users col-md-4" aria-hidden="true"></i>
+                <span class="description">Beneficiarios</span>
+              </div>
+
+              <div class="strategy bg-orange" >
+                <div id="institutions" class="amount col-md-8">55</div>
+                <i class="fa fa-building col-md-4" aria-hidden="true"></i>
+                <span class="description">Instituciones</span>
+              </div>
+
+              <div class="strategy bg-green" >
+                <div id="money" class="amount col-md-8">55</div>
+                <i class="fa fa-money col-md-4" aria-hidden="true"></i>
+                <span id="money-detail" class="description" >Inversión</span>
+              </div>
+
+              <div class="strategy bg-blue">
+                <div id="objective" class="amount col-md-8">55</div>
+                <i class="fa fa-link col-md-4" aria-hidden="true"></i>
+                <span class="description">Motivos</span>
               </div>
             </div>
 

@@ -4,7 +4,7 @@
 .axis {
     width: 100%;
 }
-.axis .strategy {
+.strategy {
     font-size: 15px;
     font-weight: 300;
     float: left;
@@ -61,3 +61,23 @@
 .strategy:hover .pnd.hover {
     display: inline-block;
 }
+
+.strategy-details {
+    margin-top: 30px;
+}
+
+.strategy-details .strategy {
+    height: 100px;
+    margin: 30px 2.5%;
+}
+.strategy-details .amount {
+    font-size: 25px;
+    text-align: center;
+    margin: 10px 0;
+}
+.strategy-details .strategy .fa {
+    font-size: 40px;
+    text-align: center;
+    margin: 10px 0;
+}
+
