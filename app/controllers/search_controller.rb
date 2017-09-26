@@ -18,6 +18,10 @@ class SearchController < ApplicationController
       institutes_from_level
     elsif params['q'] == 'desempeno'
       desempeno
+    elsif params['q'] == 'board_pnd'
+      board_pnd
+    elsif params['q'] == 'board-pnd_detail'
+      board_pnd_detail
     end
   end
 
@@ -193,6 +197,29 @@ class SearchController < ApplicationController
     render :json => @result
   end
 
+  def board_pnd
+    # [eje, linea_transversal, monto]
+    @result = [[ 1, 1, 550000],
+               [ 1, 2, 450000],
+               [ 1, 3, 350000],
+               [ 1, 4, 150000000],
+               [ 2, 1, 650000],
+               [ 2, 2, 850000000],
+               [ 2, 3, 150000],
+               [ 2, 4, 50000],
+               [ 3, 1, 5800050000],
+               [ 3, 2, 550000],
+               [ 3, 3, 550000],
+               [ 3, 4, 550000]]
+    render :json => @result
+  end
+
+  def board_pnd_detail
+    #[beneficiarios, instituciones, presupuesto, objetivos, ejecucion[anho, planificado, ejecutado]]
+    @result = [rand(1000), rand(1000), rand(1500000000), rand(1000),
+               [[2016, rand(150000000), rand(150000000)],[2017, rand(150000000), rand(150000000)]]]
+    render :json => @result
+  end
 
   def fail_message
     flash[:warn] = 'La búsqueda falló'
