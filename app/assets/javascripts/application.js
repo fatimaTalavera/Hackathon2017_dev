@@ -15,8 +15,6 @@
 //= require jquery-1.11.3.min.js
 //= require jquery.dataTables.min.js
 //= require dataTables.bootstrap.min.js
-//= require anychart/anychart-bundle.min.js
-//= require anychart/anychart-paraguay.js
 //= require Chart.bundle
 //= require bootbox.min
 //= require turbolinks

@@ -6,10 +6,7 @@
  #
  */
 
-anychart.onDocumentReady(function() {
-    selectors_start();
-    initMap();
-});
+
 
 function format_currency (number) {
     return 'Gs. ' + parseFloat(number).toFixed(0).replace(/./g, function(c, i, a) {
@@ -18,6 +15,8 @@ function format_currency (number) {
 };
 var colors = ['#969696','#57A639', '#FFFF00', '#F80000'];
 $( document ).ready(function() {
+    selectors_start();
+    initMap();
     $('#ejecucion-institucional').bind("DOMSubtreeModified",function(){
         if(Window.map != null){
             $('#modal2-portfolio-link').removeClass('not-active');
