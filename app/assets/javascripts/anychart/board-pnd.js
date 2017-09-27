@@ -23,6 +23,10 @@ $(document).ready(function() {
         $(this).addClass('active');
         var axis = $(this).data('axis');
         var line = $(this).data('line');
+        $('#strategy-details').fadeOut(1000, function() {
+            // TODO
+            $('#strategy-details').detach().appendTo('#details-axis' + axis);
+        });
         $.ajax({
             method: "GET",
             url: "search/search",
@@ -30,7 +34,7 @@ $(document).ready(function() {
         })
         .done(function( msg ) {
             board_pnd_detail_init(msg);
-            $('#strategy-details').css('display', 'block');
+            $('#strategy-details').fadeIn(3000);
         });
     });
 });

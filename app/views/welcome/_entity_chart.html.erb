@@ -22,7 +22,7 @@ autores
       <div class="row">
         <div class="col-lg-12 col-lg-offset-2" style="margin: 0px;">
           <div class="modal-body">
-            <h2>Progreso 2015 - 2017</h2>
+            <h2>Tablero PND</h2>
             <hr class="star-primary">
             <div class="board">
               <div class="axis poverty">
@@ -48,7 +48,7 @@ autores
                   <span class="description">Hábitat adecuado y sostenible</span>
                 </div>
               </div>
-
+              <div id="details-axis1"></div>
               <div class="axis economy">
                 <div class="strategy" data-axis="2" data-line="0">
                   <%= image_tag('economy.png', class: 'pnd')%>
@@ -72,7 +72,7 @@ autores
                   <span class="description">Valorización del capital ambiental</span>
                 </div>
               </div>
-
+              <div id="details-axis2"></div>
               <div class="axis insertion">
                 <div class="strategy" data-axis="3" data-line="0">
                   <%= image_tag('insertion.png', class: 'pnd')%>
@@ -97,32 +97,35 @@ autores
                 </div>
               </div>
             </div>
+            <div id="details-axis3">
+              <div id="strategy-details" class="strategy-details" style="display: none">
+                <div class="strategy bg-purple" >
+                  <div id="beneficiaries" class="amount col-md-8">55</div>
+                  <i class="fa fa-users col-md-4" aria-hidden="true"></i>
+                  <span class="description">Beneficiarios</span>
+                </div>
 
-            <div id="strategy-details" class="strategy-details" style="display: none">
-              <div class="strategy bg-purple" >
-                <div id="beneficiaries" class="amount col-md-8">55</div>
-                <i class="fa fa-users col-md-4" aria-hidden="true"></i>
-                <span class="description">Beneficiarios</span>
-              </div>
+                <div class="strategy bg-orange" >
+                  <div id="institutions" class="amount col-md-8">55</div>
+                  <i class="fa fa-building col-md-4" aria-hidden="true"></i>
+                  <span class="description">Instituciones</span>
+                </div>
 
-              <div class="strategy bg-orange" >
-                <div id="institutions" class="amount col-md-8">55</div>
-                <i class="fa fa-building col-md-4" aria-hidden="true"></i>
-                <span class="description">Instituciones</span>
-              </div>
+                <div class="strategy bg-green" >
+                  <div id="money" class="amount col-md-8">55</div>
+                  <i class="fa fa-money col-md-4" aria-hidden="true"></i>
+                  <span id="money-detail" class="description" >Inversión</span>
+                </div>
 
-              <div class="strategy bg-green" >
-                <div id="money" class="amount col-md-8">55</div>
-                <i class="fa fa-money col-md-4" aria-hidden="true"></i>
-                <span id="money-detail" class="description" >Inversión</span>
-              </div>
-
-              <div class="strategy bg-blue">
-                <div id="objective" class="amount col-md-8">55</div>
-                <i class="fa fa-link col-md-4" aria-hidden="true"></i>
-                <span class="description">Motivos</span>
+                <div class="strategy bg-blue">
+                  <div id="objective" class="amount col-md-8">55</div>
+                  <i class="fa fa-link col-md-4" aria-hidden="true"></i>
+                  <span class="description">Motivos</span>
+                </div>
               </div>
             </div>
+
+
 
             <ul class="list-inline item-details">
               <li>Client:

@@ -30,12 +30,20 @@
     background: #3fb149;
     color: white;
 }
+.axis.poverty .strategy.active {
+    background: #3fb149;
+    color: white;
+}
 .axis.economy .strategy {
     background: rgba(254, 134, 5, 0.1);
     border: 1px solid #fe8605;
     color: #fe8605;
 }
 .axis.economy .strategy:hover {
+    background: #fe8605;
+    color: white;
+}
+.axis.economy .strategy.active {
     background: #fe8605;
     color: white;
 }
@@ -48,6 +56,10 @@
     background: #0ab6ef;
     color: white;
 }
+.axis.insertion .strategy.active {
+    background: #0ab6ef;
+    color: white;
+}
 .pnd{
     width: 40%;
     margin: 0px !important;
@@ -55,10 +67,22 @@
 .pnd.hover{
     display: none;
 }
+.pnd.active{
+    display: none;
+}
+.axis .strategy {
+    cursor: pointer;
+}
 .strategy:hover .pnd {
     display: none;
 }
+.strategy.active .pnd {
+    display: none;
+}
 .strategy:hover .pnd.hover {
+    display: inline-block;
+}
+.strategy.active .pnd.hover {
     display: inline-block;
 }
 
