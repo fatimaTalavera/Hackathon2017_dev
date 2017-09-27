@@ -26,14 +26,16 @@
 
 
 $(document).ready(function(){
+    // Tooltip envent
+    $('[data-toggle="tooltip"]').tooltip();
+
     var isModal = false;
     $(window.location.hash).modal('show');
 
     $('a[data-toggle="modal"]').click(function(){
-        var ref = $(this).attr('href');
         window.location.hash = $(this).attr('href');
         isModal = true;
-        reloadDisqus(this);
+        if ($(this).hasClass('portfolio-link')) reloadDisqus(this);
     });
 
     $('button[data-dismiss="modal"]').click(function(){
