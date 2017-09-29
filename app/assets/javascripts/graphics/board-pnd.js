@@ -17,13 +17,93 @@ $(document).ready(function() {
         $('#modal1-portfolio-link').removeClass('not-active');
         $('#modal1-overlay').hide();
     });
+});
+
+function board_pnd_init (data){
+    data.forEach(function(item, index){
+        // #stragegy + axis + action line
+        $('#strategy' + item[0] + item[1]).html(number_short_format(item[2]));
+    });
+
+
+    window.chartColors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(201, 203, 207)'
+    };
+
+    var progress_data = [];
+    var config = {
+        type: 'line',
+        data: {
+            labels: ['1','2'],
+            datasets: [{
+                label: "Planificado Vigente",
+                fill: false,
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
+                data: [1,2],
+            }, {
+                label: "Transferido",
+                fill: false,
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
+                borderDash: [5, 5],
+                data: [1,2],
+            }, {
+                label: "Avance",
+                backgroundColor: window.chartColors.red,
+                borderColor: window.chartColors.red,
+                data: [1,2],
+                fill: true,
+            }]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:true,
+                text:'Línea de Progreso'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Mes'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Monto (Millones)Gs.'
+                    }
+                }]
+            }
+        }
+    };
+    var ctx = document.getElementById("pnd-canvas").getContext("2d");
+    window.pndLine = new Chart(ctx, config);
+
 
     $('.axis .strategy').bind("click",function(){
         $('.strategy').removeClass('active');
         $(this).addClass('active');
         var axis = $(this).data('axis');
         var line = $(this).data('line');
-        $('#strategy-details').fadeOut(1000, function() {
+        $('#strategy-details').fadeOut(500, function() {
             // TODO
             $('#strategy-details').detach().appendTo('#details-axis' + axis);
         });
@@ -32,19 +112,16 @@ $(document).ready(function() {
             url: "search/search",
             data: {"q" : "board_pnd_detail", "axis": axis, "line" : line}
         })
-        .done(function( msg ) {
-            board_pnd_detail_init(msg);
-            $('#strategy-details').fadeIn(3000);
-        });
+            .done(function( msg ) {
+                setTimeout(function(){
+                    $('#strategy-details').fadeIn(500);
+                    board_pnd_detail_init(msg);
+                }, 400);
+            });
     });
-});
+}
 
-function board_pnd_init (data){
-    data.forEach(function(item, index){
-        // #stragegy + axis + action line
-        $('#strategy' + item[0] + item[1]).html(number_short_format(item[2]));
-    });
-};
+
 
 function board_pnd_detail_init (data){
     $('#beneficiaries').html(number_short_format(data[0]));
@@ -52,7 +129,9 @@ function board_pnd_detail_init (data){
     $('#money').html(number_short_format(data[2]));
     $('#money-detail').html(format_currency(data[2]));
     $('#objective').html(number_short_format(data[3]));
-};
+}
+
+
 
 function number_short_format (number) {
     var result = number/1000000;
@@ -64,7 +143,7 @@ function number_short_format (number) {
         return result.toFixed(0) + ' K';
     }
     return result.toFixed(0);
-};
+}
 
 
 

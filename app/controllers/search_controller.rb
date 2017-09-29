@@ -182,8 +182,13 @@ class SearchController < ApplicationController
 
     group_and_order_raw =   'group by substring(mes,6,8)
                             order by substring(mes,6,8) asc'
-    query_raw = select_raw + where_raw + group_and_order_raw
-    @paid_result = ActiveRecord::Base.connection.exec_query(query_raw).rows
+    #query_raw = select_raw + where_raw + group_and_order_raw
+    #@paid_result = ActiveRecord::Base.connection.exec_query(query_raw).rows
+
+    @paid_result = []
+    for i in 0..@result.size()-1
+      @paid_result.push([@result[i][0], Float(@result[i][2])/10*0.7])
+    end
 
     render :json => [@result, @paid_result]
   end

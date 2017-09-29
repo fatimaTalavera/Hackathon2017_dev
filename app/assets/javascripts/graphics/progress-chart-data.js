@@ -19,8 +19,6 @@ function progress_line_init(msg){
         grey: 'rgb(201, 203, 207)'
     };
 
-
-    console.log(msg);
     var months_quantity = msg[0].length;
     var all_months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     var current_months = [];
@@ -62,7 +60,7 @@ function progress_line_init(msg){
             responsive: true,
             title:{
                 display:true,
-                text:'Chart.js Line Chart'
+                text:'Línea de Progreso'
             },
             tooltips: {
                 mode: 'index',
@@ -94,7 +92,6 @@ function progress_line_init(msg){
     window.myLine = new Chart(ctx, config);
 
     $( "#instituteLevelSelectProgress" ).change(function() {
-        console.log($( "#instituteLevelSelectProgress" ).val());
         if($( "#instituteLevelSelectProgress" ).val() == ""){
             $("#divForInstituteSelectProgress").hide();
         }else{
@@ -169,8 +166,6 @@ function progress_line_init(msg){
                 loadProjectsSelect([level, entity, year]);
             });
     });
-
-
 };
 
 
