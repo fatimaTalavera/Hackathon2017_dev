@@ -129,6 +129,7 @@ function board_pnd_detail_init (data){
     $('#money').html(number_short_format(data[2]));
     $('#money-detail').html(format_currency(data[2]));
     $('#objective').html(number_short_format(data[3]));
+    $('#progress_percentage').html(data[5]+"%");
 }
 
 

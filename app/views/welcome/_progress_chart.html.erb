@@ -24,7 +24,7 @@ autores
             </div>
             <div class="col-md-3" id="divForInstituteLevelSelectProgress" style="display: inline-flex;" >
               <select id="instituteLevelSelectProgress" class="trigerSelect">
-                <option value=""> Seleccione un Nivel</option>
+                <option value=""> Todos los Niveles</option>
                 <%= @inst_lvls.each do |level| %>
                     <option value="<%= level[0] %>"> <%= level[1] %></option>
                 <% end %>

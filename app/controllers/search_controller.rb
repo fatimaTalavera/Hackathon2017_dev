@@ -22,12 +22,34 @@ class SearchController < ApplicationController
       board_pnd
     elsif params['q'] == 'board_pnd_detail'
       board_pnd_detail
+    elsif params['q'] == 'projects_from_institute'
+      projects_from_institute
     end
   end
 
+  def projects_from_institute
+
+
+    year = params[:year]
+    level = params[:nivelid]
+    entity = params[:entidadid]
+    query_raw = "SELECT
+                          descripcionprograma
+                          FROM pgn_gasto pg
+                          INNER JOIN pnd_meta_fisica pnd on pnd.pre_prod_concat = pg.pre_prod_concat
+                          WHERE pg.anio = %{year} AND
+                                pnd.nivel_id = %{nivel} AND
+                                 pnd.entidad_id = %{entidad}
+                          GROUP BY descripcionprograma
+                          ORDER BY descripcionprograma asc"% {year: year, nivel: level, entidad: entity}
+
+    @result = ActiveRecord::Base.connection.exec_query(query_raw).rows
+    render :json => @result
+
+  end
   def institutes_from_level
     nivel = params[:nivelid]
-    raw = 'select entidadid, nombre from instituciones
+    raw = 'select entidadid, nombre, id from instituciones
     WHERE nivelid = %{nivel}'% {nivel: nivel}
     @result = ActiveRecord::Base.connection.exec_query(raw)
     render :json => @result
@@ -158,6 +180,13 @@ class SearchController < ApplicationController
       where_raw << "pnd.entidad_id = %{entidad} " % {entidad: entidad}
     end
 
+    #si especifica un programa
+    unless params[:program].blank?
+      where_raw =  where_raw.blank? ? ' WHERE ' : where_raw + ' AND '
+      program = params[:program]
+      where_raw << "descripcionprograma = '%{program}' " % {program: program}
+    end
+
     group_and_order_raw = ' group by mes
                            ORDER BY mes asc '
 
@@ -220,9 +249,12 @@ class SearchController < ApplicationController
   end
 
   def board_pnd_detail
-    #[beneficiarios, instituciones, presupuesto, objetivos, ejecucion[anho, planificado, ejecutado]]
+
+
+    #[beneficiarios, instituciones, presupuesto, objetivos, ejecucion[anho, planificado, ejecutado], progreso %]
     @result = [rand(100000), rand(100000), rand(1500000000), rand(100000),
-               [[2016, rand(150000000), rand(150000000)],[2017, rand(150000000), rand(150000000)]]]
+               [[2016, rand(150000000), rand(150000000)],[2017, rand(150000000), rand(150000000)]],
+               [90]]
     render :json => @result
   end
 

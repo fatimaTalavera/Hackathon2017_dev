@@ -92,6 +92,7 @@ function progress_line_init(msg){
     window.myLine = new Chart(ctx, config);
 
     $( "#instituteLevelSelectProgress" ).change(function() {
+        $("#projectSelectProgress").empty();
         if($( "#instituteLevelSelectProgress" ).val() == ""){
             $("#divForInstituteSelectProgress").hide();
         }else{
@@ -128,6 +129,7 @@ function progress_line_init(msg){
     $( "#instituteSelectProgress" ).change(function() {
         var level =  $('#instituteLevelSelectProgress').val();
         var entity = "";
+        var id;
         var year  = $('#yearSelectProgress').val();
         if($( "#instituteSelectProgress" ).val() == ""){
             $('#divForProjectSelectProgress').css("display","none");
@@ -136,12 +138,15 @@ function progress_line_init(msg){
         else{
             $('#divForProjectSelectProgress').css("display","inline-flex");
             $('#divForInstituteData').show();
-            entity = $('#instituteSelectProgress').val();
+            var entidadid = $('#instituteSelectProgress').val();
+            entity = entidadid.substring(0, entidadid.indexOf('#')); //obtengo la entidad
+            id = entidadid.substring(entidadid.indexOf('#')+1, entidadid.length); //obtengo la entidad
            // var e = document.getElementById("instituteSelectProgress");
            // var value = e.options[e.selectedIndex].value;
            // var text = e.options[e.selectedIndex].text;
             loadInstituteData();
         }
+        //loadProjectsSelect([level, entity, year]);
         $.ajax({
             method: "GET",
             url: "search/search",
@@ -163,7 +168,44 @@ function progress_line_init(msg){
                 config.data.datasets[1].data = transferred_data;
                 config.data.datasets[2].data = progress_data;
                 window.myLine.update();
-                loadProjectsSelect([level, entity, year]);
+                //if($( "#instituteSelectProgress" ).val() == ""){
+                //    $('#divForProjectSelectProgress').css("display","none");
+               //     $('#divForInstituteData').hide();
+               // }else{
+                    loadProjectsSelect([level, entity, year]);
+              //  }
+
+            });
+    });
+
+    $( "#projectSelectProgress" ).change(function() {
+        var level =  $('#instituteLevelSelectProgress').val();
+        var entity = $('#instituteSelectProgress').val();
+        entity = entity.substring(0, entity.indexOf('#')); //obtengo la entidad
+        var id;
+        var year  = $('#yearSelectProgress').val();
+        var program = $('#projectSelectProgress').val();
+        $.ajax({
+            method: "GET",
+            url: "search/search",
+            data: {"nivelid" :level, "entidadid" :entity, "year" :year, "q" : "entity_progress", "program" :program  }
+        })
+            .done(function( msg ) {
+                months_quantity = msg[0].length;
+                current_months = [];
+                planified_data = [];
+                transferred_data = [];
+                progress_data = [];
+                for(i = 0; i< months_quantity;i++ ){
+                    current_months.push(all_months[i]);
+                    planified_data.push(msg[0][i][1]/1000000);
+                    transferred_data.push(msg[0][i][2]/1000000);
+                    progress_data.push(msg[1][i][1]/100000);
+                }
+                config.data.datasets[0].data = planified_data;
+                config.data.datasets[1].data = transferred_data;
+                config.data.datasets[2].data = progress_data;
+                window.myLine.update();
             });
     });
 };
@@ -185,11 +227,29 @@ function loadYearsSelect(){
 
 
 function loadProjectsSelect(data){
+    //ajax projects_from_institute
+
+    $("#projectSelectProgress").empty();
     var select = document.getElementById('projectSelectProgress');
-    var option = document.createElement("option");
-    option.value = data[0]+' '+data[1];
-    option.text = 'Proyectos';
-    select.appendChild(option);
+    $.ajax({
+        method: "GET",
+        url: "search/search",
+        data: {"nivelid" :data[0], "entidadid" :data[1], "year" :data[2], "q" : "projects_from_institute"  }
+    })
+        .done(function( msg ) {
+            var option = document.createElement("option");
+            option.value = "";
+            option.text = 'Todos los proyectos'
+            select.appendChild(option);
+            for (var i = 0; i < msg.length; i++) {
+                option = document.createElement("option");
+                option.value = msg[i][0];
+                option.text = msg[i][0];
+                select.appendChild(option);
+
+            }
+        });
+
 
 };
 
@@ -205,10 +265,11 @@ function loadInstituteSelectData(data){
     })
         .done(function( msg ) {
             console.log(msg);
-            $('#instituteSelectProgress').append("<option value="+""+">Seleccione una Institucion</option>");
+            $('#instituteSelectProgress').append("<option value="+""+">Todas las Institucion</option>");
             msg.map(function(x) {
+                console.log('a');
                 console.log(x);
-                $('#instituteSelectProgress').append("<option value=" + x.entidadid + ">" + x.nombre + "</option>");
+                $('#instituteSelectProgress').append("<option value=" + x.entidadid + "#" + x.id + ">" + x.nombre + "</option>");
             });
         });
 };
@@ -221,7 +282,9 @@ function loadInstituteData(data){
     var text = e.options[e.selectedIndex].text;
 
     var nivel = $('#instituteLevelSelectProgress').val();
-    var entidad = $('#instituteSelectProgress').val();
+    var entidadid = $('#instituteSelectProgress').val();
+    var entidad = entidadid.substring(0, entidadid.indexOf('#')); //obtengo la entidad
+    var id = entidadid.substring(entidadid.indexOf('#')+1, entidadid.length); //obtengo la entidad
     $.ajax({
         method: "GET",
         url: "search/search",
