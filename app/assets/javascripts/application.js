@@ -37,6 +37,15 @@ $(document).ready(function(){
         window.location.hash = $(this).attr('href');
         isModal = true;
         if ($(this).hasClass('portfolio-link')) reloadDisqus(this);
+        setTimeout(function(){
+            Window.map.invalidateSize();
+        }, 200);
+        setTimeout(function(){
+            Window.map.invalidateSize();
+        }, 1000);
+        setTimeout(function(){
+            Window.map.invalidateSize();
+        }, 5000);
     });
 
     $('button[data-dismiss="modal"]').click(function(){

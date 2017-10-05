@@ -36,8 +36,12 @@ $( document ).ready(function() {
     });
 });
 
-
-
+$('#ejecucion-departamental').on('classChange', function() {
+    alert('change');
+});
+$('#ejecucion-departamental').bind('DOMSubtreeModified', function(e) {
+    alert('class changed');
+});
 function format_currency (number) {
     return 'Gs. ' + parseFloat(number).toFixed(0).replace(/./g, function(c, i, a) {
             return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
