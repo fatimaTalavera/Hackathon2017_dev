@@ -12,8 +12,10 @@ $(document).ready(function() {
         url: "search/search",
         data: {"q" : "board_pnd"}
     })
-    .done(function( msg ) {
-        board_pnd_init(msg);
+    .done(function( values ) {
+        $('#board-quantity-visits').text(values[1]['cantidad_vistas']);
+        $('#board-quantity-downloads').text(values[1]['cantidad_descargas']);
+        board_pnd_init(values[0]);
         $('#modal1-portfolio-link').removeClass('not-active');
         $('#modal1-overlay').hide();
     });

@@ -247,7 +247,11 @@ class SearchController < ApplicationController
                [ 3, 2, 550000],
                [ 3, 3, 550000],
                [ 3, 4, 550000]]
-    render :json => @result
+
+    metrica = Metrica.find_or_create_by(pagina: 'TABLERO')
+    metrica.increment!(:cantidad_vistas)
+
+    render :json => [@result, metrica]
   end
 
   def board_pnd_detail
