@@ -221,7 +221,16 @@ class SearchController < ApplicationController
       @paid_result.push([@result[i][0], Float(@result[i][2])/10*0.7])
     end
 
-    render :json => [@result, @paid_result]
+    filtro = params[:year].blank? ? '' : params[:year]
+    filtro.concat(params[:nivelid].blank? ? '' : params[:nivelid])
+    filtro.concat(params[:entidadid].blank? ? '' : params[:entidadid])
+    filtro.concat(params[:program].blank? ? '' : params[:program])
+
+    metrica = Metrica.find_or_create_by(pagina: 'PROGRESO', filtro: filtro )
+
+    metrica.increment!(:cantidad_vistas)
+
+    render :json => [@result, @paid_result, metrica]
   end
 
   def institute_data
