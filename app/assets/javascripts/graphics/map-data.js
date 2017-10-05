@@ -84,13 +84,13 @@ function initMap() {
                 data: {"year" : $('#yearSelectHeatMap').val(), "month" :$('#monthSelectHeatMap').val(), "q" : "department_heat_map"}
             })
                 .done(function( values ) {
-                    //console.log('valuies');
-                    //console.log(geoJSONdata.features);
-                    Window.currentDataMap = values;
+                    $('#map-quantity-visits').text(values[1]['cantidad_vistas']);
+                    $('#map-quantity-downloads').text(values[1]['cantidad_descargas']);
+                    Window.currentDataMap = values[0];
                     // console.log("max " + max + "-min: " + min);
                     $.each( geoJSONdata.features, function( key, val ) {
                         var dpto = val.properties.dpto;
-                        var valByDpto = values[parseInt(dpto)];
+                        var valByDpto = values[0][parseInt(dpto)];
                         val.properties['data'] = valByDpto;
                         var currentValue = valByDpto[4]*100/valByDpto[2];
                         val.properties['value'] = currentValue;
@@ -176,14 +176,16 @@ function updateHeatMap(e) {
 
     })
         .done(function( values ) {
-            Window.currentDataMap = values;
+            $('#map-quantity-visits').text(values[1]['cantidad_vistas']);
+            $('#map-quantity-downloads').text(values[1]['cantidad_descargas']);
+            Window.currentDataMap = values[0];
             $('#map-overlay').show();
             Window.oldGeoJSONgroup = Window.geoJSONgroup;
             $.getJSON('/paraguay.json', function (geoJSONdata) {
 
                         $.each( geoJSONdata.features, function( key, val ) {
                             var dpto = val.properties.dpto;
-                            var valByDpto = values[parseInt(dpto)];
+                            var valByDpto = values[0][parseInt(dpto)];
                             val.properties['data'] = valByDpto;
                             //(ejecutado/vigente)*100
                             var currentValue = valByDpto[4]*100/valByDpto[2];

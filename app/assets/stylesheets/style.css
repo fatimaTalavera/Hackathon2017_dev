@@ -262,6 +262,12 @@
     filter:alpha(opacity=100);
 }
 
+.metrics {
+    display: inline-block;
+    font-style: italic;
+    margin-top: 10px;
+}
+
 /* From Portrait tablets and small desktops To small phones*/
 @media (max-width: 991px) {
     .actions .fa {

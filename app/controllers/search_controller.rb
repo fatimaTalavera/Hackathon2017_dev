@@ -145,8 +145,10 @@ class SearchController < ApplicationController
 
     flash[:notice] = 'Búsqueda realizada correctamente'
 
+    metrica = Metrica.find_or_create_by(pagina: 'MAPA', filtro: params[:year] + params[:month] )
+    metrica.increment!(:cantidad_vistas)
 
-    render :json => @result
+    render :json => [@result, metrica]
   end
 
 
