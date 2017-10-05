@@ -14,14 +14,16 @@ function format_currency (number) {
         });
 };
 var colors = ['#969696','#57A639', '#FFFF00', '#F80000'];
+
 $( document ).ready(function() {
     selectors_start();
     initMap();
+    Window.map.on('load', Window.map.invalidateSize());
     $('#ejecucion-institucional').bind("DOMSubtreeModified",function(){
         if(Window.map != null){
             $('#modal2-portfolio-link').removeClass('not-active');
             $('#modal2-overlay').hide();
-            var timeout = 500;
+            /*var timeout = 500;
             setTimeout(function(){
                 Window.map.invalidateSize();
             }, timeout);
@@ -29,7 +31,7 @@ $( document ).ready(function() {
                 setTimeout(function(){
                     Window.map.invalidateSize();
                 }, timeout + timeout*i);
-            }
+            }*/
         }
     });
 });
@@ -64,10 +66,8 @@ function getColor(properties) {
     }else if(d>=70){
         finalColor = colors[2];
     }else{
-        console.log(colors[3]);
         finalColor = colors[3];
     }
-   // console.log(properties);
     return finalColor;
 }
 
@@ -88,15 +88,10 @@ function initMap() {
                     $('#map-quantity-visits').text(values[1]['cantidad_vistas']);
                     $('#map-quantity-downloads').text(values[1]['cantidad_descargas']);
                     Window.currentDataMap = values[0];
-                    // console.log("max " + max + "-min: " + min);
-                    //console.log(values);
                     $.each( geoJSONdata.features, function( key, val ) {
                         var dpto = val.properties.codigo;
                         var valByDpto = values[0][parseInt(dpto)];
                         val.properties['data'] = valByDpto;
-                        console.log('revisar');
-                        console.log(valByDpto);
-                        console.log('revisar');
                         //var currentValue = valByDpto[4]*100/valByDpto[2];
                         //val.properties['value'] = currentValue;
                     });
@@ -117,13 +112,13 @@ function initMap() {
                         instituteData.forEach(function (element) {
                             var elementTitle = $("#departmentDetail\\["+element+"\\]").html();
                             var newElementTitle = elementTitle.match(/<strong>(.*)strong>/)
-                            //console.log(newElementTitle[0]);
                             $("#departmentDetail\\["+element+"\\]").html(newElementTitle[0]+' '+format_currency(currentData[counter]));
                             $("#departmentDetail\\["+element+"\\]").show();
                             counter++;
                         });
 
                     });
+                    Window.map.invalidateSize();
                 });
         });
 }
@@ -149,12 +144,10 @@ function selectors_start () {
     };
 
     //set selects options
-    //console.log(pgn_date);
     uniqueYear = new Set();
     for (var i = 0; i < pgn_date.length; i++) {
         uniqueYear.add(pgn_date[i][0]);
     }
-    console.log(uniqueYear);
 
     for (var it = uniqueYear.values(), val= null; val=it.next().value; ) {
         var option = document.createElement("option");
@@ -192,7 +185,6 @@ function updateHeatMap(e) {
                             var dpto = val.properties.codigo;
                             var valByDpto = values[0][parseInt(dpto)];
                             val.properties['data'] = valByDpto;
-                            console.log(values);
 
                             //(ejecutado/vigente)*100
                             //var currentValue = valByDpto[4]*100/valByDpto[2];
@@ -215,7 +207,6 @@ function updateHeatMap(e) {
                             instituteData.forEach(function (element) {
                                 var elementTitle = $("#departmentDetail\\["+element+"\\]").html();
                                 var newElementTitle = elementTitle.match(/<strong>(.*)strong>/)
-                                //console.log(newElementTitle[0]);
                                 $("#departmentDetail\\["+element+"\\]").html(newElementTitle[0]+' '+format_currency(currentData[counter]));
                                 $("#departmentDetail\\["+element+"\\]").show();
                                 counter++;
@@ -223,6 +214,7 @@ function updateHeatMap(e) {
 
                         });
                     });
+            Window.map.invalidateSize();
         });
 
 }

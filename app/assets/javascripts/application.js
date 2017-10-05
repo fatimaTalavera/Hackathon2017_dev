@@ -23,6 +23,7 @@
 //= require jquery.validate.min
 //= require messages_es
 //= require leaflet-src
+//= require disqus
 
 
 $(document).ready(function(){
