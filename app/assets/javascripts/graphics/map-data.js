@@ -67,6 +67,7 @@ function getColor(properties) {
         console.log(colors[3]);
         finalColor = colors[3];
     }
+   // console.log(properties);
     return finalColor;
 }
 
@@ -77,7 +78,7 @@ function initMap() {
         Window.map = L.map("map", {minZoom: 6.7, maxZoom: 6.7, doubleClickZoom: false}).setView([-23.5, -58.5], 6);
         Window.map.dragging.disable();
 
-        $.getJSON('/paraguay.json', function (geoJSONdata) {
+        $.getJSON('/paraguay_2002_departamentos.geojson', function (geoJSONdata) {
             $.ajax({
                 method: "GET",
                 url: "search/search",
@@ -88,12 +89,16 @@ function initMap() {
                     $('#map-quantity-downloads').text(values[1]['cantidad_descargas']);
                     Window.currentDataMap = values[0];
                     // console.log("max " + max + "-min: " + min);
+                    //console.log(values);
                     $.each( geoJSONdata.features, function( key, val ) {
-                        var dpto = val.properties.dpto;
+                        var dpto = val.properties.codigo;
                         var valByDpto = values[0][parseInt(dpto)];
                         val.properties['data'] = valByDpto;
-                        var currentValue = valByDpto[4]*100/valByDpto[2];
-                        val.properties['value'] = currentValue;
+                        console.log('revisar');
+                        console.log(valByDpto);
+                        console.log('revisar');
+                        //var currentValue = valByDpto[4]*100/valByDpto[2];
+                        //val.properties['value'] = currentValue;
                     });
 
                     Window.geoJSONgroup = L.geoJSON(geoJSONdata, {style: style}).addTo(Window.map);
@@ -104,8 +109,8 @@ function initMap() {
                         }
                     });
                     Window.geoJSONgroup.on('click', function(e) {
-                        var currentData = Window.currentDataMap[parseInt(e.layer.feature.properties.dpto)];
-                        $('#departmentName').text(e.layer.feature.properties.dpto_desc);
+                        var currentData = Window.currentDataMap[parseInt(e.layer.feature.properties.codigo)];
+                        $('#departmentName').text(e.layer.feature.properties.department);
                         $('#departmentDetail').show();
                         var instituteData = ['presupuesto_aprobado', 'presupuesto_vigente', 'monto_planificado', 'monto_ejecutado', 'monto_transferido', 'monto_abonado'];
                         var counter = 1;
@@ -181,15 +186,17 @@ function updateHeatMap(e) {
             Window.currentDataMap = values[0];
             $('#map-overlay').show();
             Window.oldGeoJSONgroup = Window.geoJSONgroup;
-            $.getJSON('/paraguay.json', function (geoJSONdata) {
+            $.getJSON('/paraguay_2002_departamentos.geojson', function (geoJSONdata) {
 
                         $.each( geoJSONdata.features, function( key, val ) {
-                            var dpto = val.properties.dpto;
+                            var dpto = val.properties.codigo;
                             var valByDpto = values[0][parseInt(dpto)];
                             val.properties['data'] = valByDpto;
+                            console.log(values);
+
                             //(ejecutado/vigente)*100
-                            var currentValue = valByDpto[4]*100/valByDpto[2];
-                            val.properties['value'] = currentValue;
+                            //var currentValue = valByDpto[4]*100/valByDpto[2];
+                            //val.properties['value'] = currentValue;
                         });
                         Window.geoJSONgroup = L.geoJSON(geoJSONdata, {style: style}).addTo(Window.map);
                         Window.geoJSONgroup.eachLayer(function (layer) {
@@ -200,7 +207,7 @@ function updateHeatMap(e) {
                         Window.map.removeLayer(Window.oldGeoJSONgroup);
                         $('#map-overlay').hide();
                         Window.geoJSONgroup.on('click', function(e) {
-                            var currentData = Window.currentDataMap[parseInt(e.layer.feature.properties.dpto)];
+                            var currentData = Window.currentDataMap[parseInt(e.layer.feature.properties.codigo)];
                             $('#departmentName').text(e.layer.feature.properties.dpto_desc);
                             $('#departmentDetail').show();
                             var instituteData = ['presupuesto_aprobado', 'presupuesto_vigente', 'monto_planificado', 'monto_ejecutado', 'monto_transferido', 'monto_abonado'];
