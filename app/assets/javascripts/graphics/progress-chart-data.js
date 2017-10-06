@@ -6,18 +6,10 @@
  #
  */
 
-
-function progress_line_init(msg){
-
-    window.chartColors = {
-        red: 'rgb(255, 99, 132)',
-        orange: 'rgb(255, 159, 64)',
-        yellow: 'rgb(255, 205, 86)',
-        green: 'rgb(75, 192, 192)',
-        blue: 'rgb(54, 162, 235)',
-        purple: 'rgb(153, 102, 255)',
-        grey: 'rgb(201, 203, 207)'
-    };
+/*
+ * Funcion inicial del grafico de progreso, setea la cantidad de vistas/descargas y maneja el spinner
+ */
+function progress_line_init(msg) {
 
     var months_quantity = msg[0].length;
     var all_months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -25,11 +17,11 @@ function progress_line_init(msg){
     var planified_data = [];
     var transferred_data = [];
     var progress_data = [];
-    for(i = 0; i< months_quantity;i++ ){
+    for (i = 0; i < months_quantity; i++) {
         current_months.push(all_months[i]);
-        planified_data.push(msg[0][i][1]/1000000);
-        transferred_data.push(msg[0][i][2]/1000000);
-        progress_data.push(msg[1][i][1]/100000);
+        planified_data.push(msg[0][i][1] / 1000000);
+        transferred_data.push(msg[0][i][2] / 1000000);
+        progress_data.push(msg[1][i][1] / 100000);
     }
     var config = {
         type: 'line',
@@ -58,9 +50,9 @@ function progress_line_init(msg){
         },
         options: {
             responsive: true,
-            title:{
-                display:true,
-                text:'Línea de Progreso'
+            title: {
+                display: true,
+                text: 'Línea de Progreso'
             },
             tooltips: {
                 mode: 'index',
@@ -91,23 +83,29 @@ function progress_line_init(msg){
     var ctx = document.getElementById("canvas").getContext("2d");
     window.myLine = new Chart(ctx, config);
 
-    $( "#instituteLevelSelectProgress" ).change(function() {
+    /*
+     * Funcion que se ejecuta cuando cambia el selector de Niveles de Institutos
+     * Hace una llamada a la API y obtiene los datos de acuerdo a
+     * un anho, nivel, tambien se encarga de ocultar los selectores
+     * que no se deben ver
+     */
+    $("#instituteLevelSelectProgress").change(function () {
         $("#projectSelectProgress").empty();
-        if($( "#instituteLevelSelectProgress" ).val() == ""){
+        if ($("#instituteLevelSelectProgress").val() == "") {
             $("#divForInstituteSelectProgress").hide();
-        }else{
+        } else {
             loadInstituteSelectData();
         }
-        $('#divForInstituteData').css("display","none");
-        $('#divForProjectSelectProgress').css("display","none");
-        var level =  $('#instituteLevelSelectProgress').val();
-        var year  = $('#yearSelectProgress').val();
+        $('#divForInstituteData').css("display", "none");
+        $('#divForProjectSelectProgress').css("display", "none");
+        var level = $('#instituteLevelSelectProgress').val();
+        var year = $('#yearSelectProgress').val();
         $.ajax({
             method: "GET",
             url: "search/search",
-            data: {"nivelid" :level, "year" :year, "q" : "entity_progress"  }
+            data: {"nivelid": level, "year": year, "q": "entity_progress"}
         })
-            .done(function( msg ) {
+            .done(function (msg) {
                 $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);
                 $('#progress-quantity-downloads').text(msg[2]['cantidad_descargas']);
                 months_quantity = msg[0].length;
@@ -115,11 +113,11 @@ function progress_line_init(msg){
                 planified_data = [];
                 transferred_data = [];
                 progress_data = [];
-                for(i = 0; i< months_quantity;i++ ){
+                for (i = 0; i < months_quantity; i++) {
                     current_months.push(all_months[i]);
-                    planified_data.push(msg[0][i][1]/1000000);
-                    transferred_data.push(msg[0][i][2]/1000000);
-                    progress_data.push(msg[1][i][1]/100000);
+                    planified_data.push(msg[0][i][1] / 1000000);
+                    transferred_data.push(msg[0][i][2] / 1000000);
+                    progress_data.push(msg[1][i][1] / 100000);
                 }
                 config.data.datasets[0].data = planified_data;
                 config.data.datasets[1].data = transferred_data;
@@ -128,33 +126,39 @@ function progress_line_init(msg){
             });
     });
 
-    $( "#instituteSelectProgress" ).change(function() {
-        var level =  $('#instituteLevelSelectProgress').val();
+    /*
+     * Funcion que se ejecuta cuando cambia el selector de Institutos
+     * Hace una llamada a la API y obtiene los datos de acuerdo a
+     * un anho, nivel, entidad, tambien se encarga de ocultar los selectores
+     * que no se deben ver
+     */
+    $("#instituteSelectProgress").change(function () {
+        var level = $('#instituteLevelSelectProgress').val();
         var entity = "";
         var id;
-        var year  = $('#yearSelectProgress').val();
-        if($( "#instituteSelectProgress" ).val() == ""){
-            $('#divForProjectSelectProgress').css("display","none");
+        var year = $('#yearSelectProgress').val();
+        if ($("#instituteSelectProgress").val() == "") {
+            $('#divForProjectSelectProgress').css("display", "none");
             $('#divForInstituteData').hide();
         }
-        else{
-            $('#divForProjectSelectProgress').css("display","inline-flex");
+        else {
+            $('#divForProjectSelectProgress').css("display", "inline-flex");
             $('#divForInstituteData').show();
             var entidadid = $('#instituteSelectProgress').val();
             entity = entidadid.substring(0, entidadid.indexOf('#')); //obtengo la entidad
-            id = entidadid.substring(entidadid.indexOf('#')+1, entidadid.length); //obtengo la entidad
-           // var e = document.getElementById("instituteSelectProgress");
-           // var value = e.options[e.selectedIndex].value;
-           // var text = e.options[e.selectedIndex].text;
+            id = entidadid.substring(entidadid.indexOf('#') + 1, entidadid.length); //obtengo la entidad
+            // var e = document.getElementById("instituteSelectProgress");
+            // var value = e.options[e.selectedIndex].value;
+            // var text = e.options[e.selectedIndex].text;
             loadInstituteData();
         }
         //loadProjectsSelect([level, entity, year]);
         $.ajax({
             method: "GET",
             url: "search/search",
-            data: {"nivelid" :level, "entidadid" :entity, "year" :year, "q" : "entity_progress"  }
+            data: {"nivelid": level, "entidadid": entity, "year": year, "q": "entity_progress"}
         })
-            .done(function( msg ) {
+            .done(function (msg) {
                 $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);
                 $('#progress-quantity-downloads').text(msg[2]['cantidad_descargas']);
                 months_quantity = msg[0].length;
@@ -162,11 +166,11 @@ function progress_line_init(msg){
                 planified_data = [];
                 transferred_data = [];
                 progress_data = [];
-                for(i = 0; i< months_quantity;i++ ){
+                for (i = 0; i < months_quantity; i++) {
                     current_months.push(all_months[i]);
-                    planified_data.push(msg[0][i][1]/1000000);
-                    transferred_data.push(msg[0][i][2]/1000000);
-                    progress_data.push(msg[1][i][1]/100000);
+                    planified_data.push(msg[0][i][1] / 1000000);
+                    transferred_data.push(msg[0][i][2] / 1000000);
+                    progress_data.push(msg[1][i][1] / 100000);
                 }
                 config.data.datasets[0].data = planified_data;
                 config.data.datasets[1].data = transferred_data;
@@ -174,27 +178,32 @@ function progress_line_init(msg){
                 window.myLine.update();
                 //if($( "#instituteSelectProgress" ).val() == ""){
                 //    $('#divForProjectSelectProgress').css("display","none");
-               //     $('#divForInstituteData').hide();
-               // }else{
-                    loadProjectsSelect([level, entity, year]);
-              //  }
+                //     $('#divForInstituteData').hide();
+                // }else{
+                loadProjectsSelect([level, entity, year]);
+                //  }
 
             });
     });
 
-    $( "#projectSelectProgress" ).change(function() {
-        var level =  $('#instituteLevelSelectProgress').val();
+    /*
+     * Funcion que se ejecuta cuando cambia el selector de proyecto
+     * Hace una llamada a la API y obtiene los datos de acuerdo a
+     * Un anho, nivel, entidad, programa
+     */
+    $("#projectSelectProgress").change(function () {
+        var level = $('#instituteLevelSelectProgress').val();
         var entity = $('#instituteSelectProgress').val();
         entity = entity.substring(0, entity.indexOf('#')); //obtengo la entidad
         var id;
-        var year  = $('#yearSelectProgress').val();
+        var year = $('#yearSelectProgress').val();
         var program = $('#projectSelectProgress').val();
         $.ajax({
             method: "GET",
             url: "search/search",
-            data: {"nivelid" :level, "entidadid" :entity, "year" :year, "q" : "entity_progress", "program" :program  }
+            data: {"nivelid": level, "entidadid": entity, "year": year, "q": "entity_progress", "program": program}
         })
-            .done(function( msg ) {
+            .done(function (msg) {
                 $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);
                 $('#progress-quantity-downloads').text(msg[2]['cantidad_descargas']);
                 months_quantity = msg[0].length;
@@ -202,11 +211,11 @@ function progress_line_init(msg){
                 planified_data = [];
                 transferred_data = [];
                 progress_data = [];
-                for(i = 0; i< months_quantity;i++ ){
+                for (i = 0; i < months_quantity; i++) {
                     current_months.push(all_months[i]);
-                    planified_data.push(msg[0][i][1]/1000000);
-                    transferred_data.push(msg[0][i][2]/1000000);
-                    progress_data.push(msg[1][i][1]/100000);
+                    planified_data.push(msg[0][i][1] / 1000000);
+                    transferred_data.push(msg[0][i][2] / 1000000);
+                    progress_data.push(msg[1][i][1] / 100000);
                 }
                 config.data.datasets[0].data = planified_data;
                 config.data.datasets[1].data = transferred_data;
@@ -216,23 +225,29 @@ function progress_line_init(msg){
     });
 };
 
-
-function loadYearsSelect(){
+/*
+ * Funcion que carga el selector de anhos en el grafico de progreso
+ * los datos fueron obtenidos al iniciar la aplicacion
+ * Orden descendente
+ */
+function loadYearsSelect() {
     uniqueYear = new Set();
     for (var i = 0; i < pgn_date.length; i++) {
         uniqueYear.add(pgn_date[i][0]);
     }
     var select = document.getElementById('yearSelectProgress');
-    for (var it = uniqueYear.values(), val= null; val=it.next().value; ) {
+    for (var it = uniqueYear.values(), val = null; val = it.next().value;) {
         var option = document.createElement("option");
         option.value = val;
-        option.text = "Año "+ val;
+        option.text = "Año " + val;
         select.appendChild(option);
     }
 };
 
-
-function loadProjectsSelect(data){
+/*
+ * Funcion que carga el selector de proyectos en el grafico de progreso
+ */
+function loadProjectsSelect(data) {
     //ajax projects_from_institute
 
     $("#projectSelectProgress").empty();
@@ -240,9 +255,9 @@ function loadProjectsSelect(data){
     $.ajax({
         method: "GET",
         url: "search/search",
-        data: {"nivelid" :data[0], "entidadid" :data[1], "year" :data[2], "q" : "projects_from_institute"  }
+        data: {"nivelid": data[0], "entidadid": data[1], "year": data[2], "q": "projects_from_institute"}
     })
-        .done(function( msg ) {
+        .done(function (msg) {
             var option = document.createElement("option");
             option.value = "";
             option.text = 'Todos los proyectos'
@@ -255,33 +270,35 @@ function loadProjectsSelect(data){
 
             }
         });
-
-
 };
 
-
-function loadInstituteSelectData(data){
-    $( "#divForInstituteSelectProgress" ).css("display","inline-flex");
+/*
+ * Funcion que carga las instituciones en un selector,
+ * Hace una llamada a la API, teniendo en cuenta el nivel seleccionado
+ */
+function loadInstituteSelectData(data) {
+    $("#divForInstituteSelectProgress").css("display", "inline-flex");
     $("#instituteSelectProgress").empty();
-    var nivel =   $( "#instituteLevelSelectProgress" ).val();
+    var nivel = $("#instituteLevelSelectProgress").val();
     $.ajax({
         method: "GET",
         url: "search/search",
-        data: {"nivelid" :nivel, "q" : "institutes_from_level"  }
+        data: {"nivelid": nivel, "q": "institutes_from_level"}
     })
-        .done(function( msg ) {
-            console.log(msg);
-            $('#instituteSelectProgress').append("<option value="+""+">Todas las Institucion</option>");
-            msg.map(function(x) {
-                console.log('a');
-                console.log(x);
+        .done(function (msg) {
+            $('#instituteSelectProgress').append("<option value=" + "" + ">Todas las Institucion</option>");
+            msg.map(function (x) {
+
                 $('#instituteSelectProgress').append("<option value=" + x.entidadid + "#" + x.id + ">" + x.nombre + "</option>");
             });
         });
 };
 
-
-function loadInstituteData(data){
+/*
+ * Funcion que carga los datos de la Institucion seleccionada,
+ * Hace una llamada a la API y obtiene los datos
+ */
+function loadInstituteData(data) {
     $('#divForInstituteData').show();
     var e = document.getElementById("instituteSelectProgress");
     var value = e.options[e.selectedIndex].value;
@@ -290,23 +307,23 @@ function loadInstituteData(data){
     var nivel = $('#instituteLevelSelectProgress').val();
     var entidadid = $('#instituteSelectProgress').val();
     var entidad = entidadid.substring(0, entidadid.indexOf('#')); //obtengo la entidad
-    var id = entidadid.substring(entidadid.indexOf('#')+1, entidadid.length); //obtengo la entidad
+    var id = entidadid.substring(entidadid.indexOf('#') + 1, entidadid.length); //obtengo la entidad
     $.ajax({
         method: "GET",
         url: "search/search",
-        data: {"nivelid" :nivel, "entidadid" :entidad, "q" : "institute_data"  }
+        data: {"nivelid": nivel, "entidadid": entidad, "q": "institute_data"}
     })
-        .done(function( msg ) {
+        .done(function (msg) {
             var instituteData = ['nombre', 'mision', 'vision', 'objetivo', 'politica', 'diagnostico', 'baselegal'];
             instituteData.forEach(function (element) {
-                if(msg[element]){
-                    var elementTitle = $("#institute\\["+element+"\\]").html();
+                if (msg[element]) {
+                    var elementTitle = $("#institute\\[" + element + "\\]").html();
                     var newElementTitle = elementTitle.match(/<strong>(.*)strong>/)
                     console.log(newElementTitle[0]);
-                    $("#institute\\["+element+"\\]").html(newElementTitle[0]+' '+msg[element]);
-                    $("#institute\\["+element+"\\]").show();
-                }else{
-                    $("#institute\\["+element+"\\]").hide();
+                    $("#institute\\[" + element + "\\]").html(newElementTitle[0] + ' ' + msg[element]);
+                    $("#institute\\[" + element + "\\]").show();
+                } else {
+                    $("#institute\\[" + element + "\\]").hide();
                 }
 
             });
