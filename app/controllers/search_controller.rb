@@ -231,10 +231,10 @@ class SearchController < ApplicationController
     filtro.concat(params[:program].blank? ? '' : params[:program])
 
     metrica = Metrica.find_or_create_by(pagina: 'PROGRESO', filtro: filtro )
+    descarga = Metrica.find_or_create_by(pagina: 'PROGRESO_DESCARGA', filtro: filtro )
 
     metrica.increment!(:cantidad_vistas)
-
-    render :json => [@result, @paid_result, metrica]
+    render :json => [@result, @paid_result, metrica, descarga]
   end
 
   def institute_data

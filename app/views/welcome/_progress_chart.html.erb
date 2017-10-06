@@ -68,7 +68,7 @@ autores
               </span>
             </div>
             <div class="actions col-md-4">
-              <a href="javascript:void(0)" class="download-png"><i class="fa fa-download" aria-hidden="true" data-download-id="map"></i></a>
+              <a id="downloadProgressLine" class="download-png"><i class="fa fa-download" aria-hidden="true" data-download-id="map"></i></a>
               <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Utiliza los filtros para busquedas avanzadas, si das click en un departamento podrás ver su información detallada." aria-hidden="true"></i>
             </div>
             <!-- end rate and actions -->
@@ -107,3 +107,19 @@ autores
     </div>
   </div>
 </div>
+
+<script>
+    $( "#downloadProgressLine" ).click(function() {
+        this.href = document.getElementById('canvas').toDataURL();
+        this.download = 'progressLine.png';
+
+        $.ajax({
+            method: "POST",
+            url: "/metrica",
+            data: {"location" : "PROGRESO_DESCARGA"}
+        })
+            .done(function( msg ) {
+                $('#progress-quantity-downloads').text(msg);
+            });
+    });
+</script>

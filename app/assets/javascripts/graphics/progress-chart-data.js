@@ -117,7 +117,7 @@ function progress_line_init(msg) {
         })
             .done(function (msg) {
                 $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);
-                $('#progress-quantity-downloads').text(msg[2]['cantidad_descargas']);
+                $('#progress-quantity-downloads').text(msg[3]['cantidad_descargas']);
                 months_quantity = msg[0].length;
                 current_months = [];
                 planified_data = [];
@@ -170,7 +170,7 @@ function progress_line_init(msg) {
         })
             .done(function (msg) {
                 $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);
-                $('#progress-quantity-downloads').text(msg[2]['cantidad_descargas']);
+                $('#progress-quantity-downloads').text(msg[3]['cantidad_descargas']);
                 months_quantity = msg[0].length;
                 current_months = [];
                 planified_data = [];
@@ -215,7 +215,7 @@ function progress_line_init(msg) {
         })
             .done(function (msg) {
                 $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);
-                $('#progress-quantity-downloads').text(msg[2]['cantidad_descargas']);
+                $('#progress-quantity-downloads').text(msg[3]['cantidad_descargas']);
                 months_quantity = msg[0].length;
                 current_months = [];
                 planified_data = [];
@@ -339,5 +339,4 @@ function loadInstituteData(data) {
             });
         });
 };
-
 

@@ -83,15 +83,7 @@ $(document).ready(function(){
         resetDisqus(hash, href.replace('#', '#!') );
     };
 
-    $('.download-png').click(function(){
-        alert('hola');
-        var id = $(this).data("download-id");
-        html2canvas(document.body, {
-            onrendered: function (canvas) {
-                Canvas2Image.saveAsPNG(canvas);
-            }
-        });
-    });
+
 
     
 });
