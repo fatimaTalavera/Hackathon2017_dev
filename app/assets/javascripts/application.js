@@ -15,6 +15,7 @@
 //= require jquery-1.11.3.min.js
 //= require jquery.dataTables.min.js
 //= require dataTables.bootstrap.min.js
+//= require jquery.rateyo.min.js
 //= require Chart.bundle
 //= require bootbox.min
 //= require turbolinks
@@ -76,4 +77,16 @@ $(document).ready(function(){
         $(hash).find('.container').append('<div id="disqus_thread"></div>');
         resetDisqus(hash, href.replace('#', '#!') );
     };
+
+    $('.download-png').click(function(){
+        alert('hola');
+        var id = $(this).data("download-id");
+        html2canvas(document.body, {
+            onrendered: function (canvas) {
+                Canvas2Image.saveAsPNG(canvas);
+            }
+        });
+    });
+
+    
 });

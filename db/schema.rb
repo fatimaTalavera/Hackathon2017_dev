@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005004004) do
+ActiveRecord::Schema.define(version: 20171006001638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,15 @@ ActiveRecord::Schema.define(version: 20171005004004) do
     t.string  "avance_borr",         limit: 1,    null: false
     t.string  "distrito_avance",     limit: 32,   null: false
     t.string  "departamento_avance", limit: 16,   null: false
+  end
+
+  create_table "calificaciones", force: :cascade do |t|
+    t.string   "ip"
+    t.string   "filtro"
+    t.integer  "puntaje",    default: 0
+    t.string   "comentario"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "destinatarios_avances", id: false, force: :cascade do |t|

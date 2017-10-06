@@ -13,6 +13,7 @@
 
  *= require dataTables.bootstrap.min.css
  *= require font-awesome
+ *= require jquery.rateyo.min.css
  *= require_tree .
  *= require_self
  *= style.css
