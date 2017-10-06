@@ -238,15 +238,6 @@
     text-align: justify;
 }
 
-.actions{
-    text-align: right;
-}
-.actions .fa {
-    color: #f1c40f;
-    font-size: 25px;
-    margin: 10px;
-}
-
 /* Tooltip style */
 .tooltip > .tooltip-inner {
     background-color: lightgoldenrodyellow;
@@ -261,11 +252,14 @@
     opacity: 1;
     filter:alpha(opacity=100);
 }
-
-.metrics {
-    display: inline-block;
-    font-style: italic;
-    margin-top: 10px;
+.actions{
+    text-align: right;
+}
+.actions .fa {
+    color: #f1c40f;
+    cursor: pointer;
+    font-size: 25px;
+    margin: 10px;
 }
 
 /* From Portrait tablets and small desktops To small phones*/
@@ -274,3 +268,42 @@
         font-size: 50px;
     }
 }
+
+/* Metrics of donwloads and visists */
+.metrics {
+    display: inline-block;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+/* Rate Style */
+.rate {
+    margin-top: 8px;
+}
+.rate .jq-ry-container{
+    float: left;
+    margin-left: 25px;
+}
+.rate .description {
+    float: left;
+    font-size: 20px;
+    color: #f39c12;
+}
+.description .nominal-value {
+    font-size: 15px;
+}
+.description .title {
+    color: #808080;
+    text-transform: uppercase;
+}
+.description .calification {
+    background-color: #f39c12;
+    border-radius: 50%;
+    color: white;
+    width: 15px;
+    height: 15px;
+    padding: 5px;
+    margin: 0px 5px;
+}
+
+

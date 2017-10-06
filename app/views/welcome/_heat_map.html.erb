@@ -37,29 +37,37 @@ autores
             <br>
             <br>
             <!-- end query selector -->
-            <div class="actions col-md-12">
-              <a href="javascript:void(0)" class="download-png"><i class="fa fa-download" aria-hidden="true" data-download-id="map"></i></a>
-              <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Utiliza los filtros para busquedas avanzadas, si das click en un departamento podrás ver su información detallada." aria-hidden="true"></i>
-            </div>
+
 
             <div id="map" class="container-chart">
               <div id="map-overlay" class="overlay" style="display: none">
                 <div class="spinner"></div>
               </div>
             </div>
+            <!-- end map -->
 
+            <div class="rate col-md-8">
+              <span class="description">
+                <span class="title">Paraguay</span>
+                <span class="calification">0.0</span>
+              </span>
+              <div id="map-rate"></div>
+              <span class="description">
+                <span class="nominal-value"></span>
+              </span>
+            </div>
+            <div class="actions col-md-4">
+              <a href="javascript:void(0)" class="download-png"><i class="fa fa-download" aria-hidden="true" data-download-id="map"></i></a>
+              <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Utiliza los filtros para busquedas avanzadas, si das click en un departamento podrás ver su información detallada." aria-hidden="true"></i>
+            </div>
+            <!-- end rate and actions -->
 
             <!-- Department Sumary -->
             <div id="dataMap" class="paragraph">
             </div>
 
-            <div class="rate">
-              <h4 id="departmentName" class="title">Paraguay</h4>
-              <div id="map-rate"></div>
-              <span>&iquest;Qu&eacute; tan satisfecho est&aacute;s?</span>
-            </div>
-
             <div id="departmentDetail" class="" style="display: none;">
+                <h4 style="text-align: center"><p id="departmentName"></p></h4>
                 <p id="departmentDetail[presupuesto_aprobado]"><strong>Presupuesto Aprobado: </strong></p>
                 <p id="departmentDetail[presupuesto_vigente]"><strong>Presupuesto Vigente: </strong> </p>
                 <p id="departmentDetail[monto_planificado]"><strong>Monto Planificado: </strong> </p>
