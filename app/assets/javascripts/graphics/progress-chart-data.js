@@ -11,6 +11,10 @@
  */
 function progress_line_init(msg) {
 
+    // msg[4] = rating
+    // msg[5] = goblal rating
+    initRate("#progress-rate", msg[4]['puntaje'], msg[5], updateMapProgess);
+
     window.chartColors = {
         red: 'rgb(255, 99, 132)',
         orange: 'rgb(255, 159, 64)',
@@ -113,7 +117,7 @@ function progress_line_init(msg) {
         $.ajax({
             method: "GET",
             url: "search/search",
-            data: {"nivelid": level, "year": year, "q": "entity_progress"}
+            data: {"ip" : localStorage.getItem("clientIp"), "nivelid": level, "year": year, "q": "entity_progress"}
         })
             .done(function (msg) {
                 $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);
@@ -166,11 +170,16 @@ function progress_line_init(msg) {
         $.ajax({
             method: "GET",
             url: "search/search",
-            data: {"nivelid": level, "entidadid": entity, "year": year, "q": "entity_progress"}
+            data: {"ip" : localStorage.getItem("clientIp"), "nivelid": level, "entidadid": entity, "year": year, "q": "entity_progress"}
         })
             .done(function (msg) {
                 $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);
                 $('#progress-quantity-downloads').text(msg[3]['cantidad_descargas']);
+
+                // msg[4] = rating
+                // msg[5] = goblal rating
+                setRate("#progress-rate", msg[4]['puntaje'], msg[5], Window.institudName);
+
                 months_quantity = msg[0].length;
                 current_months = [];
                 planified_data = [];
@@ -211,7 +220,7 @@ function progress_line_init(msg) {
         $.ajax({
             method: "GET",
             url: "search/search",
-            data: {"nivelid": level, "entidadid": entity, "year": year, "q": "entity_progress", "program": program}
+            data: {"ip" : localStorage.getItem("clientIp"), "nivelid": level, "entidadid": entity, "year": year, "q": "entity_progress", "program": program}
         })
             .done(function (msg) {
                 $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);
@@ -270,7 +279,7 @@ function loadProjectsSelect(data) {
         .done(function (msg) {
             var option = document.createElement("option");
             option.value = "";
-            option.text = 'Todos los proyectos'
+            option.text = 'Todos los programas'
             select.appendChild(option);
             for (var i = 0; i < msg.length; i++) {
                 option = document.createElement("option");
@@ -337,6 +346,27 @@ function loadInstituteData(data) {
                 }
 
             });
+
+            Window.institudName = msg['nombre'];
         });
+};
+
+var updateMapProgess = function (rating, viewRate) {
+    var filter = $('#instituteSelectProgress').val();
+    filter = filter != undefined? 'INS' + filter : 'PARAGUAY';
+
+    $.ajax({
+        method: "POST",
+        url: "/calificacion",
+        data: {
+            "ip" : localStorage.getItem("clientIp"),
+            "filter": filter,
+            "rating": rating
+        },
+    })
+    .done(function (values) {
+        console.log('Tus puntuacion ha sido guardada');
+        $(viewRate).prev().find('.calification').text(parseFloat(values[1]).toFixed(1));
+    });
 };
 

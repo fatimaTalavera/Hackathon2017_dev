@@ -157,6 +157,7 @@ class SearchController < ApplicationController
 
 
   def progress
+    filterByRate = 'PARAGUAY'
     where_raw =" "
     #select codigodepartamento, avg(montovigente) as prom_monto_vigente, avg(montoplanfinancierovigente) as prom_montoplanfinancierovigente, avg(montoejecutado) as prom_montoejecutado, avg(montotransferido) as prom_montotransferido, avg(montopagado) as prom_montopagado from pgn_gasto group by codigodepartamento order by codigodepartamento asc
     select_raw = "SELECT  mes,
@@ -184,6 +185,7 @@ class SearchController < ApplicationController
       where_raw =  where_raw.blank? ? ' WHERE ' : where_raw + ' AND '
       entidad = params[:entidadid]
       where_raw << "pnd.entidad_id = %{entidad} " % {entidad: entidad}
+      filterByRate = 'INS'.concat(params[:entidadid].to_s)
     end
 
     #si especifica un programa
@@ -232,9 +234,13 @@ class SearchController < ApplicationController
 
     metrica = Metrica.find_or_create_by(pagina: 'PROGRESO', filtro: filtro )
     descarga = Metrica.find_or_create_by(pagina: 'PROGRESO_DESCARGA', filtro: filtro )
-
     metrica.increment!(:cantidad_vistas)
-    render :json => [@result, @paid_result, metrica, descarga]
+
+    # calcular rating
+    rate = Calificacion.find_or_create_by(filtro: filterByRate, ip: params[:ip])
+    globalRate = Calificacion.where(filtro: filterByRate).average("puntaje")
+
+    render :json => [@result, @paid_result, metrica, descarga, rate, globalRate]
   end
 
   def institute_data

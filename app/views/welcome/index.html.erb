@@ -110,18 +110,7 @@ autores
 
 <script>
     var pgn_date = <%= @pgn_date %>;
-
     var pnd_years = <%= @pnd_years %>;
-
-   //var inst_count = <%# @inst.count() %>;
-    //var inst_nombre = [];
-    //var inst_nivelid = [];
-    //var inst_entidadid = [];
-
-    //<# @inst_lvls.each do |institute| %>
-     // inst_nivelid.push('<%#institute[0] %>');
-    //<# end %>
-
 
     var year  = pnd_years[2][0];
     loadYearsSelect();
@@ -129,7 +118,7 @@ autores
     $.ajax({
         method: "GET",
         url: "search/search",
-        data: {"year" :year, "q" : "entity_progress"}
+        data: {"ip" : localStorage.getItem("clientIp"), "year" :year, "q" : "entity_progress"}
     })
         .done(function( msg ) {
             $('#progress-quantity-visits').text(msg[2]['cantidad_vistas']);

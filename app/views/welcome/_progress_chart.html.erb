@@ -45,6 +45,23 @@ autores
             <div style="width: 100%">
               <canvas id="canvas" width="800" height="450"></canvas>
             </div>
+
+            <div class="rate col-md-10">
+              <span class="description">
+                <span class="title">Paraguay</span>
+                <span class="calification">0.0</span>
+              </span>
+              <div id="progress-rate"></div>
+              <span class="description">
+                <span class="nominal-value"></span>
+              </span>
+            </div>
+            <div class="actions col-md-2">
+              <a id="downloadProgressLine" class="download-png"><i class="fa fa-download" aria-hidden="true" data-download-id="map"></i></a>
+              <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Utiliza los filtros para busquedas avanzadas, si das click en un departamento podrás ver su información detallada." aria-hidden="true"></i>
+            </div>
+            <!-- end rate and actions -->
+
             <div id="divForInstituteData" class="paragraph instituteData" >
               <h4 style="text-align: center">Datos de la Institución</h4>
               <p id="institute[nombre]"><strong>Nombre: </strong></p>
@@ -56,22 +73,6 @@ autores
               <p id="institute[baselegal]"><strong>Base Legal: </strong> </p>
             </div>
             <!-- end progress -->
-
-            <div class="rate col-md-8">
-              <span class="description">
-                <span class="title">Paraguay</span>
-                <span class="calification">0.0</span>
-              </span>
-              <div id="progress-rate"></div>
-              <span class="description">
-                <span class="nominal-value"></span>
-              </span>
-            </div>
-            <div class="actions col-md-4">
-              <a id="downloadProgressLine" class="download-png"><i class="fa fa-download" aria-hidden="true" data-download-id="map"></i></a>
-              <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Utiliza los filtros para busquedas avanzadas, si das click en un departamento podrás ver su información detallada." aria-hidden="true"></i>
-            </div>
-            <!-- end rate and actions -->
 
           <input type="checkbox" id="leng3"  class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
           <div id="lg-tec-leng3" class="paragraph">
