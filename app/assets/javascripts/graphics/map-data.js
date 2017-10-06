@@ -81,14 +81,21 @@ function initMap() {
             method: "GET",
             url: "search/search",
             data: {
+                "ip" : localStorage.getItem("clientIp"),
                 "year": $('#yearSelectHeatMap').val(),
                 "month": $('#monthSelectHeatMap').val(),
                 "q": "department_heat_map"
             }
         })
             .done(function (values) {
+                // values[1] = metrics of visit and downloads
                 $('#map-quantity-visits').text(values[1]['cantidad_vistas']);
                 $('#map-quantity-downloads').text(values[1]['cantidad_descargas']);
+
+                // values[2] = rating
+                // values[3] = goblal rating
+                initRate("#map-rate", values[2]['puntaje'], values[3], updateMapRate);
+
                 Window.currentDataMap = values[0];
                 $.each(geoJSONdata.features, function (key, val) {
                     var dpto = val.properties.codigo;
@@ -109,6 +116,7 @@ function initMap() {
                  */
                 Window.geoJSONgroup.on('click', function (e) {
                     var currentData = Window.currentDataMap[parseInt(e.layer.feature.properties.codigo)];
+                    Window.dpto = e.layer.feature.properties.codigo;
                     $('#departmentName').text(e.layer.feature.properties.department);
                     $('#departmentDetail').show();
                     var instituteData = ['presupuesto_aprobado', 'presupuesto_vigente', 'monto_planificado', 'monto_ejecutado', 'monto_transferido', 'monto_abonado'];
@@ -120,6 +128,10 @@ function initMap() {
                         $("#departmentDetail\\[" + element + "\\]").show();
                         counter++;
                     });
+
+                    // currentData[8] = rating
+                    // currentData[9] = goblal rating
+                    setRate("#map-rate", currentData[8], currentData[9], e.layer.feature.properties.department);
 
                 });
                 Window.map.invalidateSize();
@@ -183,14 +195,17 @@ function updateHeatMap(e) {
         method: "GET",
         url: "search/search",
         data: {
+            "ip" : localStorage.getItem("clientIp"),
             "year": $('#yearSelectHeatMap').val(),
             "month": $('#monthSelectHeatMap').val(),
             "q": "department_heat_map"
         },
     })
         .done(function (values) {
+            // values[1] = metrics of visit and downloads
             $('#map-quantity-visits').text(values[1]['cantidad_vistas']);
             $('#map-quantity-downloads').text(values[1]['cantidad_descargas']);
+
             Window.currentDataMap = values[0];
             $('#map-overlay').show();
             Window.oldGeoJSONgroup = Window.geoJSONgroup;
@@ -211,6 +226,7 @@ function updateHeatMap(e) {
                 $('#map-overlay').hide();
                 Window.geoJSONgroup.on('click', function (e) {
                     var currentData = Window.currentDataMap[parseInt(e.layer.feature.properties.codigo)];
+                    Window.dpto = e.layer.feature.properties.codigo;
                     $('#departmentName').text(e.layer.feature.properties.dpto_desc);
                     $('#departmentDetail').show();
                     var instituteData = ['presupuesto_aprobado', 'presupuesto_vigente', 'monto_planificado', 'monto_ejecutado', 'monto_transferido', 'monto_abonado'];
@@ -223,6 +239,9 @@ function updateHeatMap(e) {
                         counter++;
                     });
 
+                    // currentData[8] = rating
+                    // currentData[9] = goblal rating
+                    setRate("#map-rate", currentData[8], currentData[9], e.layer.feature.properties.dpto_desc);
                 });
             });
             Window.map.invalidateSize();
@@ -248,3 +267,26 @@ function updateMonthSelect(triggerMonthSelect) {
     }
 
 }
+
+var updateMapRate = function (rating, viewRate) {
+    var filter = Window.dpto? 'DPTO'+Window.dpto : 'PARAGUAY';
+    $.ajax({
+        method: "POST",
+        url: "/calificacion",
+        data: {
+            "ip" : localStorage.getItem("clientIp"),
+            "filter": filter,
+            "rating": rating
+        },
+    })
+    .done(function (values) {
+        console.log('Tus puntuacion ha sido guardada');
+        $(viewRate).prev().find('.calification').text(parseFloat(values[1]).toFixed(1));
+
+        if(filter !== 'PARAGUAY'){
+            var currentData = Window.currentDataMap[parseInt(Window.dpto)];
+            currentData[8] = rating;
+            currentData[9] = values[1];
+        }
+    });
+};

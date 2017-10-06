@@ -28,6 +28,11 @@
 
 
 $(document).ready(function(){
+    // client ip
+    $.getJSON("http://jsonip.com?callback=?", function (data) {
+        localStorage.setItem("clientIp", data.ip);
+    });
+
     // Tooltip envent
     $('[data-toggle="tooltip"]').tooltip();
 

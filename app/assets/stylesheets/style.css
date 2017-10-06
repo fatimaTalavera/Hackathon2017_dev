@@ -262,13 +262,6 @@
     margin: 10px;
 }
 
-/* From Portrait tablets and small desktops To small phones*/
-@media (max-width: 991px) {
-    .actions .fa {
-        font-size: 50px;
-    }
-}
-
 /* Metrics of donwloads and visists */
 .metrics {
     display: inline-block;

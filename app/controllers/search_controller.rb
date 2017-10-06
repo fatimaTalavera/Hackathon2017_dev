@@ -7,8 +7,6 @@ class SearchController < ApplicationController
   
   def search
     if params['q'] == 'department_heat_map'
-      print "mes";
-      print "\n\n\n";
       heat_map
     elsif params['q'] == 'entity_progress'
       progress
@@ -74,7 +72,6 @@ class SearchController < ApplicationController
 
   def heat_map
     # ejecutado/vigente
-
     select_raw = "SELECT
                       codigodepartamento,
                       avg(presupuestoinicialaprobado),
@@ -131,24 +128,31 @@ class SearchController < ApplicationController
     @desempeno = ActiveRecord::Base.connection.exec_query(desempeno_select_raw).rows
 
     for i in 0..@result.size()-1
-
       print @result[i][0]
       if(@desempeno[i])
         @result[i].append(@desempeno[i][1])
       else
         @result[i].append(0)
       end
-
-
+      # calcular rating por departamento
+      filtro = 'DPTO'.concat(@result[i][0].to_s)
+      rate = Calificacion.find_or_create_by(filtro: filtro, ip: params[:ip])
+      globalRate = Calificacion.where(filtro: filtro).average("puntaje")
+      @result[i].append(rate.puntaje)
+      @result[i].append(globalRate)
     end
 
 
     flash[:notice] = 'Búsqueda realizada correctamente'
 
+    # calcular metricas de descargas y visitas
     metrica = Metrica.find_or_create_by(pagina: 'MAPA', filtro: params[:year] + params[:month] )
     metrica.increment!(:cantidad_vistas)
 
-    render :json => [@result, metrica]
+    # calcular rating nacional
+    rate = Calificacion.find_or_create_by(filtro: 'PARAGUAY', ip: params[:ip])
+    globalRate = Calificacion.where(filtro: 'PARAGUAY').average("puntaje")
+    render :json => [@result, metrica, rate, globalRate]
   end
 
 

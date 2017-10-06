@@ -7,20 +7,16 @@
  */
 // nominal value by  rate
 var nominalValue = ['Nada satisfecho', 'Poco satisfecho', 'Satisfecho', 'Muy satisfecho', 'Sumamente satisfecho'];
-$(document).ready(function() {
-    initRate("#map-rate", 3.6);
-    initRate("#progress-rate", 3.6);
-});
 
 // Init default rate
-var initRate = function (identificator, initRating, changeCallback) {
+var initRate = function (identificator, initRating, globalRating, changeCallback) {
     $(identificator).rateYo({
         rating: initRating,
         starWidth: "25px",
         fullStar: true,
         onInit: function (rating, rateYoInstance) {
-            $(this).prev().find('.calification').text(rating.toFixed(1));
-            $(this).next().find('.nominal-value').text(nominalValue[rating.toFixed(0) - 1]);
+            $(this).prev().find('.calification').text(parseFloat(globalRating).toFixed(1));
+            //$(this).next().find('.nominal-value').text(nominalValue[rating.toFixed(0) - 1]);
         },
         onSet: function (rating, rateYoInstance) {
             $(this).next().find('.nominal-value').text(nominalValue[rating.toFixed(0) - 1]);
@@ -31,3 +27,9 @@ var initRate = function (identificator, initRating, changeCallback) {
         }
     });
 };
+
+var setRate = function (identificator, setRating, globalRating, title) {
+    $(identificator).rateYo("rating", setRating);
+    $(identificator).prev().find('.calification').text(parseFloat(globalRating).toFixed(1));
+    $(identificator).prev().find('.title').text(title);
+}
