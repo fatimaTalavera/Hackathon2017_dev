@@ -178,7 +178,7 @@ function progress_line_init(msg) {
 
                 // msg[4] = rating
                 // msg[5] = goblal rating
-                setRate("#progress-rate", msg[4]['puntaje'], msg[5], Window.institudName);
+                setRate("#progress-rate", msg[4]['puntaje'], msg[5],  msg[4]['filtro'] !== 'PARAGUAY' ?  Window.institudName : 'PARAGUAY');
 
                 months_quantity = msg[0].length;
                 current_months = [];
@@ -352,8 +352,11 @@ function loadInstituteData(data) {
 };
 
 var updateMapProgess = function (rating, viewRate) {
-    var filter = $('#instituteSelectProgress').val();
-    filter = filter != undefined? 'INS' + filter : 'PARAGUAY';
+    var level = $('#instituteLevelSelectProgress').val();
+    var entity = $('#instituteSelectProgress').val();
+    entity = entity.substring(0, entity.indexOf('#')); //obtengo la entidad
+
+    var filter = entity != undefined? 'INS' + level + '#' + entity : 'PARAGUAY';
 
     $.ajax({
         method: "POST",

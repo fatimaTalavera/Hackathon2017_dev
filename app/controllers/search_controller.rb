@@ -185,7 +185,7 @@ class SearchController < ApplicationController
       where_raw =  where_raw.blank? ? ' WHERE ' : where_raw + ' AND '
       entidad = params[:entidadid]
       where_raw << "pnd.entidad_id = %{entidad} " % {entidad: entidad}
-      filterByRate = 'INS'.concat(params[:entidadid].to_s)
+      filterByRate = 'INS'.concat(params[:nivelid].to_s + '#' + params[:entidadid].to_s)
     end
 
     #si especifica un programa
