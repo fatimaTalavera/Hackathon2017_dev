@@ -179,9 +179,21 @@ function board_pnd_detail_init(data) {
  * Agrega los sufijos MM o K dependiendo del monto
  */
 function number_short_format(number) {
-    var result = number / 1000000;
+    var result = number / 1000000000000000;
+    if (result > 1) {
+        return result.toFixed(0) + ' MB';
+    }
+    result = number / 1000000000000;
+    if (result > 1) {
+        return result.toFixed(0) + ' B';
+    }
+    result = number / 1000000000;
     if (result > 1) {
         return result.toFixed(0) + ' MM';
+    }
+    result = number / 1000000;
+    if (result > 1) {
+        return result.toFixed(0) + ' M';
     }
     result = number / 1000;
     if (result > 1) {
