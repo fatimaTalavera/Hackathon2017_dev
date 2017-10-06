@@ -71,8 +71,8 @@ function getColor(properties) {
 function initMap() {
     var dataSet;
 
-    Window.map = L.map("map", {minZoom: 6.7, maxZoom: 6.7, doubleClickZoom: false}).setView([-23.5, -58.5], 6);
-    Window.map.dragging.disable();
+    Window.map = L.map("map", {minZoom: 6.7, maxZoom: 10}).setView([-23.5, -58.5], 6);
+    //Window.map.dragging.disable();
 
     //Se reliza una llamada a la API para obtener los datos del departamento
     //Luego renderizamos el mapa y pintamos de acuerdo a su desempeno
@@ -115,6 +115,8 @@ function initMap() {
                  * Cuando seleccionamos un departamento, se cargan sus datos, de acuerdo a los datos en el mapa
                  */
                 Window.geoJSONgroup.on('click', function (e) {
+                    $('#dataButtonHeatMap').attr('disabled', false);
+                    $('#textDepartment').hide();
                     var currentData = Window.currentDataMap[parseInt(e.layer.feature.properties.codigo)];
                     Window.dpto = e.layer.feature.properties.codigo;
                     $('#departmentName').text(e.layer.feature.properties.department);

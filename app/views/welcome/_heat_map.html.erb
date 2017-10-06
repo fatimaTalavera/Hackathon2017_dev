@@ -3,6 +3,7 @@ autores
 - Fatima Talavera fa.talavera95@gmail.com
 - Jerson Paniagua diazpany@gmail.com
 -->
+
 <div class="portfolio-modal modal fade" id="ejecucion-departamental"  role="dialog" aria-hidden="true">
   <div class="modal-content">
     <div class="close-modal" data-dismiss="modal">
@@ -13,7 +14,7 @@ autores
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
+        <div class="col-lg-12 col-lg-offset-2" style="margin: 0px;">
           <div class="modal-body">
            <!-- title -->
 
@@ -66,7 +67,13 @@ autores
             <div id="dataMap" class="paragraph">
             </div>
 
-            <div id="departmentDetail" class="" style="display: none;">
+            <div class="w3-bar w3-black">
+              <button id="dataButtonHeatMap" type="button" class="btn btn-default" onclick="openTab('departmentDetail')" disabled><i class="fa fa-times"></i> Datos</button>
+
+              <button type="button" class="btn btn-default" onclick="openTab('textDepartment')"><i class="fa fa-times"></i> Explicaciones</button>
+            </div>
+
+            <div id="departmentDetail" class="departmentTab" style="display: none;">
                 <h4 style="text-align: center"><p id="departmentName"></p></h4>
                 <p id="departmentDetail[presupuesto_aprobado]"><strong>Presupuesto Aprobado: </strong></p>
                 <p id="departmentDetail[presupuesto_vigente]"><strong>Presupuesto Vigente: </strong> </p>
@@ -75,8 +82,9 @@ autores
                 <p id="departmentDetail[monto_transferido]"><strong>Monto Transferido: </strong> </p>
                 <p id="departmentDetail[monto_abonado]"><strong>Monto Abonado: </strong> </p>
             </div>
+
             <!-- text body -->
-            <input type="checkbox" id="leng2" class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
+        <div id="textDepartment" class="departmentTab">
             <div id="lg-tec-leng2" class="paragraph">
               <p><strong>Presupuesto Inicial Aprobado:</strong> Es el monto del presupuesto aprobado por el Congreso Nacional. Es la ley del Presupuesto General de la Nación para un año fiscal. El monto es anual.</p>
               <p><strong>Monto Vigente:</strong> Es el presupuesto inicial aprobado incluyendo las modificaciones (aumento o disminución) a la Ley del Presupuesto General de la Nación. El monto es anual.</p>
@@ -94,7 +102,10 @@ autores
               <p><strong>Monto Transferido:</strong> Lo que te dan para cubrir tus gastos del mes.</p>
               <p><strong>Monto Pagado:</strong> Cumplimiento: Lo que pudiste pagar en el mes.</p>
             </div>
+            <input type="checkbox" id="leng2" class="toggle" data-toggle="toggle" data-style="ios" data-on="<i class='fa fa-reddit-alien'></i>" data-off="<i class='fa fa-user'></i>" data-onstyle="info" checked >
+          </div>
             <!-- end text body -->
+<br>
 
             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 
