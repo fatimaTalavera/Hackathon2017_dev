@@ -243,19 +243,19 @@ class SearchController < ApplicationController
   end
 
   def board_pnd
+
     # [eje, linea_transversal, monto]
-    @result = [[ 1, 1, 550000],
-               [ 1, 2, 450000],
-               [ 1, 3, 350000],
-               [ 1, 4, 150000000],
-               [ 2, 1, 650000],
-               [ 2, 2, 850000000],
-               [ 2, 3, 150000],
-               [ 2, 4, 50000],
-               [ 3, 1, 5800050000],
-               [ 3, 2, 550000],
-               [ 3, 3, 550000],
-               [ 3, 4, 550000]]
+    select_raw = "SELECT
+                      eje_estrategico_id,
+                      linea_transversal_id,
+                      sum(montoejecutado)
+                      FROM pgn_gasto pg
+                      INNER JOIN pnd_meta_fisica pnd on pnd.pre_prod_concat = pg.pre_prod_concat
+                      WHERE anho = 2017 AND anio = 2017
+                      GROUP BY eje_estrategico_id, linea_transversal_id
+                      ORDER BY eje_estrategico_id, linea_transversal_id asc"
+
+    @result= ActiveRecord::Base.connection.exec_query(select_raw).rows
 
     metrica = Metrica.find_or_create_by(pagina: 'TABLERO')
     metrica.increment!(:cantidad_vistas)
@@ -264,12 +264,33 @@ class SearchController < ApplicationController
   end
 
   def board_pnd_detail
+    axis = params['axis']
+    line = params['line']
+    select_raw =  "SELECT
+              mes,
+              sum(montoplanfinancierovigente),
+              sum(montopagado)
+              FROM pgn_gasto pg
+              INNER JOIN pnd_meta_fisica pnd on pnd.pre_prod_concat = pg.pre_prod_concat
+              WHERE eje_estrategico_id =  %{axis}  AND linea_transversal_id =  %{line}  AND anio = 2017 AND anho = 2017
+              GROUP BY eje_estrategico_id, linea_transversal_id, mes
+              ORDER BY eje_estrategico_id, linea_transversal_id,mes  asc"%{axis: axis,line: line}
 
 
+    @r= ActiveRecord::Base.connection.exec_query(select_raw).rows
+
+    @paid_result = []
+    for i in 0..@r.size()-1
+      @r[i].push(Float(@r[i][2])/10*0.7)
+    end
+    print @r
+    #put @paid_result
+    #@render :json => [@result, @paid_result, metrica]
     #[beneficiarios, instituciones, presupuesto, objetivos, ejecucion[anho, planificado, ejecutado], progreso %]
+
     @result = [rand(100000), rand(100000), rand(1500000000), rand(100000),
-               [[2016, rand(150000000), rand(150000000)],[2017, rand(150000000), rand(150000000)]],
-               [90]]
+               @r,
+               [rand(70..100)]]
     render :json => @result
   end
 

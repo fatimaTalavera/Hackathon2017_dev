@@ -33,7 +33,8 @@ function board_pnd_init(data) {
         $('#strategy' + item[0] + item[1]).html(number_short_format(item[2]));
     });
 
-
+    var all_months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    var current_months = [];
     window.chartColors = {
         red: 'rgb(255, 99, 132)',
         orange: 'rgb(255, 159, 64)',
@@ -45,10 +46,13 @@ function board_pnd_init(data) {
     };
 
     var progress_data = [];
+    for (i = 0; i < 4; i++) {
+        current_months.push(all_months[i]);
+    }
     var config = {
         type: 'line',
         data: {
-            labels: ['1', '2'],
+            labels: current_months,
             datasets: [{
                 label: "Planificado Vigente",
                 fill: false,
@@ -89,7 +93,7 @@ function board_pnd_init(data) {
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Mes'
+                        labelString: 'Total'
                     }
                 }],
                 yAxes: [{
@@ -125,10 +129,26 @@ function board_pnd_init(data) {
             data: {"q": "board_pnd_detail", "axis": axis, "line": line}
         })
             .done(function (msg) {
+                var data = msg[4];
                 setTimeout(function () {
                     $('#strategy-details').fadeIn(500);
                     board_pnd_detail_init(msg);
                 }, 400);
+                months_quantity = data[0].length;
+                current_months = [];
+                planified_data = [];
+                transferred_data = [];
+                progress_data = [];
+                for (i = 0; i < months_quantity; i++) {
+                    current_months.push(all_months[i]);
+                    planified_data.push(data[i][1] / 1000000);
+                    transferred_data.push(data[i][2] / 1000000);
+                    progress_data.push(data[i][3] / 100000);
+                }
+                config.data.datasets[0].data = planified_data;
+                config.data.datasets[1].data = transferred_data;
+                config.data.datasets[2].data = progress_data;
+                window.pndLine.update();
             });
     });
 }
@@ -138,12 +158,20 @@ function board_pnd_init(data) {
  * Carga los datos del tablero
  */
 function board_pnd_detail_init(data) {
+    console.log(data);
     $('#beneficiaries').html(number_short_format(data[0]));
     $('#institutions').html(number_short_format(data[1]));
     $('#money').html(number_short_format(data[2]));
     $('#money-detail').html(format_currency(data[2]));
     $('#objective').html(number_short_format(data[3]));
     $('#progress_percentage').html(data[5] + "%");
+    if(data[5]>90){
+        $('#progress_percentage').css('color', 'green');
+    }else if(data[5]>80){
+        $('#progress_percentage').css('color', 'orange');
+    }else {
+        $('#progress_percentage').css('color', 'red');
+    }
 }
 
 
