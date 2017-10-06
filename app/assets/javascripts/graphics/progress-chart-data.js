@@ -110,7 +110,10 @@ function progress_line_init(msg) {
         } else {
             loadInstituteSelectData();
         }
+        $('#divForProjectSelectProgress').css("display", "none");
         $('#divForInstituteData').css("display", "none");
+        $('#progressText').show();
+        $('#dataButtonProgress').attr('disabled', true);
         $('#divForProjectSelectProgress').css("display", "none");
         var level = $('#instituteLevelSelectProgress').val();
         var year = $('#yearSelectProgress').val();
@@ -154,8 +157,12 @@ function progress_line_init(msg) {
         if ($("#instituteSelectProgress").val() == "") {
             $('#divForProjectSelectProgress').css("display", "none");
             $('#divForInstituteData').hide();
+            $('#dataButtonProgress').attr('disabled', true);
+            $('#progressText').hide();
         }
         else {
+            $('#dataButtonProgress').attr('disabled', false);
+            $('#progressText').hide();
             $('#divForProjectSelectProgress').css("display", "inline-flex");
             $('#divForInstituteData').show();
             var entidadid = $('#instituteSelectProgress').val();

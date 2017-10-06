@@ -142,12 +142,20 @@ autores
 </script>
 
 <script>
-    function openTab(name) {
-        var i;
-        var x = document.getElementsByClassName("departmentTab");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        document.getElementById(name).style.display = "block";
+  function openTab(name) {
+    var i;
+    var x = document.getElementsByClassName("departmentTab");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
     }
+    document.getElementById(name).style.display = "block";
+  }
+  function openProgressTab(name) {
+    var i;
+    var x = document.getElementsByClassName("progressTab");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    document.getElementById(name).style.display = "block";
+  }
 </script>
