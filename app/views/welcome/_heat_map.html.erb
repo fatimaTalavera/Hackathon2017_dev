@@ -69,12 +69,12 @@ autores
             </div>
 
             <div class="w3-bar w3-black">
-              <button id="dataButtonHeatMap" type="button" class="btn btn-default" onclick="openTab('departmentDetail')" disabled><i class="fa fa-times"></i> Datos</button>
+              <button id="dataButtonHeatMap" type="button" class="btn btn-default tab-button" onclick="openTab('departmentDetail')" disabled><i class="fa fa-times"></i> Informaci&oacute;n</button>
 
-              <button type="button" class="btn btn-default" onclick="openTab('textDepartment')"><i class="fa fa-times"></i> Explicaciones</button>
+              <button type="button" class="btn btn-default tab-button" onclick="openTab('textDepartment')"><i class="fa fa-times"></i> Referencias</button>
             </div>
 
-            <div id="departmentDetail" class="departmentTab" style="display: none;">
+            <div id="departmentDetail" class="departmentTab tab-panel" style="display: none;">
                 <h4 style="text-align: center"><p id="departmentName"></p></h4>
                 <p id="departmentDetail[presupuesto_aprobado]"><strong>Presupuesto Aprobado: </strong></p>
                 <p id="departmentDetail[presupuesto_vigente]"><strong>Presupuesto Vigente: </strong> </p>
@@ -85,7 +85,7 @@ autores
             </div>
 
             <!-- text body -->
-        <div id="textDepartment" class="departmentTab">
+        <div id="textDepartment" class="departmentTab tab-panel">
             <div id="lg-tec-leng2" class="paragraph">
               <p><strong>Presupuesto Inicial Aprobado:</strong> Es el monto del presupuesto aprobado por el Congreso Nacional. Es la ley del Presupuesto General de la Nación para un año fiscal. El monto es anual.</p>
               <p><strong>Monto Vigente:</strong> Es el presupuesto inicial aprobado incluyendo las modificaciones (aumento o disminución) a la Ley del Presupuesto General de la Nación. El monto es anual.</p>

@@ -299,4 +299,19 @@
     margin: 0px 5px;
 }
 
+.tab-panel {
+    background-color: #e4e9ec;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.tab-button {
+    background-color: #e4e9ec;
+    border: none;
+    margin-top: 30px;
+    padding: 20px 60px;
+    font-size: 20px;
+    border-radius: 0px 20px 0 0px;
+    border-left: 6px solid gray;
+}
 
